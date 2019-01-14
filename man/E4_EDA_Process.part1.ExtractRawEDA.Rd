@@ -37,6 +37,5 @@ EDA_high_cut=25,HighPctCutoff=.75)}
 
 
 
-
 }
 \keyword{EDA}

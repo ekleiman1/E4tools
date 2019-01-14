@@ -10,21 +10,12 @@
 #' @keywords EDA
 #' @export
 #' @examples
-<<<<<<< HEAD
 #' \dontrun{E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1008,1011:1014,1017,1021),
 #' ziplocation="/Users/documents/study/data/Raw_E4_Data/",
 #' rdslocation.buttonpress="/Users/documents/study/data/tags/",
 #' part1summaries="/Users/documents/study/data/EDA/summaries/",
 #' cutoff.ends=2,
 #' cutoff.overlap=20)}
-=======
-#' \dontrun{E4.part1.ExtractRawEDA(participant_list=c(1001,1002),
-#' ziplocation="/Users/evankleiman/OneDrive/Harvard University/R21_Study - Documents/E4 DATA/",
-#' rdslocation="/Users/evankleiman/OneDrive/Harvard University/R21_Study - Documents/E4 DATA/rds/",
-#' summarylocation="/Users/evankleiman/OneDrive/Harvard University/R21_Study - Documents/E4 DATA/summaries/",
-#' EDA_low_cut=0.001,LowPctCutoff=.75,
-#' EDA_high_cut=25,HighPctCutoff=.75)}
->>>>>>> d1e712671e47be773e2e9ea08ed29680434bf548
 #'
 #'
 #'
@@ -42,11 +33,7 @@ TAG3<-NULL
 
     #load summary file
 
-<<<<<<< HEAD
     part1summary<-utils::read.csv(paste(part1summaries,NUMB,"_summary.csv",sep=""))
-=======
-    part1summary<-read.csv(paste(part1summaries,NUMB,"_summary.csv",sep=""))
->>>>>>> d1e712671e47be773e2e9ea08ed29680434bf548
 
     #get path to participant folder
     zipDIR<-paste(ziplocation,NUMB,sep="")
@@ -61,17 +48,10 @@ TAG3<-NULL
 
       CURR_ZIP<-paste(ziplocation,NUMB,"/",ZIPS,sep="")
       if(file.size(CURR_ZIP)>6400){
-<<<<<<< HEAD
       if(file.size(utils::unzip(CURR_ZIP, unzip = "internal",
                          exdir=zipDIR,files="tags.csv"))>0){
 
         TAG<-utils::read.csv(unzip(CURR_ZIP, unzip = "internal",exdir=zipDIR,
-=======
-      if(file.size(unzip(CURR_ZIP, unzip = "internal",
-                         exdir=zipDIR,files="tags.csv"))>0){
-
-        TAG<-read.csv(unzip(CURR_ZIP, unzip = "internal",exdir=zipDIR,
->>>>>>> d1e712671e47be773e2e9ea08ed29680434bf548
                             files="tags.csv"),sep=",",header=F)
       TAG1<-rbind(TAG1,TAG)}
 
