@@ -1,6 +1,10 @@
 Package: E4tools
 Type: Package
+<<<<<<< HEAD
 Title: Management and Processing Tools for Data Produced by the Emaptica E4
+=======
+Title:Management and Processing Tools for Data Produced by the Emaptica E4
+>>>>>>> d1e712671e47be773e2e9ea08ed29680434bf548
 Version: 0.1.0
 Authors@R: person("Evan", "Kleiman", email = "evan.kleiman@rutgers.edu",
   role = c("aut", "cre"))
@@ -8,5 +12,10 @@ Description: This package allows you to process and manage the data from the Emp
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+<<<<<<< HEAD
 Imports: BBmisc, DataCombine, signal, stats, utils
 RoxygenNote: 6.1.1
+=======
+Imports: BBmisc, DataCombine, singal
+RoxygenNote: 6.0.1
+>>>>>>> d1e712671e47be773e2e9ea08ed29680434bf548
