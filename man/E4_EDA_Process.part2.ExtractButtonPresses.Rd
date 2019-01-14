@@ -2,7 +2,7 @@
 % Please edit documentation in R/E4.part2.ExtractButtonPresses.R
 \name{E4_EDA_Process.part2.ExtractButtonPresses}
 \alias{E4_EDA_Process.part2.ExtractButtonPresses}
-\title{EDA Processing Part 2: Extract button pressess}
+\title{EDA Processing Part 2: Extract button presses}
 \usage{
 E4_EDA_Process.part2.ExtractButtonPresses(participant_list, ziplocation,
   rdslocation.buttonpress, part1summaries, cutoff.ends = 0,
@@ -17,12 +17,12 @@ E4_EDA_Process.part2.ExtractButtonPresses(participant_list, ziplocation,
 
 \item{part1summaries}{location of folder where summaries from part 1 were saved (make sure that it ends in /)}
 
-\item{cutoff.ends}{how close (in minutes) to the ends of a file do you want to cut off button pressess (because they could be accidental e.g., when turing the band off). Default is 0, which will not remove button presess at all.}
+\item{cutoff.ends}{how close (in minutes) to the ends of a file do you want to cut off button presses (because they could be accidental e.g., when turning the band off). Default is 0, which will not remove button presses at all.}
 
-\item{cutoff.overlap}{if you want to remove button pressess within X number of minutes, enter that value here. Default is 0, which will not remove button presess at all.}
+\item{cutoff.overlap}{if you want to remove button presses within X number of minutes, enter that value here. Default is 0, which will not remove button presses at all.}
 }
 \description{
-This function allows you extract button pressess and remove pressess that are within a certain number of minutes before the end of a session or that are too close to another button press.
+This function allows you extract button presses and remove presses that are within a certain number of minutes before the end of a session or that are too close to another button press.
 }
 \examples{
 \dontrun{E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1008,1011:1014,1017,1021),

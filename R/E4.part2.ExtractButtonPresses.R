@@ -1,12 +1,12 @@
-#' EDA Processing Part 2: Extract button pressess
+#' EDA Processing Part 2: Extract button presses
 #'
-#' This function allows you extract button pressess and remove pressess that are within a certain number of minutes before the end of a session or that are too close to another button press.
+#' This function allows you extract button presses and remove presses that are within a certain number of minutes before the end of a session or that are too close to another button press.
 #' @param participant_list list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001")
 #' @param ziplocation folder location where the participant-level subfolders are (make sure that it ends in /)
 #' @param rdslocation.buttonpress folder location where you want the RDS output to go (make sure that it ends in /). The file will be named "button_presses.RDS"
 #' @param part1summaries location of folder where summaries from part 1 were saved (make sure that it ends in /)
-#' @param cutoff.ends how close (in minutes) to the ends of a file do you want to cut off button pressess (because they could be accidental e.g., when turing the band off). Default is 0, which will not remove button presess at all.
-#' @param cutoff.overlap if you want to remove button pressess within X number of minutes, enter that value here. Default is 0, which will not remove button presess at all.
+#' @param cutoff.ends how close (in minutes) to the ends of a file do you want to cut off button presses (because they could be accidental e.g., when turning the band off). Default is 0, which will not remove button presses at all.
+#' @param cutoff.overlap if you want to remove button presses within X number of minutes, enter that value here. Default is 0, which will not remove button presses at all.
 #' @keywords EDA
 #' @export
 #' @examples
@@ -59,7 +59,7 @@ TAG3<-NULL
 
     names(TAG1)<-"Press_TS"
 
-    ###remove pressess within XX minutes of the end of a file (XX = minutes as defined in cutoff.ends)
+    ###remove presses within XX minutes of the end of a file (XX = minutes as defined in cutoff.ends)
     if(cutoff.ends>0){
     for (iENDS in part1summary$EndTime) {
       TAG1<-TAG1[!(TAG1<iENDS & TAG1>(iENDS-(cutoff.ends*60)))]
@@ -68,7 +68,7 @@ TAG3<-NULL
 
     TAG1<-as.data.frame(TAG1);names(TAG1)<-"Press_TS"
 
-    ###remove button pressess within XX minutes of one already happening (XX = minutes as defined in cutoff.overlap)
+    ###remove button presses within XX minutes of one already happening (XX = minutes as defined in cutoff.overlap)
 
     if(cutoff.overlap>0){
       TAG1a<-as.data.frame(sort(TAG1$Press_TS))
