@@ -23,9 +23,12 @@ E4_EDA_Process.part4.BinMatchedEDA(participant_list,
 This function allows you to bin the data that has been matched to the button pressess (from step 3).
 }
 \examples{
-\dontrun{E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1008,1011:1014,1017,1021),
-rdslocation.MatchedEDA="/Users/documents/study/data/matched/",
-rdslocation.BinnedMatchedEDA="/Users/documents/study/data/matched_binned/",
-min.before=20,min.after=20)}
+\dontrun{E4.part1.ExtractRawEDA(participant_list=c(1001,1002),
+ziplocation="/Users/evankleiman/OneDrive/Harvard University/R21_Study - Documents/E4 DATA/",
+rdslocation="/Users/evankleiman/OneDrive/Harvard University/R21_Study - Documents/E4 DATA/rds/",
+summarylocation="/Users/evankleiman/OneDrive/Harvard University/R21_Study - Documents/E4 DATA/summaries/",
+EDA_low_cut=0.001,LowPctCutoff=.75,
+EDA_high_cut=25,HighPctCutoff=.75)}
+
 }
 \keyword{EDA}

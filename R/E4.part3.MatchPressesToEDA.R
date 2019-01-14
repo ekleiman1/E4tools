@@ -10,20 +10,11 @@
 #' @keywords EDA
 #' @export
 #' @examples
-<<<<<<< HEAD
 #' \dontrun{E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001:1008,1011:1014,1017,1021),
 #' rdslocation.buttonpress="/Users/documents/study/data/tags/",
 #' rdslocation.MatchedEDA="/Users/documents/study/data/matched/",
 #' rdslocation.EDA="/Users/documents/study/data/EDA/",
 #' min.before=20,min.after=20)}
-=======
-#' \dontrun{E4.part1.ExtractRawEDA(participant_list=c(1001,1002),
-#' ziplocation="/Users/evankleiman/OneDrive/Harvard University/R21_Study - Documents/E4 DATA/",
-#' rdslocation="/Users/evankleiman/OneDrive/Harvard University/R21_Study - Documents/E4 DATA/rds/",
-#' summarylocation="/Users/evankleiman/OneDrive/Harvard University/R21_Study - Documents/E4 DATA/summaries/",
-#' EDA_low_cut=0.001,LowPctCutoff=.75,
-#' EDA_high_cut=25,HighPctCutoff=.75)}
->>>>>>> d1e712671e47be773e2e9ea08ed29680434bf548
 #'
 #'
 #'

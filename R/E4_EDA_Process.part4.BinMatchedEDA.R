@@ -9,12 +9,6 @@
 #' @keywords EDA
 #' @export
 #' @examples
-<<<<<<< HEAD
-#' \dontrun{E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1008,1011:1014,1017,1021),
-#' rdslocation.MatchedEDA="/Users/documents/study/data/matched/",
-#' rdslocation.BinnedMatchedEDA="/Users/documents/study/data/matched_binned/",
-#' min.before=20,min.after=20)}
-=======
 #' \dontrun{E4.part1.ExtractRawEDA(participant_list=c(1001,1002),
 #' ziplocation="/Users/evankleiman/OneDrive/Harvard University/R21_Study - Documents/E4 DATA/",
 #' rdslocation="/Users/evankleiman/OneDrive/Harvard University/R21_Study - Documents/E4 DATA/rds/",
@@ -22,7 +16,6 @@
 #' EDA_low_cut=0.001,LowPctCutoff=.75,
 #' EDA_high_cut=25,HighPctCutoff=.75)}
 #'
->>>>>>> d1e712671e47be773e2e9ea08ed29680434bf548
 
 
 E4_EDA_Process.part4.BinMatchedEDA<-function(participant_list,rdslocation.MatchedEDA,rdslocation.BinnedMatchedEDA,min.after,min.before){
