@@ -148,7 +148,7 @@ AllPartSummary<-as.data.frame(rbind(AllPartSummary,PartSummary))
 if(!dir.exists(summarylocation)==T){dir.create(summarylocation)}
 names(AllPartSummary)<-c("ID","TotalTime","NumbSamples","NumbRejected","NumbSamples")
 Allsummaryfilename<-paste(summarylocation,"ALL_summary.csv",sep="")
-utilswrite.csv(AllPartSummary,file=Allsummaryfilename)
+utils::write.csv(AllPartSummary,file=Allsummaryfilename)
 
 }
 
