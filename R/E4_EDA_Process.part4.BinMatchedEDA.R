@@ -70,9 +70,9 @@ if(min.after>0){
 
         BINS_after$bin<-rep(seq(2,min.after,by=2),each=480,length.out=nrow(BINS_after)) #create 10 2-minute bins
 
-        EDA_Binned_Single_raw<-aggregate(as.numeric(as.character(EDA_raw))~(bin),data=BINS_after,FUN="mean")
-        EDA_Binned_Single_filtered<-aggregate(as.numeric(as.character(EDA_filtered))~(bin),data=BINS_after,FUN="mean")
-        EDA_Binned_Single_fscale<-aggregate(as.numeric(as.character(EDA_FeatureScaled))~(bin),data=BINS_after,FUN="mean")
+        EDA_Binned_Single_raw<-stats::aggregate(as.numeric(as.character(EDA_raw))~(bin),data=BINS_after,FUN="mean")
+        EDA_Binned_Single_filtered<-stats::aggregate(as.numeric(as.character(EDA_filtered))~(bin),data=BINS_after,FUN="mean")
+        EDA_Binned_Single_fscale<-stats::aggregate(as.numeric(as.character(EDA_FeatureScaled))~(bin),data=BINS_after,FUN="mean")
 
 
         EDA_Binned_Single<-merge(EDA_Binned_Single_raw,EDA_Binned_Single_filtered,by="bin",all=T)
