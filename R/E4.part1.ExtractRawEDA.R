@@ -12,7 +12,8 @@
 #' @keywords EDA
 #' @export
 #' @examples
-#' \dontrun{E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1008,1011:1014,1017,1021), ziplocation="/Users/documents/study/data/Raw_E4_Data/",
+#' \dontrun{E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1008,1011:1014,1017,1021),
+#' ziplocation="/Users/documents/study/data/Raw_E4_Data/",
 #' rdslocation.EDA="/Users/documents/study/data/EDA/",
 #' summarylocation="/Users/documents/study/data/EDA/summaries/",
 #' EDA_low_cut=0.001,LowPctCutoff=.75,
@@ -148,7 +149,7 @@ AllPartSummary<-as.data.frame(rbind(AllPartSummary,PartSummary))
 if(!dir.exists(summarylocation)==T){dir.create(summarylocation)}
 names(AllPartSummary)<-c("ID","TotalTime","NumbSamples","NumbRejected","NumbSamples")
 Allsummaryfilename<-paste(summarylocation,"ALL_summary.csv",sep="")
-utilswrite.csv(AllPartSummary,file=Allsummaryfilename)
+utils::write.csv(AllPartSummary,file=Allsummaryfilename)
 
 }
 

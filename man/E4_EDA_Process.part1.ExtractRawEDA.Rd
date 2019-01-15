@@ -29,7 +29,8 @@ E4_EDA_Process.part1.ExtractRawEDA(participant_list, ziplocation,
 This function allows you extract and filter EDA data. It will output raw data, filtered data (using user-specified high and low pass filters + a butterworth filter), and filtered + feature-scaled ([0,1]) data. It will also provide summary data at the participant and session level.
 }
 \examples{
-\dontrun{E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1008,1011:1014,1017,1021), ziplocation="/Users/documents/study/data/Raw_E4_Data/",
+\dontrun{E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1008,1011:1014,1017,1021),
+ziplocation="/Users/documents/study/data/Raw_E4_Data/",
 rdslocation.EDA="/Users/documents/study/data/EDA/",
 summarylocation="/Users/documents/study/data/EDA/summaries/",
 EDA_low_cut=0.001,LowPctCutoff=.75,

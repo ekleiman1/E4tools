@@ -10,9 +10,8 @@
 #' @export
 #' @examples
 #' \dontrun{E4.part1.ExtractRawEDA(participant_list=c(1001,1002),
-#' ziplocation="/Users/evankleiman/OneDrive/Harvard University/R21_Study - Documents/E4 DATA/",
-#' rdslocation="/Users/evankleiman/OneDrive/Harvard University/R21_Study - Documents/E4 DATA/rds/",
-#' summarylocation="/Users/evankleiman/OneDrive/Harvard University/R21_Study - Documents/E4 DATA/summaries/",
+#' rdslocation.MatchedEDA="/Users/documents/study/data/matched/",
+#' rdslocation.BinnedMatchedEDA="/Users/documents/study/data/binned_matched/"
 #' EDA_low_cut=0.001,LowPctCutoff=.75,
 #' EDA_high_cut=25,HighPctCutoff=.75)}
 #'
@@ -45,9 +44,9 @@ if(min.before>0){
 
         BINS_before$bin<-rep(seq((min.before*-1),-1,by=2),each=480,length.out=nrow(BINS_before)) #create 2-minute bins
 
-        EDA_Binned_Single_raw<-aggregate(as.numeric(as.character(EDA_raw))~(bin),data=BINS_before,FUN="mean")
-        EDA_Binned_Single_filtered<-aggregate(as.numeric(as.character(EDA_filtered))~(bin),data=BINS_before,FUN="mean")
-        EDA_Binned_Single_fscale<-aggregate(as.numeric(as.character(EDA_FeatureScaled))~(bin),data=BINS_before,FUN="mean")
+        EDA_Binned_Single_raw<-stats::aggregate(as.numeric(as.character(EDA_raw))~(bin),data=BINS_before,FUN="mean")
+        EDA_Binned_Single_filtered<-stats::aggregate(as.numeric(as.character(EDA_filtered))~(bin),data=BINS_before,FUN="mean")
+        EDA_Binned_Single_fscale<-stats::aggregate(as.numeric(as.character(EDA_FeatureScaled))~(bin),data=BINS_before,FUN="mean")
 
 
         EDA_Binned_Single<-merge(EDA_Binned_Single_raw,EDA_Binned_Single_filtered,by="bin",all=T)

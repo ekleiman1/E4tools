@@ -51,7 +51,7 @@ TAG3<-NULL
       if(file.size(utils::unzip(CURR_ZIP, unzip = "internal",
                          exdir=zipDIR,files="tags.csv"))>0){
 
-        TAG<-utils::read.csv(unzip(CURR_ZIP, unzip = "internal",exdir=zipDIR,
+        TAG<-utils::read.csv(utils::unzip(CURR_ZIP, unzip = "internal",exdir=zipDIR,
                             files="tags.csv"),sep=",",header=F)
       TAG1<-rbind(TAG1,TAG)}
 

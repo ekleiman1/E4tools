@@ -24,9 +24,8 @@ This function allows you to bin the data that has been matched to the button pre
 }
 \examples{
 \dontrun{E4.part1.ExtractRawEDA(participant_list=c(1001,1002),
-ziplocation="/Users/evankleiman/OneDrive/Harvard University/R21_Study - Documents/E4 DATA/",
-rdslocation="/Users/evankleiman/OneDrive/Harvard University/R21_Study - Documents/E4 DATA/rds/",
-summarylocation="/Users/evankleiman/OneDrive/Harvard University/R21_Study - Documents/E4 DATA/summaries/",
+rdslocation.MatchedEDA="/Users/documents/study/data/matched/",
+rdslocation.BinnedMatchedEDA="/Users/documents/study/data/binned_matched/"
 EDA_low_cut=0.001,LowPctCutoff=.75,
 EDA_high_cut=25,HighPctCutoff=.75)}
 

@@ -29,3 +29,6 @@ There are currently four tools, all of which are part of the EDA workflow (acc. 
 ##How do I install E4tools?
 `install.packages("E4tools")`
 
+##Funding
+This package was created to support data from projects R34MH113757-01A1 and R21MH115293 to Evan M. Kleiman. 
+
