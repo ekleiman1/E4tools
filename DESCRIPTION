@@ -4,7 +4,7 @@ Title: Management and Processing Tools for Data Produced by the Empatica E4
 Version: 0.1.0
 Authors@R: person("Evan", "Kleiman", email = "evan.kleiman@rutgers.edu",
   role = c("aut", "cre"))
-Description: This package allows you to process and manage the data from the Empatica E4. All functions operate on the EDA data stream, but other streams will be added soon.
+Description: Process and manage the data from the Empatica E4. All functions operate on the EDA data stream, but other streams will be added soon.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
