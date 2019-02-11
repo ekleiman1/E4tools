@@ -17,19 +17,20 @@ E4_EDA_Process.part1.ExtractRawEDA(participant_list, ziplocation,
 
 \item{summarylocation}{folder location where you want participant level summaries to be saved.}
 
-\item{EDA_low_cut}{what EDA value (in microsiemens) should be used as the minimum cutoff (0 = cuts off samples that have 0us)}
+\item{EDA_low_cut}{This is a HIGH PASS filter. What EDA value (in microsiemens) should be used as the minimum cutoff (0 = cuts off samples that have 0us)}
 
 \item{LowPctCutoff}{what percentage of samples in a five-second block must contain the low cutoff in order to exclude that block? (e.g., if .5, there must be at least 50 percent of the samples below the low-cut value to exclude the 5-sec block)}
 
-\item{EDA_high_cut}{what EDA value (in microsiemens) should be used as the maximum cutoff (100 = cuts off samples above 100us)}
+\item{EDA_high_cut}{This is a LOW PASS filter. What EDA value (in microsiemens) should be used as the maximum cutoff (100 = cuts off samples above 100us)}
 
 \item{HighPctCutoff}{what percentage of samples in a five-second block must contain the high cutoff in order to exclude that block?}
 }
 \description{
 This function allows you extract and filter EDA data. It will output raw data, filtered data (using user-specified high and low pass filters + a butterworth filter), and filtered + feature-scaled ([0,1]) data. It will also provide summary data at the participant and session level.
+Inputs are: (1) List of participant numbers and (2) location where ZIP folders are stored. Outputs are: (1) one RDS file per participant with all data, (2) summary file that gives participant-level meta-data.
 }
 \examples{
-\dontrun{E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1008,1011:1014,1017,1021),
+\dontrun{E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1003),
 ziplocation="/Users/documents/study/data/Raw_E4_Data/",
 rdslocation.EDA="/Users/documents/study/data/EDA/",
 summarylocation="/Users/documents/study/data/EDA/summaries/",

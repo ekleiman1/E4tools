@@ -6,7 +6,7 @@
 \usage{
 E4_EDA_Process.part3.MatchPressesToEDA(participant_list,
   rdslocation.MatchedEDA, rdslocation.EDA, rdslocation.buttonpress,
-  min.before, min.after)
+  min.before, min.after, control = T)
 }
 \arguments{
 \item{participant_list}{list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001")}
@@ -20,16 +20,20 @@ E4_EDA_Process.part3.MatchPressesToEDA(participant_list,
 \item{min.before}{how many minutes before a button press do you want EDA data? Enter 0 if you do not want ANY data before (i.e., you're using only data post-press)}
 
 \item{min.after}{how many minutes after a button press do you want EDA data? Enter 0 if you do not want ANY data after (i.e., you're using only data pre-press)}
+
+\item{control}{add in control cases, defaults to T (default is to specify controls from exactly 24 hours prior to the press, provided there was not a press then too)}
 }
 \description{
-This function allows you to extract the data that are within X minutes before and/or after a button press.
+This function allows you to extract the data that are within X minutes before and/or after a button press. If there are no button pressess for a participant, it will issue a warning and continue with the next participant.
+Inputs: (1) List of participant numbers, (2) location of individual EDA files from step 1, (3) location of button presses from step 2.
+Outputs: (1) RDS file with EDA data before and/or after button presses (and control data), for each participant and combined.
 }
 \examples{
 \dontrun{E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001:1008,1011:1014,1017,1021),
 rdslocation.buttonpress="/Users/documents/study/data/tags/",
 rdslocation.MatchedEDA="/Users/documents/study/data/matched/",
 rdslocation.EDA="/Users/documents/study/data/EDA/",
-min.before=20,min.after=20)}
+min.before=20,min.after=20,control=T)}
 
 
 

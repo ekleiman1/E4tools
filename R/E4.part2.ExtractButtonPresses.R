@@ -1,6 +1,6 @@
 #' EDA Processing Part 2: Extract button presses
 #'
-#' This function allows you extract button presses and remove presses that are within a certain number of minutes before the end of a session or that are too close to another button press.
+#' This function allows you extract button presses and remove presses that are within a certain number of minutes before the end of a session or that are too close to another button press. If the participant has not pressed the button at all, it will give you a warning and continue with the other participants.
 #' @param participant_list list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001")
 #' @param ziplocation folder location where the participant-level subfolders are (make sure that it ends in /)
 #' @param rdslocation.buttonpress folder location where you want the RDS output to go (make sure that it ends in /). The file will be named "button_presses.RDS"
@@ -57,6 +57,10 @@ TAG3<-NULL
 
     }}
 
+
+
+    if(is.null(TAG1)==TRUE) {message(paste("No button pressess for",NUMB,"moving to next P"))
+      next}
     names(TAG1)<-"Press_TS"
 
     ###remove presses within XX minutes of the end of a file (XX = minutes as defined in cutoff.ends)

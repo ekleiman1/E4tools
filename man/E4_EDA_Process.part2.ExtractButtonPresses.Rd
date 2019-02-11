@@ -22,7 +22,7 @@ E4_EDA_Process.part2.ExtractButtonPresses(participant_list, ziplocation,
 \item{cutoff.overlap}{if you want to remove button presses within X number of minutes, enter that value here. Default is 0, which will not remove button presses at all.}
 }
 \description{
-This function allows you extract button presses and remove presses that are within a certain number of minutes before the end of a session or that are too close to another button press.
+This function allows you extract button presses and remove presses that are within a certain number of minutes before the end of a session or that are too close to another button press. If the participant has not pressed the button at all, it will give you a warning and continue with the other participants.
 }
 \examples{
 \dontrun{E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1008,1011:1014,1017,1021),

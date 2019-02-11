@@ -6,37 +6,39 @@
 #' @param rdslocation.BinnedMatchedEDA location of folder where you want the binned data to be stored
 #' @param min.before how many minutes before a button press do you want EDA data? Enter 0 if you do not want ANY data before (i.e., you're using only data post-press). This should match what you entered in step 3!
 #' @param min.after how many minutes after a button press do you want EDA data? Enter 0 if you do not want ANY data after (i.e., you're using only data pre-press). This should match what you entered in step 3!
+#' @param control does this dataset include control cases? This should match what you did in step 3.
 #' @keywords EDA
 #' @export
 #' @examples
-#' \dontrun{E4.part1.ExtractRawEDA(participant_list=c(1001,1002),
-#' rdslocation.MatchedEDA="/Users/documents/study/data/matched/",
-#' rdslocation.BinnedMatchedEDA="/Users/documents/study/data/binned_matched/"
-#' EDA_low_cut=0.001,LowPctCutoff=.75,
-#' EDA_high_cut=25,HighPctCutoff=.75)}
+#' \dontrun{E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1003),
+#' rdslocation.MatchedEDA="~/Documents/E4tools_demo_data/output/matched_EDA/",
+#' min.after = 20,min.before = 20,
+#' rdslocation.BinnedMatchedEDA="~/Documents/E4tools_demo_data/output/")}
 #'
 
 
-E4_EDA_Process.part4.BinMatchedEDA<-function(participant_list,rdslocation.MatchedEDA,rdslocation.BinnedMatchedEDA,min.after,min.before){
+E4_EDA_Process.part4.BinMatchedEDA<-function(participant_list,rdslocation.MatchedEDA,rdslocation.BinnedMatchedEDA,min.after,min.before,control=F){
 
 
-  MatchedEDA<-readRDS(paste(rdslocation.MatchedEDA,"EDA_presses.RDS",sep=""))
+  MatchedEDA<-readRDS(paste(rdslocation.MatchedEDA,"EDA_presses_COMBINED.RDS",sep=""))
   EDA_Binned_Merged<-NULL
 
 
 
-  for (NUMB in participant_list) {
+  for(NUMB in participant_list) {
     message(paste("Starting participant",NUMB))
 
     #read EDA data for the individual participant
     EDA_participant<-MatchedEDA[MatchedEDA$ID==NUMB,]
 
+###Bins for BEFORE - CASE
 if(min.before>0){
-    ###Bins for BEFORE
+
   Before_After="BEFORE"
-    EDA_participant_BEFORE<-EDA_participant[EDA_participant$BeforeAfter=="BEFORE",]
-    for (PressTime in  levels(EDA_participant_BEFORE$PressTime)) {
-      if (nrow(EDA_participant_BEFORE[EDA_participant_BEFORE$PressTime==PressTime,])>0 & nrow(EDA_participant_BEFORE[EDA_participant_BEFORE$PressTime==PressTime,])<5000){
+  TYPE="CASE"
+    EDA_participant_BEFORE<-EDA_participant[(EDA_participant$BeforeAfter=="BEFORE" & EDA_participant$CaseControl=="CASE"),]
+    for(PressTime in  levels(EDA_participant_BEFORE$PressTime)) {
+      if(nrow(EDA_participant_BEFORE[EDA_participant_BEFORE$PressTime==PressTime,])>0 & nrow(EDA_participant_BEFORE[EDA_participant_BEFORE$PressTime==PressTime,])<5000){
         BINS_before<-EDA_participant_BEFORE[EDA_participant_BEFORE$PressTime==PressTime,]
 
         BINS_before<-BINS_before[order(BINS_before$Data_TS),]
@@ -47,22 +49,26 @@ if(min.before>0){
         EDA_Binned_Single_raw<-stats::aggregate(as.numeric(as.character(EDA_raw))~(bin),data=BINS_before,FUN="mean")
         EDA_Binned_Single_filtered<-stats::aggregate(as.numeric(as.character(EDA_filtered))~(bin),data=BINS_before,FUN="mean")
         EDA_Binned_Single_fscale<-stats::aggregate(as.numeric(as.character(EDA_FeatureScaled))~(bin),data=BINS_before,FUN="mean")
-
+        EDA_Binned_Single_fscale_filtered<-stats::aggregate(as.numeric(as.character(EDA_FeatureScaled_Filtered))~(bin),data=BINS_before,FUN="mean")
 
         EDA_Binned_Single<-merge(EDA_Binned_Single_raw,EDA_Binned_Single_filtered,by="bin",all=T)
         EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale,by="bin",all=T)
+        EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale_filtered,by="bin",all=T)
 
-        EDA_Binned_Single<-cbind(NUMB,PressTime,Before_After,EDA_Binned_Single)
+        Press_Numb<-as.numeric(as.character(PressTime))
+        EDA_Binned_Single<-cbind(NUMB,Press_Numb,Before_After,TYPE,EDA_Binned_Single)
         EDA_Binned_Merged<-rbind(EDA_Binned_Merged,EDA_Binned_Single)}
       }
 }
 
+###Bins for AFTER -- CASE
 if(min.after>0){
-    ###Bins for AFTER
+
   Before_After="AFTER"
-  EDA_participant_AFTER<-EDA_participant[EDA_participant$BeforeAfter=="AFTER",]
-    for (PressTime in  levels(EDA_participant_AFTER$PressTime)) {
-      if (nrow(EDA_participant_AFTER[EDA_participant_AFTER$PressTime==PressTime,])>0 & nrow(EDA_participant_AFTER[EDA_participant_AFTER$PressTime==PressTime,])<5000){
+  TYPE="CASE"
+  EDA_participant_AFTER<-EDA_participant[(EDA_participant$BeforeAfter=="AFTER" & EDA_participant$CaseControl=="CASE"),]
+    for(PressTime in  levels(EDA_participant_AFTER$PressTime)) {
+      if(nrow(EDA_participant_AFTER[EDA_participant_AFTER$PressTime==PressTime,])>0 & nrow(EDA_participant_AFTER[EDA_participant_AFTER$PressTime==PressTime,])<5000){
         BINS_after<-EDA_participant_AFTER[EDA_participant_AFTER$PressTime==PressTime,]
 
         BINS_after<-BINS_after[order(BINS_after$Data_TS),]
@@ -73,27 +79,93 @@ if(min.after>0){
         EDA_Binned_Single_raw<-stats::aggregate(as.numeric(as.character(EDA_raw))~(bin),data=BINS_after,FUN="mean")
         EDA_Binned_Single_filtered<-stats::aggregate(as.numeric(as.character(EDA_filtered))~(bin),data=BINS_after,FUN="mean")
         EDA_Binned_Single_fscale<-stats::aggregate(as.numeric(as.character(EDA_FeatureScaled))~(bin),data=BINS_after,FUN="mean")
+        EDA_Binned_Single_fscale_filtered<-stats::aggregate(as.numeric(as.character(EDA_FeatureScaled_Filtered))~(bin),data=BINS_after,FUN="mean")
+
 
 
         EDA_Binned_Single<-merge(EDA_Binned_Single_raw,EDA_Binned_Single_filtered,by="bin",all=T)
         EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale,by="bin",all=T)
+        EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale_filtered,by="bin",all=T)
 
-        EDA_Binned_Single<-cbind(NUMB,PressTime,Before_After,EDA_Binned_Single)
+        Press_Numb<-as.numeric(as.character(PressTime))
+        EDA_Binned_Single<-cbind(NUMB,Press_Numb,Before_After,TYPE,EDA_Binned_Single)
         EDA_Binned_Merged<-rbind(EDA_Binned_Merged,EDA_Binned_Single)}
     }
 }
 
+###Bins for BEFORE - CONTROL
+    if(control==T){
+    if(min.before>0){
+
+      Before_After="BEFORE"
+      TYPE="CONTROL"
+      EDA_participant_BEFORE<-EDA_participant[(EDA_participant$BeforeAfter=="BEFORE" & EDA_participant$CaseControl=="CONTROL"),]
+      for(PressTime in levels(EDA_participant_BEFORE$PressTime)) {
+        if(nrow(EDA_participant_BEFORE[EDA_participant_BEFORE$PressTime==PressTime,])>0 & nrow(EDA_participant_BEFORE[EDA_participant_BEFORE$PressTime==PressTime,])<5000){
+          BINS_before<-EDA_participant_BEFORE[EDA_participant_BEFORE$PressTime==PressTime,]
+
+          BINS_before<-BINS_before[order(BINS_before$Data_TS),]
+
+
+          BINS_before$bin<-rep(seq((min.before*-1),-1,by=2),each=480,length.out=nrow(BINS_before)) #create 2-minute bins
+
+          EDA_Binned_Single_raw<-stats::aggregate(as.numeric(as.character(EDA_raw))~(bin),data=BINS_before,FUN="mean")
+          EDA_Binned_Single_filtered<-stats::aggregate(as.numeric(as.character(EDA_filtered))~(bin),data=BINS_before,FUN="mean")
+          EDA_Binned_Single_fscale<-stats::aggregate(as.numeric(as.character(EDA_FeatureScaled))~(bin),data=BINS_before,FUN="mean")
+          EDA_Binned_Single_fscale_filtered<-stats::aggregate(as.numeric(as.character(EDA_FeatureScaled_Filtered))~(bin),data=BINS_before,FUN="mean")
+
+          EDA_Binned_Single<-merge(EDA_Binned_Single_raw,EDA_Binned_Single_filtered,by="bin",all=T)
+          EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale,by="bin",all=T)
+          EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale_filtered,by="bin",all=T)
+
+          Press_Numb<-as.numeric(as.character(PressTime))+86400
+          EDA_Binned_Single<-cbind(NUMB,Press_Numb,Before_After,TYPE,EDA_Binned_Single)
+          #names(EDA_Binned_Single)[2]<-c("PressTime")
+          EDA_Binned_Merged<-rbind(EDA_Binned_Merged,EDA_Binned_Single)}
+      }
+    }
+}
+    ###Bins for AFTER -- CONTROL
+   if(control==T){
+     if(min.after>0){
+
+      Before_After="AFTER"
+      TYPE="CONTROL"
+      EDA_participant_AFTER<-EDA_participant[(EDA_participant$BeforeAfter=="AFTER" & EDA_participant$CaseControl=="CASE"),]
+      for(PressTime in  levels(EDA_participant_AFTER$PressTime)) {
+        if(nrow(EDA_participant_AFTER[EDA_participant_AFTER$PressTime==PressTime,])>0 & nrow(EDA_participant_AFTER[EDA_participant_AFTER$PressTime==PressTime,])<5000){
+          BINS_after<-EDA_participant_AFTER[EDA_participant_AFTER$PressTime==PressTime,]
+
+          BINS_after<-BINS_after[order(BINS_after$Data_TS),]
+
+
+          BINS_after$bin<-rep(seq(2,min.after,by=2),each=480,length.out=nrow(BINS_after)) #create 10 2-minute bins
+
+          EDA_Binned_Single_raw<-stats::aggregate(as.numeric(as.character(EDA_raw))~(bin),data=BINS_after,FUN="mean")
+          EDA_Binned_Single_filtered<-stats::aggregate(as.numeric(as.character(EDA_filtered))~(bin),data=BINS_after,FUN="mean")
+          EDA_Binned_Single_fscale<-stats::aggregate(as.numeric(as.character(EDA_FeatureScaled))~(bin),data=BINS_after,FUN="mean")
+          EDA_Binned_Single_fscale_filtered<-stats::aggregate(as.numeric(as.character(EDA_FeatureScaled_Filtered))~(bin),data=BINS_after,FUN="mean")
+
+          EDA_Binned_Single<-merge(EDA_Binned_Single_raw,EDA_Binned_Single_filtered,by="bin",all=T)
+          EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale,by="bin",all=T)
+          EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale_filtered,by="bin",all=T)
+
+          Press_Numb<-as.numeric(as.character(PressTime))+86400
+          EDA_Binned_Single<-cbind(NUMB,Press_Numb,Before_After,TYPE,EDA_Binned_Single)
+          EDA_Binned_Merged<-rbind(EDA_Binned_Merged,EDA_Binned_Single)}
+      }
+    }
 
 
     }
-
+}
 
 
 
 
 
   ### on entire dataset
-  names(EDA_Binned_Merged)<-c("ID","PressTime","BeforeAfter","MinBeforeAfter","EDA_raw","EDA_filtered","EDA_FeatureScaled")
+  names(EDA_Binned_Merged)<-c("ID","PressTime","BeforeAfter","CaseControl","MinBeforeAfter","EDA_raw","EDA_filtered","EDA_FeatureScaled")
   if(!dir.exists(rdslocation.BinnedMatchedEDA)==T){dir.create(rdslocation.BinnedMatchedEDA)}
   saveRDS(EDA_Binned_Merged,file=paste(rdslocation.BinnedMatchedEDA,"EDA_merged_binned.RDS",sep=""))
 

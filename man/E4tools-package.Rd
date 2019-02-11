@@ -6,7 +6,7 @@
 \alias{E4tools-package}
 \title{E4tools: Management and Processing Tools for Data Produced by the Empatica E4}
 \description{
-This package allows you to process and manage the data from the Empatica E4. All functions operate on the EDA data stream, but other streams will be added soon.
+Process and manage the data from the Empatica E4. All functions operate on the EDA data stream, but other streams will be added soon.
 }
 \author{
 \strong{Maintainer}: Evan Kleiman \email{evan.kleiman@rutgers.edu}

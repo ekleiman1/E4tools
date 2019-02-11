@@ -1,18 +1,19 @@
 #' EDA Processing Part 1: Extract and filter EDA data
 #'
 #' This function allows you extract and filter EDA data. It will output raw data, filtered data (using user-specified high and low pass filters + a butterworth filter), and filtered + feature-scaled ([0,1]) data. It will also provide summary data at the participant and session level.
+#' Inputs are: (1) List of participant numbers and (2) location where ZIP folders are stored. Outputs are: (1) one RDS file per participant with all data, (2) summary file that gives participant-level meta-data.
 #' @param participant_list list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001")
 #' @param ziplocation folder location where the participant-level subfolders are (make sure that it ends in /)
 #' @param rdslocation.EDA folder location where you want the RDS outputs to go (make sure that it ends in /)
 #' @param summarylocation folder location where you want participant level summaries to be saved.
-#' @param EDA_low_cut what EDA value (in microsiemens) should be used as the minimum cutoff (0 = cuts off samples that have 0us)
+#' @param EDA_low_cut This is a HIGH PASS filter. What EDA value (in microsiemens) should be used as the minimum cutoff (0 = cuts off samples that have 0us)
 #' @param LowPctCutoff what percentage of samples in a five-second block must contain the low cutoff in order to exclude that block? (e.g., if .5, there must be at least 50 percent of the samples below the low-cut value to exclude the 5-sec block)
-#' @param EDA_high_cut what EDA value (in microsiemens) should be used as the maximum cutoff (100 = cuts off samples above 100us)
+#' @param EDA_high_cut This is a LOW PASS filter. What EDA value (in microsiemens) should be used as the maximum cutoff (100 = cuts off samples above 100us)
 #' @param HighPctCutoff what percentage of samples in a five-second block must contain the high cutoff in order to exclude that block?
 #' @keywords EDA
 #' @export
 #' @examples
-#' \dontrun{E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1008,1011:1014,1017,1021),
+#' \dontrun{E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1003),
 #' ziplocation="/Users/documents/study/data/Raw_E4_Data/",
 #' rdslocation.EDA="/Users/documents/study/data/EDA/",
 #' summarylocation="/Users/documents/study/data/EDA/summaries/",
@@ -124,17 +125,29 @@ E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdsloc
 
 
     #### scaling
-    EDA$EDA_FeatureScaled<-BBmisc::normalize(EDA$EDA_filtered,method="range",range=c(0,1)) ### do feature-scaling
+    EDA$EDA_FeatureScaled<-BBmisc::normalize(EDA$EDA_raw,method="range",range=c(0,1)) ### do feature-scaling
+    EDA$EDA_FeatureScaled_Filtered<-BBmisc::normalize(EDA$EDA_filtered,method="range",range=c(0,1)) ### do feature-scaling
     EDA$Participant<-NUMB
 
 ###merge EDA data into full participant dataset and save
 EDA_raw<-rbind(EDA_raw,EDA)
-if(!dir.exists(rdslocation.EDA)==T){dir.create(rdslocation.EDA)}
+
+##remove extra columns
+EDA_raw$FiveSecBin<-NULL
+EDA_raw$TooLow<-NULL
+EDA_raw$EDA_reject_toolow<-NULL
+EDA_raw$TooHigh<-NULL
+EDA_raw$EDA_reject<-NULL
+
+#reorder
+EDA_raw<-EDA_raw[c("Participant", "E4_serial", "ts","EDA_raw","EDA_FeatureScaled","EDA_filtered","EDA_FeatureScaled_Filtered")]
+
+if(!dir.exists(rdslocation.EDA)==T){dir.create(rdslocation.EDA,recursive=T)}
 filename<-paste(rdslocation.EDA,NUMB,"_EDA.rds",sep="")
 saveRDS(EDA_raw,file=filename)
 
 ###merge session summary data and save
-if(!dir.exists(summarylocation)==T){dir.create(summarylocation)}
+if(!dir.exists(summarylocation)==T){dir.create(summarylocation,recursive=T)}
 summaryfilename<-paste(summarylocation,NUMB,"_summary.csv",sep="")
 utils::write.csv(Session_combined,file=summaryfilename)
 
@@ -146,7 +159,7 @@ AllPartSummary<-as.data.frame(rbind(AllPartSummary,PartSummary))
   }
 
 ####merge participant-level summary file and save
-if(!dir.exists(summarylocation)==T){dir.create(summarylocation)}
+if(!dir.exists(summarylocation)==T){dir.create(summarylocation,recursive=T)}
 names(AllPartSummary)<-c("ID","TotalTime","NumbSamples","NumbRejected","NumbSamples")
 Allsummaryfilename<-paste(summarylocation,"ALL_summary.csv",sep="")
 utils::write.csv(AllPartSummary,file=Allsummaryfilename)
