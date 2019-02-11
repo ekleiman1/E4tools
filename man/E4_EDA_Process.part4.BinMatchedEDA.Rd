@@ -6,7 +6,7 @@
 \usage{
 E4_EDA_Process.part4.BinMatchedEDA(participant_list,
   rdslocation.MatchedEDA, rdslocation.BinnedMatchedEDA, min.after,
-  min.before)
+  min.before, control = F)
 }
 \arguments{
 \item{participant_list}{list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001")}
@@ -18,16 +18,17 @@ E4_EDA_Process.part4.BinMatchedEDA(participant_list,
 \item{min.after}{how many minutes after a button press do you want EDA data? Enter 0 if you do not want ANY data after (i.e., you're using only data pre-press). This should match what you entered in step 3!}
 
 \item{min.before}{how many minutes before a button press do you want EDA data? Enter 0 if you do not want ANY data before (i.e., you're using only data post-press). This should match what you entered in step 3!}
+
+\item{control}{does this dataset include control cases? This should match what you did in step 3.}
 }
 \description{
 This function allows you to bin the data that has been matched to the button pressess (from step 3).
 }
 \examples{
-\dontrun{E4.part1.ExtractRawEDA(participant_list=c(1001,1002),
-rdslocation.MatchedEDA="/Users/documents/study/data/matched/",
-rdslocation.BinnedMatchedEDA="/Users/documents/study/data/binned_matched/"
-EDA_low_cut=0.001,LowPctCutoff=.75,
-EDA_high_cut=25,HighPctCutoff=.75)}
+\dontrun{E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1003),
+rdslocation.MatchedEDA="~/Documents/E4tools_demo_data/output/matched_EDA/",
+min.after = 20,min.before = 20,
+rdslocation.BinnedMatchedEDA="~/Documents/E4tools_demo_data/output/")}
 
 }
 \keyword{EDA}

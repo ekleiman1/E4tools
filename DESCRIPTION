@@ -8,6 +8,9 @@ Description: Process and manage the data from the Empatica E4. All functions ope
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports: BBmisc, DataCombine, signal, stats, utils
+Imports: BBmisc, DataCombine, signal, stats, utils, anytime
 RoxygenNote: 6.1.1
-
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
