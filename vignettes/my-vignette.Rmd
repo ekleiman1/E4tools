@@ -86,7 +86,7 @@ E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001:1003),
 
 
 ## Step 4: Put matched EDA in to bins
-This is the final step where everything gets put together.
+This is the final step where everything gets put
 ```{r,eval=FALSE}
 E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1003),
                                    rdslocation.MatchedEDA="~/Documents/E4tools_demo_data/output/matched_EDA/",
