@@ -5,7 +5,7 @@
 \title{EDA Processing Part 2: Extract button presses}
 \usage{
 E4_EDA_Process.part2.ExtractButtonPresses(participant_list, ziplocation,
-  rdslocation.buttonpress, part1summaries, cutoff.ends = 0,
+  rdslocation.buttonpress, summarylocation, cutoff.ends = 0,
   cutoff.overlap = 0)
 }
 \arguments{
@@ -15,7 +15,7 @@ E4_EDA_Process.part2.ExtractButtonPresses(participant_list, ziplocation,
 
 \item{rdslocation.buttonpress}{folder location where you want the RDS output to go (make sure that it ends in /). The file will be named "button_presses.RDS"}
 
-\item{part1summaries}{location of folder where summaries from part 1 were saved (make sure that it ends in /)}
+\item{summarylocation}{location of folder where summaries from part 1 were saved (make sure that it ends in /)}
 
 \item{cutoff.ends}{how close (in minutes) to the ends of a file do you want to cut off button presses (because they could be accidental e.g., when turning the band off). Default is 0, which will not remove button presses at all.}
 
@@ -28,7 +28,7 @@ This function allows you extract button presses and remove presses that are with
 \dontrun{E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1008,1011:1014,1017,1021),
 ziplocation="/Users/documents/study/data/Raw_E4_Data/",
 rdslocation.buttonpress="/Users/documents/study/data/tags/",
-part1summaries="/Users/documents/study/data/EDA/summaries/",
+summarylocation="/Users/documents/study/data/EDA/summaries/",
 cutoff.ends=2,
 cutoff.overlap=20)}
 

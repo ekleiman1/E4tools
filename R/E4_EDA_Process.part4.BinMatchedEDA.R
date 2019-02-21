@@ -165,7 +165,7 @@ if(min.after>0){
 
 
   ### on entire dataset
-  names(EDA_Binned_Merged)<-c("ID","PressTime","BeforeAfter","CaseControl","MinBeforeAfter","EDA_raw","EDA_filtered","EDA_FeatureScaled")
+  names(EDA_Binned_Merged)<-c("ID","PressTime","BeforeAfter","CaseControl","MinBeforeAfter","EDA_raw","EDA_filtered","EDA_FeatureScaled","EDA_Filtered_FeatureScaled")
   if(!dir.exists(rdslocation.BinnedMatchedEDA)==T){dir.create(rdslocation.BinnedMatchedEDA)}
   saveRDS(EDA_Binned_Merged,file=paste(rdslocation.BinnedMatchedEDA,"EDA_merged_binned.RDS",sep=""))
 
