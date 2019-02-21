@@ -19,7 +19,7 @@ E4.extras.ButtonPressessPerDay<-function(rdslocation.buttonpress,ImputeNAs=F,Imp
   press_summary$press<-1
   press_summary$date<-anytime::anydate(press_summary$ts)
 
- press_day<-aggregate(press~ID+date,data=press_summary,FUN="sum")
+ press_day<-stats::aggregate(press~ID+date,data=press_summary,FUN="sum")
 
   if(ImputeNAs==T){
   IDs<-as.numeric(as.character(as.vector(levels(as.factor(press_day$ID)))))

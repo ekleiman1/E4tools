@@ -4,7 +4,7 @@
 #' @param participant_list list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001")
 #' @param ziplocation folder location where the participant-level subfolders are (make sure that it ends in /)
 #' @param rdslocation.buttonpress folder location where you want the RDS output to go (make sure that it ends in /). The file will be named "button_presses.RDS"
-#' @param part1summaries location of folder where summaries from part 1 were saved (make sure that it ends in /)
+#' @param summarylocation location of folder where summaries from part 1 were saved (make sure that it ends in /)
 #' @param cutoff.ends how close (in minutes) to the ends of a file do you want to cut off button presses (because they could be accidental e.g., when turning the band off). Default is 0, which will not remove button presses at all.
 #' @param cutoff.overlap if you want to remove button presses within X number of minutes, enter that value here. Default is 0, which will not remove button presses at all.
 #' @keywords EDA
@@ -13,7 +13,7 @@
 #' \dontrun{E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1008,1011:1014,1017,1021),
 #' ziplocation="/Users/documents/study/data/Raw_E4_Data/",
 #' rdslocation.buttonpress="/Users/documents/study/data/tags/",
-#' part1summaries="/Users/documents/study/data/EDA/summaries/",
+#' summarylocation="/Users/documents/study/data/EDA/summaries/",
 #' cutoff.ends=2,
 #' cutoff.overlap=20)}
 #'
@@ -24,7 +24,7 @@
 
 
 
-E4_EDA_Process.part2.ExtractButtonPresses<-function(participant_list,ziplocation,rdslocation.buttonpress,part1summaries,cutoff.ends=0,cutoff.overlap=0){
+E4_EDA_Process.part2.ExtractButtonPresses<-function(participant_list,ziplocation,rdslocation.buttonpress,summarylocation,cutoff.ends=0,cutoff.overlap=0){
 
 TAG3<-NULL
 
@@ -33,7 +33,7 @@ TAG3<-NULL
 
     #load summary file
 
-    part1summary<-utils::read.csv(paste(part1summaries,NUMB,"_summary.csv",sep=""))
+    part1summary<-utils::read.csv(paste(summarylocation,NUMB,"_summary.csv",sep=""))
 
     #get path to participant folder
     zipDIR<-paste(ziplocation,NUMB,sep="")
