@@ -19,9 +19,6 @@ knitr::opts_chunk$set(
 ```{r}
 library(E4tools)
 ```
-This vignette can be used demonstration data that are already in the correct folder strucutre. You can download it here [on our lab's website](https://kleimanlab.org/e4tools/). Download the ZIP file on the page and unzip it. But, do not unzip any of the zip files within subfolders.
-
-Note: Visit [this site](http://rpubs.com/ekleiman/E4ToolsVignette) for a copy of the vignette with more examples from executed code. 
 
 ## Step 0: Structure your files
 Your files should be structured in a way such that you have one main folder that contains within in, a subfolder for each participant. The name of each participant folder should be their ID number. In each "participant" subfolder should be all zip files containing their data, using the naming convention that E4 Connect uses (starttime_serialnumber.zip). 
@@ -94,7 +91,7 @@ E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1003),
 
 #### Sample of RDS output file
 ```{r, echo=FALSE,eval=TRUE}
-Table1<-readRDS(paste(system.file(package="E4tools"),"/extdata/vignette_tables/1002_EDA.RDS",sep=""))
+Table1<-readRDS("1002_EDA.RDS")
 Table1a<-head(Table1)
 knitr::kable(Table1a, format = "html")
 ```
@@ -125,7 +122,7 @@ E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001:1003),
 
 #### Sample of RDS output file
 ```{r, echo=FALSE,eval=TRUE}
-Table2<-readRDS(paste(system.file(package="E4tools"),"/extdata/vignette_tables/EDA_presses_COMBINED.RDS",sep=""))
+Table2<-readRDS("EDA_presses_COMBINED.RDS")
 Table2a<-head(Table2)
 knitr::kable(Table2a, format = "html")
 ```
@@ -149,7 +146,7 @@ E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1003),
 #### Sample of RDS output file
 Note: The values for "MinBeforeAfter" for "before" values will be negative, to facilate things like growth curve modeling. If you positive integers, just multiple this column by -1.
 ```{r, echo=FALSE,eval=TRUE}
-Table3<-readRDS(paste(system.file(package="E4tools"),"/extdata/vignette_tables/EDA_merged_binned.RDS",sep=""))
+Table3<-readRDS("EDA_merged_binned.RDS")
 Table3a<-head(Table3)
 knitr::kable(Table3a, format = "html")
 ```
