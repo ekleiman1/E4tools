@@ -7,7 +7,8 @@
 #' @return Dataframe with a three columns: ID, date, number of button pressess.
 #' @export
 #' @examples
-#' \dontrun{E4.extras.ButtonPressessPerDay(rdslocation.buttonpress="/Users/documents/study/data/tags/",ImputeNAs=T,ImputeZeros=T)}
+#' \dontrun{E4.extras.ButtonPressessPerDay(rdslocation.buttonpress="/Users/documents/study/data/tags/",
+#' ImputeNAs=T,ImputeZeros=T)}
 
 
 

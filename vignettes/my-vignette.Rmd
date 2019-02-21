@@ -58,7 +58,7 @@ E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1003),
 #### Sample of RDS output file
 ```{r, echo=FALSE,eval=TRUE}
 options(scipen=999)
-Table0<-readRDS(paste(system.file(package="E4tools"),"/extdata/EDA_presses_COMBINED.RDS",sep=""))
+Table0<-readRDS(paste(system.file(package="E4tools"),"/extdata/vignette_tables/EDA_presses_COMBINED.RDS",sep=""))
 Table0a<-head(Table0)
 knitr::kable(Table0a, format = "html")
 ```
@@ -94,7 +94,7 @@ E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1003),
 
 #### Sample of RDS output file
 ```{r, echo=FALSE,eval=TRUE}
-Table1<-readRDS(paste(system.file(package="E4tools"),"/extdata/1002_EDA.rds",sep=""))
+Table1<-readRDS(paste(system.file(package="E4tools"),"/extdata/vignette_tables/1002_EDA.RDS",sep=""))
 Table1a<-head(Table1)
 knitr::kable(Table1a, format = "html")
 ```
@@ -125,7 +125,7 @@ E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001:1003),
 
 #### Sample of RDS output file
 ```{r, echo=FALSE,eval=TRUE}
-Table2<-readRDS(paste(system.file(package="E4tools"),"/extdata/EDA_presses_COMBINED.RDS",sep=""))
+Table2<-readRDS(paste(system.file(package="E4tools"),"/extdata/vignette_tables/EDA_presses_COMBINED.RDS",sep=""))
 Table2a<-head(Table2)
 knitr::kable(Table2a, format = "html")
 ```
@@ -149,7 +149,7 @@ E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1003),
 #### Sample of RDS output file
 Note: The values for "MinBeforeAfter" for "before" values will be negative, to facilate things like growth curve modeling. If you positive integers, just multiple this column by -1.
 ```{r, echo=FALSE,eval=TRUE}
-Table3<-readRDS(paste(system.file(package="E4tools"),"/extdata/EDA_merged_binned.RDS",sep=""))
+Table3<-readRDS(paste(system.file(package="E4tools"),"/extdata/vignette_tables/EDA_merged_binned.RDS",sep=""))
 Table3a<-head(Table3)
 knitr::kable(Table3a, format = "html")
 ```
