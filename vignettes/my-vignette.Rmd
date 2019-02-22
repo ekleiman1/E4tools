@@ -53,7 +53,7 @@ E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1003),
 ```
 
 #### Sample of RDS output file
-```{r, echo=FALSE,eval=TRUE}
+```{r, echo=FALSE,eval=FALSE}
 options(scipen=999)
 Table0<-readRDS("EDA_presses_COMBINED.RDS")
 Table0a<-head(Table0)
@@ -90,7 +90,7 @@ E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1003),
 ```
 
 #### Sample of RDS output file
-```{r, echo=FALSE,eval=TRUE}
+```{r, echo=FALSE,eval=FALSE}
 Table1<-readRDS("1002_EDA.RDS")
 Table1a<-head(Table1)
 knitr::kable(Table1a, format = "html")
@@ -121,7 +121,7 @@ E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001:1003),
 
 
 #### Sample of RDS output file
-```{r, echo=FALSE,eval=TRUE}
+```{r, echo=FALSE,eval=FALSE}
 Table2<-readRDS("EDA_presses_COMBINED.RDS")
 Table2a<-head(Table2)
 knitr::kable(Table2a, format = "html")
@@ -145,7 +145,7 @@ E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1003),
 ```
 #### Sample of RDS output file
 Note: The values for "MinBeforeAfter" for "before" values will be negative, to facilate things like growth curve modeling. If you positive integers, just multiple this column by -1.
-```{r, echo=FALSE,eval=TRUE}
+```{r, echo=FALSE,eval=FALSE}
 Table3<-readRDS("EDA_merged_binned.RDS")
 Table3a<-head(Table3)
 knitr::kable(Table3a, format = "html")
