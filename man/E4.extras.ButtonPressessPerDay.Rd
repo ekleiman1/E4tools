@@ -21,6 +21,6 @@ Dataframe with a three columns: ID, date, number of button pressess.
 This function allows you extract button pressess per participant, per day. It will output a data frame (not an RDS file) that you can use for analyses.
 }
 \examples{
-\dontrun{E4.extras.ButtonPressessPerDay(rdslocation.buttonpress="/Users/documents/study/
-data/tags/",ImputeNAs=T,ImputeZeros=T)}
+\dontrun{E4.extras.ButtonPressessPerDay(rdslocation.buttonpress="/Users/documents/study/data/tags/",
+ImputeNAs=T,ImputeZeros=T)}
 }

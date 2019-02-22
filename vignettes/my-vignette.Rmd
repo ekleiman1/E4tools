@@ -55,7 +55,7 @@ E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1003),
 #### Sample of RDS output file
 ```{r, echo=FALSE,eval=TRUE}
 options(scipen=999)
-Table0<-readRDS(paste(system.file(package="E4tools"),"/extdata/vignette_tables/EDA_presses_COMBINED.RDS",sep=""))
+Table0<-readRDS("EDA_presses_COMBINED.RDS")
 Table0a<-head(Table0)
 knitr::kable(Table0a, format = "html")
 ```
