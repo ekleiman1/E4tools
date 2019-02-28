@@ -46,11 +46,12 @@ if(!dir.exists(individual_directory)==T){dir.create(individual_directory)}
 
     #select only presses from that participant
     press_times<-press_summary[press_summary$ID==NUMB,]$ts
+    press_times<-press_times*1000 #make into ms
     if(length(press_times)==0) {message(paste("No button pressess for",NUMB,"moving to next P"))
       next}
     #create a list of control times that are 24 hours before
 
-    press_times_control<-press_times-86400
+    press_times_control<-press_times-86400000
 
     ##remove control times that overlap with existing press times
 
@@ -70,8 +71,8 @@ if(!dir.exists(individual_directory)==T){dir.create(individual_directory)}
     ### BEFORE PRESSESS
     if (min.before>0){
     for(CURR_PRESS in press_times){
-      if(sum(EDA_participant$ts<CURR_PRESS & EDA_participant$ts>(CURR_PRESS-(min.before*60)))>0){
-    EDA_Before_Button_Press<-EDA_participant[(EDA_participant$ts<CURR_PRESS & EDA_participant$ts>(CURR_PRESS-(min.before*60))),]
+      if(sum(EDA_participant$ts<CURR_PRESS & EDA_participant$ts>(CURR_PRESS-(min.before*60*1000)))>0){
+    EDA_Before_Button_Press<-EDA_participant[(EDA_participant$ts<CURR_PRESS & EDA_participant$ts>(CURR_PRESS-(min.before*60*1000))),]
     EDA_press_OUT<-as.data.frame(
      cbind(EDA_Before_Button_Press$Participant,
            EDA_Before_Button_Press$E4_serial,
@@ -97,8 +98,8 @@ if(!dir.exists(individual_directory)==T){dir.create(individual_directory)}
     ### AFTER PRESSESS
     if (min.after>0){
       for(CURR_PRESS in press_times){
-        if(sum(EDA_participant$ts>CURR_PRESS & EDA_participant$ts<(CURR_PRESS+(min.after*60)))>0){
-        EDA_After_Button_Press<-EDA_participant[(EDA_participant$ts>CURR_PRESS & EDA_participant$ts<(CURR_PRESS+(min.after*60))),]
+        if(sum(EDA_participant$ts>CURR_PRESS & EDA_participant$ts<(CURR_PRESS+(min.after*60*1000)))>0){
+        EDA_After_Button_Press<-EDA_participant[(EDA_participant$ts>CURR_PRESS & EDA_participant$ts<(CURR_PRESS+(min.after*60*1000))),]
         EDA_press_OUT<-as.data.frame(
           cbind(EDA_After_Button_Press$Participant,
                 EDA_After_Button_Press$E4_serial,
@@ -122,8 +123,8 @@ if(!dir.exists(individual_directory)==T){dir.create(individual_directory)}
     if(control==T){
       if(min.before>0){
       for(CURR_PRESS in press_times_control){
-        if(sum(EDA_participant$ts<CURR_PRESS & EDA_participant$ts>(CURR_PRESS-(min.before*60)))>0){
-          EDA_Before_Button_Press_CONTROL<-EDA_participant[(EDA_participant$ts<CURR_PRESS & EDA_participant$ts>(CURR_PRESS-(min.before*60))),]
+        if(sum(EDA_participant$ts<CURR_PRESS & EDA_participant$ts>(CURR_PRESS-(min.before*60*1000)))>0){
+          EDA_Before_Button_Press_CONTROL<-EDA_participant[(EDA_participant$ts<CURR_PRESS & EDA_participant$ts>(CURR_PRESS-(min.before*60*1000))),]
           EDA_press_OUT_CONTROL<-as.data.frame(
             cbind(EDA_Before_Button_Press_CONTROL$Participant,
                   EDA_Before_Button_Press_CONTROL$E4_serial,
@@ -145,8 +146,8 @@ if(!dir.exists(individual_directory)==T){dir.create(individual_directory)}
     if(control==T){
       if (min.after>0){
       for(CURR_PRESS in press_times_control){
-        if(sum(EDA_participant$ts>CURR_PRESS & EDA_participant$ts<(CURR_PRESS+(min.after*60)))>0){
-          EDA_After_Button_Press_Control<-EDA_participant[(EDA_participant$ts>CURR_PRESS & EDA_participant$ts<(CURR_PRESS+(min.after*60))),]
+        if(sum(EDA_participant$ts>CURR_PRESS & EDA_participant$ts<(CURR_PRESS+(min.after*60*1000)))>0){
+          EDA_After_Button_Press_Control<-EDA_participant[(EDA_participant$ts>CURR_PRESS & EDA_participant$ts<(CURR_PRESS+(min.after*60*1000))),]
           EDA_press_OUT_CONTROL<-as.data.frame(
             cbind(EDA_After_Button_Press_Control$Participant,
                   EDA_After_Button_Press_Control$E4_serial,

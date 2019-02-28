@@ -58,8 +58,12 @@ E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdsloc
       EDA_single$E4_serial<-E4_serial
 
 
+
       EndTime<-(StartTime+round((nrow(EDA_single)/SamplingRate),0)) # calculate end time by adding start time to number of rows / sampling rate [which = number of seconds]
-      EDA_single$ts<-rep(StartTime:EndTime, each=4,length.out=nrow(EDA_single)) ## add timestamp column (repeats four times b/c ts is in seconds, and there are four rows per second)
+
+      ##make start and end times in miliseconds
+
+      EDA_single$ts<-seq(from=StartTime*1000,to=EndTime*1000,length.out=nrow(EDA_single)) ##multiplying by 1000 in order to put everything in miliseconds
       EDA<-rbind(EDA,EDA_single) ##merge
 
       ##Create session-level summmaries
