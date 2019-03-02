@@ -5,12 +5,13 @@
 #' @param rdslocation.binnedEDA folder location where binned EDA is stored (from E4.extras.BinEDA function)
 #' @param rdslocation.buttonpress location of folder where button press output is stored (from part 2)
 #' @param plotlocation.EDA Folder where you want to store the PDF plots
+#' @param RejectFlagCount What percent of samples in the bin must be bad for the entire bin to be marked bad? Default is 48, which is 10% of samples in a 2-minute bin.
 #' @keywords acc
 #' @export
 #' @examples
 #' \dontrun{XXX}
 
-E4.Diagnostics.EDAplot<-function(participant_list,rdslocation.binnedEDA,rdslocation.buttonpress,plotlocation.EDA){
+E4.Diagnostics.EDAplot<-function(participant_list,rdslocation.binnedEDA,rdslocation.buttonpress,plotlocation.EDA,RejectFlagCount=48){
   ###open data
   for (NUMB in participant_list) {
     message(paste("Starting participant",NUMB))
@@ -51,13 +52,23 @@ Plot_Buttons$ts_time<-as.POSIXct(as.character(paste("2019-01-01 ",chron::times(f
 if(Plot_Buttons$ts[1]>10000000000){Plot_Buttons$ts_date<-anytime::anydate(Plot_Buttons$ts/1000)}
 if(Plot_Buttons$ts[1]<10000000000){Plot_Buttons$ts_date<-anytime::anydate(Plot_Buttons$ts)}
 
+###make reject % variables
+PlotData$EDA_reject_CAT<-"GOOD"
+PlotData[PlotData$EDA_reject>=RejectFlagCount,]$EDA_reject_CAT<-"BAD"
+
+
+
+BadLabel<-paste(round((ftable(PlotData$EDA_reject_CAT)[1]/sum(ftable(PlotData$EDA_reject_CAT))*100),2),"% of bins",sep="")
+GoodLabel<-paste(round((ftable(PlotData$EDA_reject_CAT)[2]/sum(ftable(PlotData$EDA_reject_CAT))*100),2),"% of bins",sep="")
+
 
 ##make plot####
 
 PlotOut<-ggplot2::ggplot()+
-  ggplot2::geom_line(ggplot2::aes(x=ts_time,y=EDA_HighLowPass,color=E4_serial),data=PlotData)+
+  ggplot2::geom_line(ggplot2::aes(x=ts_time,y=EDA_HighLowPass,color=E4_serial,linetype=as.factor(EDA_reject_CAT)),data=PlotData)+
   ggplot2::geom_vline(ggplot2::aes(xintercept=ts_time),data=Plot_Buttons)+
-  ggplot2::facet_wrap(~ts_date)+
+  ggplot2::facet_wrap(~ts_date)+ggplot2::scale_linetype_manual(values=c("twodash", "solid"),name="Data Quality",
+                                                               labels = c(paste("Bad\n",BadLabel,sep=""),paste("Good\n",GoodLabel,sep="")))+
   ggplot2::scale_x_time(labels = scales::time_format("%H:%M",tz = "America/New_York"),breaks=seq(as.POSIXct("2019-01-01 00:00:00 EST"),as.POSIXct("2019-01-01 24:00:00 EST"),"6 hours"))+
   ggplot2::labs(x="Time of Day",y="Binned EDA \n(w/high + low pass filter)",title=paste("All data for participant ID ",NUMB,sep=""))
 
