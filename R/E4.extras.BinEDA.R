@@ -9,7 +9,10 @@
 #' @keywords acc
 #' @export
 #' @examples
-#' \dontrun{XXX}
+#' \dontrun{participant_list=c(1001:1004),rdslocation.EDA="~/study/data/EDA/",
+#'rdslocation.binnedEDA="~/study/data/Binned_EDA/",
+#'BinLengthMin=2,
+#'RejectFlag=T}
 
 
 E4.extras.BinEDA<-function(participant_list,rdslocation.EDA,rdslocation.binnedEDA,BinLengthMin,RejectFlag=T){

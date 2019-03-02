@@ -97,8 +97,14 @@ TAG3<-NULL
 
   }
 
+
+names(TAG3)<-c("ID","ts")
+
+##add ts in ms
+TAG3$ts_ms<-TAG3$ts*1000
+
 ### save button press file
-  names(TAG3)<-c("ID","ts")
+
   if(!dir.exists(rdslocation.buttonpress)==T){dir.create(rdslocation.buttonpress)}
   saveRDS(TAG3,file=paste(rdslocation.buttonpress,"button_presses.RDS",sep=""))
 

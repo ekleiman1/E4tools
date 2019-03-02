@@ -5,15 +5,21 @@
 #' @param rdslocation.binnedEDA folder location where binned EDA is stored (from E4.extras.BinEDA function)
 #' @param rdslocation.buttonpress location of folder where button press output is stored (from part 2)
 #' @param plotlocation.EDA Folder where you want to store the PDF plots
-#' @param RejectFlagCount What percent of samples in the bin must be bad for the entire bin to be marked bad? Default is 48, which is 10% of samples in a 2-minute bin.
-#' @keywords acc
+#' @param RejectFlagCount What percent of samples in the bin must be bad for the entire bin to be marked bad? Default is 48, which is 10 percent of samples in a 2-minute bin.
+#' @keywords diagnostics plots
 #' @export
 #' @examples
-#' \dontrun{XXX}
-
+#' \dontrun{E4.Diagnostics.EDAplot(participant_list=c(1001:1004),
+#' rdslocation.buttonpress="~/study/data/tags/",
+#' rdslocation.binnedEDA="~/study/data/Binned_EDA/",
+#' plotlocation.EDA="~/study/data/EDAplots/")}
+#'
+#'
+#'
+#'
 E4.Diagnostics.EDAplot<-function(participant_list,rdslocation.binnedEDA,rdslocation.buttonpress,plotlocation.EDA,RejectFlagCount=48){
   ###open data
-  for (NUMB in participant_list) {
+  for(NUMB in participant_list){
     message(paste("Starting participant",NUMB))
 
 ##Open Data
@@ -58,8 +64,8 @@ PlotData[PlotData$EDA_reject>=RejectFlagCount,]$EDA_reject_CAT<-"BAD"
 
 
 
-BadLabel<-paste(round((ftable(PlotData$EDA_reject_CAT)[1]/sum(ftable(PlotData$EDA_reject_CAT))*100),2),"% of bins",sep="")
-GoodLabel<-paste(round((ftable(PlotData$EDA_reject_CAT)[2]/sum(ftable(PlotData$EDA_reject_CAT))*100),2),"% of bins",sep="")
+BadLabel<-paste(round((stats::ftable(PlotData$EDA_reject_CAT)[1]/sum(ftable(PlotData$EDA_reject_CAT))*100),2),"% of bins",sep="")
+GoodLabel<-paste(round((stats::ftable(PlotData$EDA_reject_CAT)[2]/sum(ftable(PlotData$EDA_reject_CAT))*100),2),"% of bins",sep="")
 
 
 ##make plot####
