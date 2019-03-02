@@ -10,6 +10,7 @@
 #' @param LowPctCutoff what percentage of samples in a five-second block must contain the low cutoff in order to exclude that block? (e.g., if .5, there must be at least 50 percent of the samples below the low-cut value to exclude the 5-sec block)
 #' @param EDA_high_cut This is a LOW PASS filter. What EDA value (in microsiemens) should be used as the maximum cutoff (100 = cuts off samples above 100us)
 #' @param HighPctCutoff what percentage of samples in a five-second block must contain the high cutoff in order to exclude that block?
+#' @param KeepRejectFlag Do you want to keep the flag that shows which data the high and low pass filters rejected? If you want to run the diagnostic steps, you must keep this. Defaults to TRUE.
 #' @keywords EDA
 #' @export
 #' @examples
@@ -23,7 +24,8 @@
 #'
 #'
 
-E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdslocation.EDA,summarylocation,EDA_low_cut=0,LowPctCutoff=1,EDA_high_cut=1000,HighPctCutoff=1){
+E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdslocation.EDA,summarylocation,EDA_low_cut=0,LowPctCutoff=1,EDA_high_cut=1000,HighPctCutoff=1,
+                                             KeepRejectFlag=T){
 
 
   for (NUMB in participant_list) {
@@ -118,11 +120,13 @@ E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdsloc
 
 
 
-    if (max(EDA$EDA_reject_toolow)>=(LowPctCutoff*20)){EDA[EDA$EDA_reject_toolow>=(LowPctCutoff*20),]$EDA_reject<-1}
-    if (max(EDA$EDA_reject_toohigh)>=(HighPctCutoff*20)){EDA[EDA$EDA_reject_toohigh>=(HighPctCutoff*20),]$EDA_reject<-1}
+    if(max(EDA$EDA_reject_toolow)>=(LowPctCutoff*20)){EDA[EDA$EDA_reject_toolow>=(LowPctCutoff*20),]$EDA_reject<-1}
+    if(max(EDA$EDA_reject_toohigh)>=(HighPctCutoff*20)){EDA[EDA$EDA_reject_toohigh>=(HighPctCutoff*20),]$EDA_reject<-1}
 
+    #report how many samples were rejected
     message(paste(sum(EDA$EDA_reject)," samples rejected (",round((sum(EDA$EDA_reject)/nrow(EDA))*100,2),"% of all samples for this P)",sep=""))
-    ### butterworth filter
+
+     ### butterworth filter
     bf<-signal::butter(n=6,0.01)       # 1 Hz low-pass filter, 6th order
     EDA$EDA_filtered<-NA
     EDA[EDA$EDA_reject==0,]$EDA_filtered<- signal::filter(bf, EDA[EDA$EDA_reject==0,]$EDA_raw)
@@ -133,6 +137,12 @@ E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdsloc
     EDA$EDA_FeatureScaled_Filtered<-BBmisc::normalize(EDA$EDA_filtered,method="range",range=c(0,1)) ### do feature-scaling
     EDA$Participant<-NUMB
 
+    ### eda high and low pass filtered only
+    EDA$EDA_HighLowPass<-EDA$EDA_raw
+    if(sum(EDA$EDA_reject)>0){EDA[EDA$EDA_reject==1,]$EDA_HighLowPass<-NA}
+
+
+
 ###merge EDA data into full participant dataset and save
 EDA_raw<-rbind(EDA_raw,EDA)
 
@@ -141,10 +151,16 @@ EDA_raw$FiveSecBin<-NULL
 EDA_raw$TooLow<-NULL
 EDA_raw$EDA_reject_toolow<-NULL
 EDA_raw$TooHigh<-NULL
-EDA_raw$EDA_reject<-NULL
+
 
 #reorder
-EDA_raw<-EDA_raw[c("Participant", "E4_serial", "ts","EDA_raw","EDA_FeatureScaled","EDA_filtered","EDA_FeatureScaled_Filtered")]
+EDA_raw<-EDA_raw[c("Participant", "E4_serial", "ts","EDA_raw","EDA_HighLowPass","EDA_FeatureScaled","EDA_filtered","EDA_FeatureScaled_Filtered","EDA_reject")]
+
+###remove optional columsn
+if(KeepRejectFlag==F){EDA_raw$EDA_reject<-NULL}
+
+
+
 
 if(!dir.exists(rdslocation.EDA)==T){dir.create(rdslocation.EDA,recursive=T)}
 filename<-paste(rdslocation.EDA,NUMB,"_EDA.rds",sep="")
@@ -167,7 +183,6 @@ if(!dir.exists(summarylocation)==T){dir.create(summarylocation,recursive=T)}
 names(AllPartSummary)<-c("ID","TotalTime","NumbSamples","NumbRejected","NumbSamples")
 Allsummaryfilename<-paste(summarylocation,"ALL_summary.csv",sep="")
 utils::write.csv(AllPartSummary,file=Allsummaryfilename)
-
 }
 
 
