@@ -6,7 +6,7 @@
 \alias{E4tools-package}
 \title{E4tools: Management and Processing Tools for Data Produced by the Empatica E4}
 \description{
-Process and manage the data from the Empatica E4. All functions operate on the EDA data stream, but other streams will be added soon.
+Process and manage the data from the Empatica E4. All functions operate on the EDA data stream, but other streams will be added soon. The Empatica E4 is a wearable physiological monitor made by Empatica (Empatica is not associated with any of this code).
 }
 \author{
 \strong{Maintainer}: Evan Kleiman \email{evan.kleiman@rutgers.edu}

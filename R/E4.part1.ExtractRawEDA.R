@@ -14,14 +14,18 @@
 #' @keywords EDA
 #' @export
 #' @examples
-#' \dontrun{E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1003),
-#' ziplocation="/Users/documents/study/data/Raw_E4_Data/",
-#' rdslocation.EDA="/Users/documents/study/data/EDA/",
-#' summarylocation="/Users/documents/study/data/EDA/summaries/",
+#'E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1003),
+#' ziplocation=paste(system.file(package="E4tools"),"/extdata/E4_demo_data/",sep=""),
+#' rdslocation.EDA=paste(tempdir(),"/extdata/output/raw_EDA/",sep=""),
+#' summarylocation=paste(tempdir(),"/extdata/output/summaries/",sep=""),
+#' EDA_low_cut=0.001,LowPctCutoff=.75,
+#' EDA_high_cut=25,HighPctCutoff=.75)
+#' \donttest{E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1003),
+#' ziplocation=paste(system.file(package="E4tools"),"/extdata/E4_demo_data/",sep=""),
+#' rdslocation.EDA=paste(system.file(package="E4tools"),"/extdata/output/raw_EDA/",sep=""),
+#' summarylocation=paste(system.file(package="E4tools"),"/extdata/output/summaries/",sep=""),
 #' EDA_low_cut=0.001,LowPctCutoff=.75,
 #' EDA_high_cut=25,HighPctCutoff=.75)}
-#'
-#'
 #'
 
 E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdslocation.EDA,summarylocation,EDA_low_cut=0,LowPctCutoff=1,EDA_high_cut=1000,HighPctCutoff=1,

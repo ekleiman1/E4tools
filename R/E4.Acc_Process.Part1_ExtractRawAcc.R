@@ -1,14 +1,16 @@
 #' Acc Processing Part 1: Extract raw acceleromter data
 #'
-#' This function allows you extract acceleromter data. It will output raw acceleromter data (x,y,z).
-#' Inputs are: (1) List of participant numbers and (2) location where ZIP folders are stored. Outputs are: (1) one RDS file per participant with all data
+#' This early-release function allows you extract acceleromter data. It will output raw acceleromter data (x,y,z).
+#' Inputs are: (1) List of participant numbers and (2) location where ZIP folders are stored. Outputs are: (1) one RDS file per participant with all data. A working example and vignette will be added later.
 #' @param participant_list list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001")
 #' @param ziplocation folder location where the participant-level subfolders are (make sure that it ends in /)
 #' @param rdslocation.acc folder location where you want the RDS outputs to go (make sure that it ends in /)
 #' @keywords acc
 #' @export
 #' @examples
-#' \dontrun{XXX}
+#' \dontrun{E4.Acc_Process.Part1.ExtractRawAcc(participant_list=c(1001:1002),
+#' ziplocation="~/documents/study/data/",
+#' rdslocation.acc="~/documents/study/data/acc/")}
 
 
 E4.Acc_Process.Part1.ExtractRawAcc<-function(participant_list,ziplocation,rdslocation.acc){

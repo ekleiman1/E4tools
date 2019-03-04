@@ -45,8 +45,8 @@ E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1003),
 ```{r eval=TRUE, echo=FALSE} 
 E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1003),
                                    ziplocation=paste(system.file(package="E4tools"),"/extdata/E4_demo_data/",sep=""),
-                                   rdslocation.EDA=paste(system.file(package="E4tools"),"/extdata/output/raw_EDA/",sep=""),
-                                   summarylocation=paste(system.file(package="E4tools"),"/extdata/output/summaries/",sep=""),
+                                   rdslocation.EDA=paste(tempdir(),"/extdata/output/raw_EDA/",sep=""),
+                                   summarylocation=paste(tempdir(),"/extdata/output/summaries/",sep=""),
                                    EDA_low_cut=0.001,LowPctCutoff=.75,
                                    EDA_high_cut=25,HighPctCutoff=.75)
 
@@ -72,9 +72,9 @@ Output (one file per study): RDS file with list of IDs and button press times.
 
 ```{r eval=FALSE, echo=TRUE}
 E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1003),
-                                          ziplocation="/extdata/E4_demo_data/",
-                                          rdslocation.buttonpress="/extdata/output/presses/",
-                                          summarylocation="/extdata/output/summaries/",
+                                          ziplocation="~/extdata/E4_demo_data/",
+                                          rdslocation.buttonpress="~/extdata/output/presses/",
+                                          summarylocation="~/extdata/output/summaries/",
                                           cutoff.ends=2,
                                           cutoff.overlap=20)
 ```
@@ -83,8 +83,8 @@ E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1003),
 ```{r eval=TRUE, echo=FALSE}
 E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1003),
                                           ziplocation=paste(system.file(package="E4tools"),"/extdata/E4_demo_data/",sep=""),
-                                          rdslocation.buttonpress=paste(system.file(package="E4tools"),"/extdata/output/presses/",sep=""),
-                                          summarylocation=paste(system.file(package="E4tools"),"/extdata/output/summaries/",sep=""),
+                                          rdslocation.buttonpress=paste(tempdir(),"/extdata/output/presses/",sep=""),
+                                          summarylocation=paste(tempdir(),"/extdata/output/summaries/",sep=""),
                                           cutoff.ends=2,
                                           cutoff.overlap=20)
 ```
@@ -113,9 +113,9 @@ E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001:1003),
 #### Console output
 ```{r, eval=TRUE, echo=FALSE}
 E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001:1003),
-                                       rdslocation.buttonpress=paste(system.file(package="E4tools"),"/extdata/output/presses/",sep=""),
-                                        rdslocation.MatchedEDA=paste(system.file(package="E4tools"),"/extdata/output/matched_EDA/",sep=""),
-                                      rdslocation.EDA=paste(system.file(package="E4tools"),"/extdata/output/raw_EDA/",sep=""),
+                                       rdslocation.buttonpress=paste(tempdir(),"/extdata/output/presses/",sep=""),
+                                        rdslocation.MatchedEDA=paste(tempdir(),"/extdata/output/matched_EDA/",sep=""),
+                                      rdslocation.EDA=paste(tempdir(),"/extdata/output/raw_EDA/",sep=""),
                                        min.before=20,min.after=20,control=T)
 ```
 
@@ -132,21 +132,21 @@ knitr::kable(Table2a, format = "html")
 This is the final step where everything gets put into one file. 
 ```{r,eval=FALSE, echo=TRUE}
 E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1003),
-                                    rdslocation.MatchedEDA="/extdata/output/matched_EDA/",
-                                    rdslocation.BinnedMatchedEDA="/extdata/output/binned_matched_EDA/",
+                                    rdslocation.MatchedEDA="~/extdata/output/matched_EDA/",
+                                    rdslocation.BinnedMatchedEDA="~/extdata/output/binned_matched_EDA/",
                                    min.after = 20,min.before = 20)
 ```
 #### Console output
 ```{r,eval=TRUE, echo=FALSE}
 E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1003),
-                                    rdslocation.MatchedEDA=paste(system.file(package="E4tools"),"/extdata/output/matched_EDA/",sep=""),
-                                    rdslocation.BinnedMatchedEDA=paste(system.file(package="E4tools"),"/extdata/output/binned_matched_EDA/",sep=""),
+                                    rdslocation.MatchedEDA=paste(tempdir(),"/extdata/output/matched_EDA/",sep=""),
+                                    rdslocation.BinnedMatchedEDA=paste(tempdir(),"/extdata/output/binned_matched_EDA/",sep=""),
                                    min.after = 20,min.before = 20)
 ```
 #### Sample of RDS output file
-Note: The values for "MinBeforeAfter" for "before" values will be negative, to facilate things like growth curve modeling. If you positive integers, just multiple this column by -1.
+Note: The values for "MinBeforeAfter" for "before" values will be negative, to use with things like growth curve modeling. If you positive integers, just multiple this column by -1.
 ```{r, echo=FALSE,eval=FALSE}
-Table3<-readRDS("EDA_merged_binned.RDS")
-Table3a<-head(Table3)
-knitr::kable(Table3a, format = "html")
+load(paste(system.file(package="E4tools"),"/data/EDA_Vignette4.rda",sep=""))
+EDA_Vignette4a<-head(EDA_Vignette4)
+knitr::kable(EDA_Vignette4a, format = "html")
 ```
