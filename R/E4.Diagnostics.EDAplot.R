@@ -6,6 +6,7 @@
 #' @param rdslocation.buttonpress location of folder where button press output is stored (from part 2)
 #' @param plotlocation.EDA Folder where you want to store the PDF plots
 #' @param RejectFlagCount What percent of samples in the bin must be bad for the entire bin to be marked bad? Default is 48, which is 10 percent of samples in a 2-minute bin.
+#' @param Plot_E4s Do you want a line at the bottom of the plot showing which E4 the participant was wearing?
 #' @keywords diagnostics plots
 #' @export
 #' @examples
@@ -17,13 +18,22 @@
 #'
 #'
 #'
-E4.Diagnostics.EDAplot<-function(participant_list,rdslocation.binnedEDA,rdslocation.buttonpress,plotlocation.EDA,RejectFlagCount=48){
-  ###open data
+E4.Diagnostics.EDAplot<-function(participant_list,rdslocation.binnedEDA,rdslocation.buttonpress,plotlocation.EDA,RejectFlagCount=48,Plot_E4s=T){
+
+  ##Open button press file (since that only needs to be done once per set b/c all participants' data are in one file)
+  Buttons<-readRDS(paste(rdslocation.buttonpress,"button_presses.rds",sep=""))
+
+   ###open data
   for(NUMB in participant_list){
+
+    PlotData<-readRDS(paste(rdslocation.binnedEDA,NUMB,"_binnedEDA.rds",sep=""))
+
+    if(nrow(PlotData)>10){
+
     message(paste("Starting participant",NUMB))
 
 ##Open Data
-PlotData<-readRDS(paste(rdslocation.binnedEDA,NUMB,"_binnedEDA.rds",sep=""))
+
 
 
 ###make variable that gives date (for facetting)
@@ -44,9 +54,10 @@ PlotData$ts_time<-as.POSIXct(as.character(paste("2019-01-01 ",chron::times(forma
 
 
 ###button pressess####
-Buttons<-readRDS(paste(rdslocation.buttonpress,"button_presses.rds",sep=""))
+
 Plot_Buttons<-Buttons[Buttons$ID==NUMB,]
 
+if(nrow(Plot_Buttons)>0){
 ###check to see what format button presses are in (second vs. milisecond)
 if(Plot_Buttons$ts[1]>10000000000){Plot_Buttons$Press_Time<-anytime::anytime(Plot_Buttons$ts/1000)}
 if(Plot_Buttons$ts[1]<10000000000){Plot_Buttons$Press_Time<-anytime::anytime(Plot_Buttons$ts)}
@@ -57,34 +68,49 @@ Plot_Buttons$ts_time<-as.POSIXct(as.character(paste("2019-01-01 ",chron::times(f
 
 if(Plot_Buttons$ts[1]>10000000000){Plot_Buttons$ts_date<-anytime::anydate(Plot_Buttons$ts/1000)}
 if(Plot_Buttons$ts[1]<10000000000){Plot_Buttons$ts_date<-anytime::anydate(Plot_Buttons$ts)}
+}
+
+if(nrow(Plot_Buttons)==0){message(paste("NOTE: No button press data for participant number ",NUMB,". The plot will show EDA data only."))}
 
 ###make reject % variables
 PlotData$EDA_reject_CAT<-"GOOD"
-PlotData[PlotData$EDA_reject>=RejectFlagCount,]$EDA_reject_CAT<-"BAD"
+if(max(PlotData$EDA_reject)>=RejectFlagCount){PlotData[PlotData$EDA_reject>=RejectFlagCount,]$EDA_reject_CAT<-"BAD"}
 
 
 
+##make labels
 BadLabel<-paste(round((stats::ftable(PlotData$EDA_reject_CAT)[1]/sum(ftable(PlotData$EDA_reject_CAT))*100),2),"% of bins",sep="")
 GoodLabel<-paste(round((stats::ftable(PlotData$EDA_reject_CAT)[2]/sum(ftable(PlotData$EDA_reject_CAT))*100),2),"% of bins",sep="")
-
+BinSize<-round((PlotData$ts[5]-PlotData$ts[4])/(60*1000),0)
 
 ##make plot####
 
+
 PlotOut<-ggplot2::ggplot()+
-  ggplot2::geom_line(ggplot2::aes(x=ts_time,y=EDA_HighLowPass,color=E4_serial,linetype=as.factor(EDA_reject_CAT)),data=PlotData)+
-  ggplot2::geom_vline(ggplot2::aes(xintercept=ts_time),data=Plot_Buttons)+
-  ggplot2::facet_wrap(~ts_date)+ggplot2::scale_linetype_manual(values=c("twodash", "solid"),name="Data Quality",
-                                                               labels = c(paste("Bad\n",BadLabel,sep=""),paste("Good\n",GoodLabel,sep="")))+
+  ggplot2::geom_path(ggplot2::aes(x=ts_time,y=EDA_HighLowPass,color=as.factor(EDA_reject_CAT),group=1),data=PlotData)+
+  ggplot2::facet_wrap(~ts_date)+
   ggplot2::scale_x_time(labels = scales::time_format("%H:%M",tz = "America/New_York"),breaks=seq(as.POSIXct("2019-01-01 00:00:00 EST"),as.POSIXct("2019-01-01 24:00:00 EST"),"6 hours"))+
-  ggplot2::labs(x="Time of Day",y="Binned EDA \n(w/high + low pass filter)",title=paste("All data for participant ID ",NUMB,sep=""))
+  ggplot2::labs(x="Time of Day",y="Binned EDA \n(w/high + low pass filter)",title=paste("All data for participant ID ",NUMB,sep=""),subtitle=(paste("(",BinSize," minute bins)",sep="")))
 
+##next two if statements handle issues with the data quality legend when all data are good.
+if(max(PlotData$EDA_reject)>=RejectFlagCount){ PlotOut<-PlotOut+ggplot2::scale_color_manual(values=c("red", "blue"),name="Data Quality",
+                               labels = c(paste("Bad\n",BadLabel,sep=""),paste("Good\n",GoodLabel,sep="")))}
 
+if(max(PlotData$EDA_reject)<RejectFlagCount){PlotOut<-PlotOut+ggplot2::scale_color_manual(values=c("blue"),name="Data Quality",
+                                                                                         labels = c(paste("Good\n 100% of bins",sep="")))}
+
+## add button pressess
+if(nrow(Plot_Buttons)>0){PlotOut<-PlotOut+ggplot2::geom_vline(ggplot2::aes(xintercept=ts_time),data=Plot_Buttons)}
+
+if(Plot_E4s==T){PlotOut<-PlotOut+ggplot2::geom_line(ggplot2::aes(x=ts_time,y=0.1,group=E4_serial,linetype=E4_serial),data=PlotData)}
 
 
 
 ### Save File
 if(!dir.exists(plotlocation.EDA)==T){dir.create(plotlocation.EDA,recursive=T)}
 ggplot2::ggsave(filename=paste(plotlocation.EDA,"EDAplot_",NUMB,".pdf",sep=""),plot=PlotOut,width=11,height=8.5,units="in")
+    }
+    if(nrow(PlotData)<10){message(paste("No EDA data for ",NUMB,", going to next participant.",sep=""))}
   }
 }
 
