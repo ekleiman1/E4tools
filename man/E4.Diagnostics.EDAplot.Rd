@@ -5,7 +5,8 @@
 \title{Diagnostics: Plot EDA data and button presses}
 \usage{
 E4.Diagnostics.EDAplot(participant_list, rdslocation.binnedEDA,
-  rdslocation.buttonpress, plotlocation.EDA, RejectFlagCount = 48)
+  rdslocation.buttonpress, plotlocation.EDA, RejectFlagCount = 48,
+  Plot_E4s = T)
 }
 \arguments{
 \item{participant_list}{list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001")}
@@ -17,6 +18,8 @@ E4.Diagnostics.EDAplot(participant_list, rdslocation.binnedEDA,
 \item{plotlocation.EDA}{Folder where you want to store the PDF plots}
 
 \item{RejectFlagCount}{What percent of samples in the bin must be bad for the entire bin to be marked bad? Default is 48, which is 10 percent of samples in a 2-minute bin.}
+
+\item{Plot_E4s}{Do you want a line at the bottom of the plot showing which E4 the participant was wearing?}
 }
 \description{
 This will allow you to see all binned EDA data for a participant, along with which band they were wearing and when they pressed the event marker. One PDF file is made per participant.
