@@ -18,7 +18,7 @@
 #'
 #'
 #'
-E4.Diagnostics.EDAplot<-function(participant_list,rdslocation.binnedEDA,rdslocation.buttonpress,plotlocation.EDA,RejectFlagCount=48,Plot_E4s=T){
+E4.Diagnostics.EDAplot<-function(participant_list,rdslocation.binnedEDA,rdslocation.buttonpress,plotlocation.EDA,RejectFlagCount=48,Plot_E4s=TRUE){
 
   ##Open button press file (since that only needs to be done once per set b/c all participants' data are in one file)
   Buttons<-readRDS(paste(rdslocation.buttonpress,"button_presses.rds",sep=""))
@@ -102,12 +102,12 @@ if(max(PlotData$EDA_reject)<RejectFlagCount){PlotOut<-PlotOut+ggplot2::scale_col
 ## add button pressess
 if(nrow(Plot_Buttons)>0){PlotOut<-PlotOut+ggplot2::geom_vline(ggplot2::aes(xintercept=ts_time),data=Plot_Buttons)}
 
-if(Plot_E4s==T){PlotOut<-PlotOut+ggplot2::geom_line(ggplot2::aes(x=ts_time,y=0.1,group=E4_serial,linetype=E4_serial),data=PlotData)}
+if(Plot_E4s==TRUE){PlotOut<-PlotOut+ggplot2::geom_line(ggplot2::aes(x=ts_time,y=0.1,group=E4_serial,linetype=E4_serial),data=PlotData)}
 
 
 
 ### Save File
-if(!dir.exists(plotlocation.EDA)==T){dir.create(plotlocation.EDA,recursive=T)}
+if(!dir.exists(plotlocation.EDA)==TRUE){dir.create(plotlocation.EDA,recursive=TRUE)}
 ggplot2::ggsave(filename=paste(plotlocation.EDA,"EDAplot_",NUMB,".pdf",sep=""),plot=PlotOut,width=11,height=8.5,units="in")
     }
     if(nrow(PlotData)<10){message(paste("No EDA data for ",NUMB,", going to next participant.",sep=""))}

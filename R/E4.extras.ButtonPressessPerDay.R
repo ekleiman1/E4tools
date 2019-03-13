@@ -8,13 +8,13 @@
 #' @export
 #' @examples
 #' \dontrun{E4.extras.ButtonPressessPerDay(rdslocation.buttonpress="/Users/documents/study/data/tags/",
-#' ImputeNAs=T,ImputeZeros=T)}
+#' ImputeNAs=TRUE,ImputeZeros=TRUE)}
 
 
 
 
 
-E4.extras.ButtonPressessPerDay<-function(rdslocation.buttonpress,ImputeNAs=F,ImputeZeros=F){
+E4.extras.ButtonPressessPerDay<-function(rdslocation.buttonpress,ImputeNAs=FALSE,ImputeZeros=FALSE){
   press_summary<-readRDS(paste(rdslocation.buttonpress,"button_presses.RDS",sep=""))
 
   press_summary$press<-1
@@ -22,7 +22,7 @@ E4.extras.ButtonPressessPerDay<-function(rdslocation.buttonpress,ImputeNAs=F,Imp
 
  press_day<-stats::aggregate(press~ID+date,data=press_summary,FUN="sum")
 
-  if(ImputeNAs==T){
+  if(ImputeNAs==TRUE){
   IDs<-as.numeric(as.character(as.vector(levels(as.factor(press_day$ID)))))
   press_day_w_NAs<-NULL
   for(ID in IDs) {
@@ -31,15 +31,15 @@ E4.extras.ButtonPressessPerDay<-function(rdslocation.buttonpress,ImputeNAs=F,Imp
     xx<-as.data.frame(cbind(anytime::anydate(dates),1,ID))
     names(xx)<-c("date","NoPress","ID")
     xx$date<-anytime::anydate(xx$date)
-    press_day_single_P<-merge(press_day_single_P,xx,by=c("ID","date"),all.y=T)
+    press_day_single_P<-merge(press_day_single_P,xx,by=c("ID","date"),all.y=TRUE)
     press_day_single_P$NoPress<-NULL
     press_day_w_NAs<-rbind(press_day_single_P,press_day_w_NAs)
   }
   }
 
- if(ImputeZeros==T){press_day_w_NAs[is.na(press_day_w_NAs$press),]$press<-0}
- if(ImputeNAs==T){return(press_day_w_NAs)}
- if(ImputeNAs==F){return(press_day)}
+ if(ImputeZeros==TRUE){press_day_w_NAs[is.na(press_day_w_NAs$press),]$press<-0}
+ if(ImputeNAs==TRUE){return(press_day_w_NAs)}
+ if(ImputeNAs==FALSE){return(press_day)}
 
 
 

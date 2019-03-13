@@ -4,8 +4,8 @@
 \alias{E4.extras.ButtonPressessPerDay}
 \title{EDA Extra Processing: Get number of button presses per participant, per day from the combined "button_pressess.RDS" file}
 \usage{
-E4.extras.ButtonPressessPerDay(rdslocation.buttonpress, ImputeNAs = F,
-  ImputeZeros = F)
+E4.extras.ButtonPressessPerDay(rdslocation.buttonpress,
+  ImputeNAs = FALSE, ImputeZeros = FALSE)
 }
 \arguments{
 \item{rdslocation.buttonpress}{location of folder where button press output is stored (the file is called "button_presses.RDS"). This should end in / .}
@@ -22,5 +22,5 @@ This function allows you extract button pressess per participant, per day. It wi
 }
 \examples{
 \dontrun{E4.extras.ButtonPressessPerDay(rdslocation.buttonpress="/Users/documents/study/data/tags/",
-ImputeNAs=T,ImputeZeros=T)}
+ImputeNAs=TRUE,ImputeZeros=TRUE)}
 }

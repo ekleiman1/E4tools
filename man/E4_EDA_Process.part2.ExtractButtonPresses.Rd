@@ -31,7 +31,7 @@ rdslocation.buttonpress=paste(tempdir(),"/extdata/output/presses/",sep=""),
 summarylocation=paste(tempdir(),"/extdata/output/summaries/",sep=""),
 cutoff.ends=2,
 cutoff.overlap=20)
-\dontrun{E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1008,1011:1014,1017,1021),
+\donttest{E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1008,1011:1014,1017,1021),
 ziplocation="/Users/documents/study/data/Raw_E4_Data/",
 rdslocation.buttonpress="/Users/documents/study/data/tags/",
 summarylocation="/Users/documents/study/data/EDA/summaries/",

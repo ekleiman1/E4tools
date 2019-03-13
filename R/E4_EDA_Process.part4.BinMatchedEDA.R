@@ -21,7 +21,7 @@
 #'
 
 
-E4_EDA_Process.part4.BinMatchedEDA<-function(participant_list,rdslocation.MatchedEDA,rdslocation.BinnedMatchedEDA,min.after,min.before,control=F){
+E4_EDA_Process.part4.BinMatchedEDA<-function(participant_list,rdslocation.MatchedEDA,rdslocation.BinnedMatchedEDA,min.after,min.before,control=FALSE){
 
 
   MatchedEDA<-readRDS(paste(rdslocation.MatchedEDA,"EDA_presses_COMBINED.RDS",sep=""))
@@ -55,9 +55,9 @@ if(min.before>0){
         EDA_Binned_Single_fscale<-stats::aggregate(as.numeric(as.character(EDA_FeatureScaled))~(bin),data=BINS_before,FUN="mean")
         EDA_Binned_Single_fscale_filtered<-stats::aggregate(as.numeric(as.character(EDA_FeatureScaled_Filtered))~(bin),data=BINS_before,FUN="mean")
 
-        EDA_Binned_Single<-merge(EDA_Binned_Single_raw,EDA_Binned_Single_filtered,by="bin",all=T)
-        EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale,by="bin",all=T)
-        EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale_filtered,by="bin",all=T)
+        EDA_Binned_Single<-merge(EDA_Binned_Single_raw,EDA_Binned_Single_filtered,by="bin",all=TRUE)
+        EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale,by="bin",all=TRUE)
+        EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale_filtered,by="bin",all=TRUE)
 
         Press_Numb<-as.numeric(as.character(PressTime))
         EDA_Binned_Single<-cbind(NUMB,Press_Numb,Before_After,TYPE,EDA_Binned_Single)
@@ -87,9 +87,9 @@ if(min.after>0){
 
 
 
-        EDA_Binned_Single<-merge(EDA_Binned_Single_raw,EDA_Binned_Single_filtered,by="bin",all=T)
-        EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale,by="bin",all=T)
-        EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale_filtered,by="bin",all=T)
+        EDA_Binned_Single<-merge(EDA_Binned_Single_raw,EDA_Binned_Single_filtered,by="bin",all=TRUE)
+        EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale,by="bin",all=TRUE)
+        EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale_filtered,by="bin",all=TRUE)
 
         Press_Numb<-as.numeric(as.character(PressTime))
         EDA_Binned_Single<-cbind(NUMB,Press_Numb,Before_After,TYPE,EDA_Binned_Single)
@@ -98,7 +98,7 @@ if(min.after>0){
 }
 
 ###Bins for BEFORE - CONTROL
-    if(control==T){
+    if(control==TRUE){
     if(min.before>0){
 
       Before_After="BEFORE"
@@ -118,9 +118,9 @@ if(min.after>0){
           EDA_Binned_Single_fscale<-stats::aggregate(as.numeric(as.character(EDA_FeatureScaled))~(bin),data=BINS_before,FUN="mean")
           EDA_Binned_Single_fscale_filtered<-stats::aggregate(as.numeric(as.character(EDA_FeatureScaled_Filtered))~(bin),data=BINS_before,FUN="mean")
 
-          EDA_Binned_Single<-merge(EDA_Binned_Single_raw,EDA_Binned_Single_filtered,by="bin",all=T)
-          EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale,by="bin",all=T)
-          EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale_filtered,by="bin",all=T)
+          EDA_Binned_Single<-merge(EDA_Binned_Single_raw,EDA_Binned_Single_filtered,by="bin",all=TRUE)
+          EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale,by="bin",all=TRUE)
+          EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale_filtered,by="bin",all=TRUE)
 
           Press_Numb<-as.numeric(as.character(PressTime))+86400
           EDA_Binned_Single<-cbind(NUMB,Press_Numb,Before_After,TYPE,EDA_Binned_Single)
@@ -130,7 +130,7 @@ if(min.after>0){
     }
 }
     ###Bins for AFTER -- CONTROL
-   if(control==T){
+   if(control==TRUE){
      if(min.after>0){
 
       Before_After="AFTER"
@@ -150,9 +150,9 @@ if(min.after>0){
           EDA_Binned_Single_fscale<-stats::aggregate(as.numeric(as.character(EDA_FeatureScaled))~(bin),data=BINS_after,FUN="mean")
           EDA_Binned_Single_fscale_filtered<-stats::aggregate(as.numeric(as.character(EDA_FeatureScaled_Filtered))~(bin),data=BINS_after,FUN="mean")
 
-          EDA_Binned_Single<-merge(EDA_Binned_Single_raw,EDA_Binned_Single_filtered,by="bin",all=T)
-          EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale,by="bin",all=T)
-          EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale_filtered,by="bin",all=T)
+          EDA_Binned_Single<-merge(EDA_Binned_Single_raw,EDA_Binned_Single_filtered,by="bin",all=TRUE)
+          EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale,by="bin",all=TRUE)
+          EDA_Binned_Single<-merge(EDA_Binned_Single,EDA_Binned_Single_fscale_filtered,by="bin",all=TRUE)
 
           Press_Numb<-as.numeric(as.character(PressTime))+86400
           EDA_Binned_Single<-cbind(NUMB,Press_Numb,Before_After,TYPE,EDA_Binned_Single)

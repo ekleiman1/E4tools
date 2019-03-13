@@ -6,7 +6,7 @@
 \usage{
 E4.Diagnostics.EDAplot(participant_list, rdslocation.binnedEDA,
   rdslocation.buttonpress, plotlocation.EDA, RejectFlagCount = 48,
-  Plot_E4s = T)
+  Plot_E4s = TRUE)
 }
 \arguments{
 \item{participant_list}{list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001")}

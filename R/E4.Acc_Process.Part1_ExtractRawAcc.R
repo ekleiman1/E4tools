@@ -34,7 +34,7 @@ ACC<-NULL
                                 exdir=zipDIR,files="ACC.csv"))>500){
 
        ACC_single<-utils::read.csv(utils::unzip(CURR_ZIP, unzip = "internal",exdir=zipDIR,
-                                                 files="ACC.csv"),sep=",",header=F) ###extract ACC
+                                                 files="ACC.csv"),sep=",",header=FALSE) ###extract ACC
         StartTime<-ACC_single[1,1] #get start time
         SamplingRate<-ACC_single[2,1] #get sampling rate (will always be 32hz, but adding here for future-proofing)
         ACC_single<-ACC_single[-c(1:2),] # remove first three rows (since they contained start time and sampling rate)
@@ -63,7 +63,7 @@ names(ACC)<-c("acc_x","acc_y","acc_z","E4_serial","ts")
 ACC$Participant<-NUMB
 ACC<-ACC[c("Participant", "E4_serial", "ts","acc_x","acc_y","acc_z")]
 
-if(!dir.exists(rdslocation.acc)==T){dir.create(rdslocation.acc,recursive=T)}
+if(!dir.exists(rdslocation.acc)==TRUE){dir.create(rdslocation.acc,recursive=TRUE)}
 filename<-paste(rdslocation.acc,NUMB,"_acc.rds",sep="")
 saveRDS(ACC,file=filename)
   }

@@ -6,7 +6,7 @@
 \usage{
 E4_EDA_Process.part4.BinMatchedEDA(participant_list,
   rdslocation.MatchedEDA, rdslocation.BinnedMatchedEDA, min.after,
-  min.before, control = F)
+  min.before, control = FALSE)
 }
 \arguments{
 \item{participant_list}{list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001")}
@@ -29,7 +29,7 @@ E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1003),
 rdslocation.MatchedEDA=paste(tempdir(),"/extdata/output/matched_EDA/",sep=""),
 rdslocation.BinnedMatchedEDA=paste(tempdir(),"/extdata/output/binned_matched_EDA/",sep=""),
 min.after = 20,min.before = 20)
-\dontrun{E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1003),
+\donttest{E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1003),
 rdslocation.MatchedEDA="~/Documents/E4tools_demo_data/output/matched_EDA/",
 min.after = 20,min.before = 20,
 rdslocation.BinnedMatchedEDA="~/Documents/E4tools_demo_data/output/")}

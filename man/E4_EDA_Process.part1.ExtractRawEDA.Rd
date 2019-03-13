@@ -6,7 +6,7 @@
 \usage{
 E4_EDA_Process.part1.ExtractRawEDA(participant_list, ziplocation,
   rdslocation.EDA, summarylocation, EDA_low_cut = 0, LowPctCutoff = 1,
-  EDA_high_cut = 1000, HighPctCutoff = 1, KeepRejectFlag = T)
+  EDA_high_cut = 1000, HighPctCutoff = 1, KeepRejectFlag = TRUE)
 }
 \arguments{
 \item{participant_list}{list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001")}

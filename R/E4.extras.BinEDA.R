@@ -9,13 +9,13 @@
 #' @keywords acc
 #' @export
 #' @examples
-#' \dontrun{participant_list=c(1001:1004),rdslocation.EDA="~/study/data/EDA/",
+#' \dontrun{E4.extras.BinEDA(participant_list=c(1001:1004),rdslocation.EDA="~/study/data/EDA/",
 #'rdslocation.binnedEDA="~/study/data/Binned_EDA/",
 #'BinLengthMin=2,
-#'RejectFlag=T}
+#'RejectFlag=TRUE)}
 
 
-E4.extras.BinEDA<-function(participant_list,rdslocation.EDA,rdslocation.binnedEDA,BinLengthMin,RejectFlag=T){
+E4.extras.BinEDA<-function(participant_list,rdslocation.EDA,rdslocation.binnedEDA,BinLengthMin,RejectFlag=TRUE){
 ###open data
   for (NUMB in participant_list) {
     message(paste("Starting participant",NUMB))
@@ -33,17 +33,17 @@ BinData$bin<-rep(1:tot_bins,each=BinLengthSamples,length.out=nrow(BinData))
 ### aggregate across bins
 BinnedEDA<-stats::aggregate(cbind(EDA_raw,EDA_HighLowPass,EDA_FeatureScaled,EDA_filtered,EDA_FeatureScaled_Filtered)~(bin),data=BinData,FUN="mean")
 BinnedTS<-stats::aggregate(ts~(bin),data=BinData,FUN="min")
-if(RejectFlag==T){BinnedReject<-stats::aggregate(EDA_reject~(bin),data=BinData,FUN="sum")}
+if(RejectFlag==TRUE){BinnedReject<-stats::aggregate(EDA_reject~(bin),data=BinData,FUN="sum")}
 BinnedSerial<-stats::aggregate(E4_serial~(bin),data=BinData,FUN="max")
 
 ##merge into one file
 Binned_Merged<-merge(BinnedTS,BinnedEDA,by="bin")
-if(RejectFlag==T){Binned_Merged<-merge(Binned_Merged,BinnedReject,by="bin")}
+if(RejectFlag==TRUE){Binned_Merged<-merge(Binned_Merged,BinnedReject,by="bin")}
 Binned_Merged<-merge(Binned_Merged,BinnedSerial,by="bin")
 Binned_Merged$NUMB<-NUMB
 
 ###save
-if(!dir.exists(rdslocation.binnedEDA)==T){dir.create(rdslocation.binnedEDA,recursive=T)}
+if(!dir.exists(rdslocation.binnedEDA)==T){dir.create(rdslocation.binnedEDA,recursive=TRUE)}
 filename<-paste(rdslocation.binnedEDA,NUMB,"_binnedEDA.rds",sep="")
 saveRDS(Binned_Merged,file=filename)
 }

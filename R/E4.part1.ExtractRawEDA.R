@@ -29,7 +29,7 @@
 #'
 
 E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdslocation.EDA,summarylocation,EDA_low_cut=0,LowPctCutoff=1,EDA_high_cut=1000,HighPctCutoff=1,
-                                             KeepRejectFlag=T){
+                                             KeepRejectFlag=TRUE){
 
 
   for (NUMB in participant_list) {
@@ -53,7 +53,7 @@ E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdsloc
                          exdir=zipDIR,files="EDA.csv"))>500){
 
       EDA_single<-utils::read.csv(utils::unzip(CURR_ZIP, unzip = "internal",exdir=zipDIR,
-                                 files="EDA.csv"),sep=",",header=F) ###extract EDA
+                                 files="EDA.csv"),sep=",",header=FALSE) ###extract EDA
       StartTime<-EDA_single[1,1] #get start time
       SamplingRate<-EDA_single[2,1] #get sampling rate (will always be 4hz, but adding here for future-proofing)
       EDA_single<-EDA_single[-c(1:3),] # remove first three rows (since they contained start time, sampling rate, and a 0.00 SCL value)
@@ -161,29 +161,29 @@ EDA_raw$TooHigh<-NULL
 EDA_raw<-EDA_raw[c("Participant", "E4_serial", "ts","EDA_raw","EDA_HighLowPass","EDA_FeatureScaled","EDA_filtered","EDA_FeatureScaled_Filtered","EDA_reject")]
 
 ###remove optional columsn
-if(KeepRejectFlag==F){EDA_raw$EDA_reject<-NULL}
+if(KeepRejectFlag==FALSE){EDA_raw$EDA_reject<-NULL}
 
 
 
 
-if(!dir.exists(rdslocation.EDA)==T){dir.create(rdslocation.EDA,recursive=T)}
+if(!dir.exists(rdslocation.EDA)==TRUE){dir.create(rdslocation.EDA,recursive=TRUE)}
 filename<-paste(rdslocation.EDA,NUMB,"_EDA.rds",sep="")
 saveRDS(EDA_raw,file=filename)
 
 ###merge session summary data and save
-if(!dir.exists(summarylocation)==T){dir.create(summarylocation,recursive=T)}
+if(!dir.exists(summarylocation)==TRUE){dir.create(summarylocation,recursive=TRUE)}
 summaryfilename<-paste(summarylocation,NUMB,"_summary.csv",sep="")
 utils::write.csv(Session_combined,file=summaryfilename)
 
 ###create participant-level summary file
 TotTime<-nrow(EDA)/(4*60*60)
 PartSummary<-c(NUMB,TotTime,nrow(EDA),sum(EDA$EDA_reject),nrow(Session_combined))
-if(exists("AllPartSummary")==F){AllPartSummary<-NULL}
+if(exists("AllPartSummary")==FALSE){AllPartSummary<-NULL}
 AllPartSummary<-as.data.frame(rbind(AllPartSummary,PartSummary))
   }
 
 ####merge participant-level summary file and save
-if(!dir.exists(summarylocation)==T){dir.create(summarylocation,recursive=T)}
+if(!dir.exists(summarylocation)==TRUE){dir.create(summarylocation,recursive=TRUE)}
 names(AllPartSummary)<-c("ID","TotalTime","NumbSamples","NumbRejected","NumbSamples")
 Allsummaryfilename<-paste(summarylocation,"ALL_summary.csv",sep="")
 utils::write.csv(AllPartSummary,file=Allsummaryfilename)

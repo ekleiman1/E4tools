@@ -22,7 +22,7 @@
 #' rdslocation.buttonpress="/Users/documents/study/data/tags/",
 #' rdslocation.MatchedEDA="/Users/documents/study/data/matched/",
 #' rdslocation.EDA="/Users/documents/study/data/EDA/",
-#' min.before=20,min.after=20,control=T)}
+#' min.before=20,min.after=20,control=TRUE)}
 #'
 #'
 #'
@@ -35,9 +35,9 @@ press_summary<-readRDS(paste(rdslocation.buttonpress,"button_presses.RDS",sep=""
 
 
 ###create directory structure
-if(!dir.exists(rdslocation.MatchedEDA)==T){dir.create(rdslocation.MatchedEDA)}
+if(!dir.exists(rdslocation.MatchedEDA)==TRUE){dir.create(rdslocation.MatchedEDA)}
 individual_directory<-paste(rdslocation.MatchedEDA,"individual_participants/",sep="")
-if(!dir.exists(individual_directory)==T){dir.create(individual_directory)}
+if(!dir.exists(individual_directory)==TRUE){dir.create(individual_directory)}
 
 
   for(NUMB in participant_list) {
@@ -125,7 +125,7 @@ if(!dir.exists(individual_directory)==T){dir.create(individual_directory)}
 
 
     ### BEFORE PRESSESS - CONTROL
-    if(control==T){
+    if(control==TRUE){
       if(min.before>0){
       for(CURR_PRESS in press_times_control){
         if(sum(EDA_participant$ts<CURR_PRESS & EDA_participant$ts>(CURR_PRESS-(min.before*60*1000)))>0){
@@ -148,7 +148,7 @@ if(!dir.exists(individual_directory)==T){dir.create(individual_directory)}
       }
 
     ### AFTER PRESSESS- CONTROL
-    if(control==T){
+    if(control==TRUE){
       if (min.after>0){
       for(CURR_PRESS in press_times_control){
         if(sum(EDA_participant$ts>CURR_PRESS & EDA_participant$ts<(CURR_PRESS+(min.after*60*1000)))>0){

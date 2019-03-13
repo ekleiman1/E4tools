@@ -5,7 +5,7 @@
 \title{Extras: Make EDA bins}
 \usage{
 E4.extras.BinEDA(participant_list, rdslocation.EDA, rdslocation.binnedEDA,
-  BinLengthMin, RejectFlag = T)
+  BinLengthMin, RejectFlag = TRUE)
 }
 \arguments{
 \item{participant_list}{list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001")}
@@ -22,9 +22,9 @@ E4.extras.BinEDA(participant_list, rdslocation.EDA, rdslocation.binnedEDA,
 Put EDA data in bins of X minutes length
 }
 \examples{
-\dontrun{participant_list=c(1001:1004),rdslocation.EDA="~/study/data/EDA/",
+\dontrun{E4.extras.BinEDA(participant_list=c(1001:1004),rdslocation.EDA="~/study/data/EDA/",
 rdslocation.binnedEDA="~/study/data/Binned_EDA/",
 BinLengthMin=2,
-RejectFlag=T}
+RejectFlag=TRUE)}
 }
 \keyword{acc}

@@ -58,7 +58,7 @@ TAG3<-NULL
                          exdir=zipDIR,files="tags.csv"))>0){
 
         TAG<-utils::read.csv(utils::unzip(CURR_ZIP, unzip = "internal",exdir=zipDIR,
-                            files="tags.csv"),sep=",",header=F)
+                            files="tags.csv"),sep=",",header=FALSE)
       TAG1<-rbind(TAG1,TAG)}
 
     }}
@@ -111,7 +111,7 @@ TAG3$ts_ms<-TAG3$ts*1000
 
 ### save button press file
 
-  if(!dir.exists(rdslocation.buttonpress)==T){dir.create(rdslocation.buttonpress)}
+  if(!dir.exists(rdslocation.buttonpress)==TRUE){dir.create(rdslocation.buttonpress)}
   saveRDS(TAG3,file=paste(rdslocation.buttonpress,"button_presses.RDS",sep=""))
 
 }

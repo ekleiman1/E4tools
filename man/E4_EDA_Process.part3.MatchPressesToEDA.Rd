@@ -34,11 +34,11 @@ rdslocation.buttonpress=paste(tempdir(),"/extdata/output/presses/",sep=""),
 rdslocation.MatchedEDA=paste(tempdir(),"/extdata/output/matched_EDA/",sep=""),
 rdslocation.EDA=paste(tempdir(),"/extdata/output/raw_EDA/",sep=""),
 min.before=20,min.after=20,control=TRUE)
-\dontrun{E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001:1008,1011:1014,1017,1021),
+\donttest{E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001:1008,1011:1014,1017,1021),
 rdslocation.buttonpress="/Users/documents/study/data/tags/",
 rdslocation.MatchedEDA="/Users/documents/study/data/matched/",
 rdslocation.EDA="/Users/documents/study/data/EDA/",
-min.before=20,min.after=20,control=T)}
+min.before=20,min.after=20,control=TRUE)}
 
 
 
