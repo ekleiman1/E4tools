@@ -1,6 +1,6 @@
 #' Diagnostics: Plot EDA data and button presses
 #'
-#' This will allow you to see all binned EDA data for a participant, along with which band they were wearing and when they pressed the event marker. One PDF file is made per participant.
+#' This will allow you to see all binned EDA data for a participant, along with which band they were wearing and when they pressed the event marker. One PDF file is made per participant. You must run E4.extras.BinEDA() first to prepare for this step.
 #' @param participant_list list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001")
 #' @param rdslocation.binnedEDA folder location where binned EDA is stored (from E4.extras.BinEDA function)
 #' @param rdslocation.buttonpress location of folder where button press output is stored (from part 2)
@@ -25,7 +25,10 @@ E4.Diagnostics.EDAplot<-function(participant_list,rdslocation.binnedEDA,rdslocat
 
    ###open data
   for(NUMB in participant_list){
-
+    if(file.exists(paste(rdslocation.binnedEDA,NUMB,"_binnedEDA.rds",sep=""))==FALSE){
+      message(paste("No data for ",NUMB,". Was EDA part 1 or EDA binning not run or did it fail for this participant? Going on to next participant.",sep=""))
+      next
+    }
     PlotData<-readRDS(paste(rdslocation.binnedEDA,NUMB,"_binnedEDA.rds",sep=""))
 
     if(nrow(PlotData)>10){

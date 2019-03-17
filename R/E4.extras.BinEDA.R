@@ -20,7 +20,13 @@ E4.extras.BinEDA<-function(participant_list,rdslocation.EDA,rdslocation.binnedED
   for (NUMB in participant_list) {
     message(paste("Starting participant",NUMB))
 
-  BinData<-readRDS(paste(rdslocation.EDA,NUMB,"_EDA.rds",sep=""))
+
+    if(file.exists(paste(rdslocation.EDA,NUMB,"_EDA.rds",sep=""))==FALSE){
+      message(paste("No data for ",NUMB,". Was EDA part 1 not run or did it fail for this participant? Going on to next participant.",sep=""))
+      next
+      }
+
+    BinData<-readRDS(paste(rdslocation.EDA,NUMB,"_EDA.rds",sep=""))
 
 
 ##calculate metrics for bin sizes
