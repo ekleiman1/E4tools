@@ -70,11 +70,22 @@ TAG3<-NULL
     names(TAG1)<-"Press_TS"
 
     ###remove presses within XX minutes of the end of a file (XX = minutes as defined in cutoff.ends)
-    if(cutoff.ends>0){
+   if(cutoff.ends>0){
     for (iENDS in part1summary$EndTime) {
       TAG1<-TAG1[!(TAG1<iENDS & TAG1>(iENDS-(cutoff.ends*60)))]
     }
     }
+
+
+
+    ###remove presses within XX minutes of the end of a file (XX = minutes as defined in cutoff.ends)
+    if(cutoff.ends>0){
+      for (iENDS in part1summary$EndTime) {
+        TAG1<-TAG1[!(TAG1<iENDS & TAG1>(iENDS-(cutoff.ends*60)))]
+      }
+    }
+
+
 
     TAG1<-as.data.frame(TAG1);names(TAG1)<-"Press_TS"
 

@@ -6,9 +6,13 @@
 #' @param rdslocation.binnedEDA folder location where you want the RDS outputs to go (make sure that it ends in /)
 #' @param BinLengthMin folder location where you want the RDS outputs to go (make sure that it ends in /)
 #' @param RejectFlag Did you include in step 1 the option to keep the flag that shows which data the high and low pass filters rejected (By default, these are included in step 1) AND do you want to include a summary in this dataset of how many samples in a bin were rejected? If you want to run the diagnostic steps, you must keep this. Defaults to TRUE.
-#' @keywords acc
+#' @keywords EDA
 #' @export
 #' @examples
+#' E4.extras.BinEDA(participant_list=c(1001:1003),
+#' rdslocation.EDA=paste(tempdir(),"/extdata/output/raw_EDA/",sep=""),
+#' rdslocation.binnedEDA=paste(tempdir(),"/extdata/output/binned_EDA/",sep=""),
+#' BinLengthMin=2,RejectFlag=TRUE)
 #' \dontrun{E4.extras.BinEDA(participant_list=c(1001:1004),rdslocation.EDA="~/study/data/EDA/",
 #'rdslocation.binnedEDA="~/study/data/Binned_EDA/",
 #'BinLengthMin=2,

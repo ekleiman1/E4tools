@@ -22,9 +22,13 @@ E4.extras.BinEDA(participant_list, rdslocation.EDA, rdslocation.binnedEDA,
 Put EDA data in bins of X minutes length
 }
 \examples{
+E4.extras.BinEDA(participant_list=c(1001:1003),
+rdslocation.EDA=paste(tempdir(),"/extdata/output/raw_EDA/",sep=""),
+rdslocation.binnedEDA=paste(tempdir(),"/extdata/output/binned_EDA/",sep=""),
+BinLengthMin=2,RejectFlag=TRUE)
 \dontrun{E4.extras.BinEDA(participant_list=c(1001:1004),rdslocation.EDA="~/study/data/EDA/",
 rdslocation.binnedEDA="~/study/data/Binned_EDA/",
 BinLengthMin=2,
 RejectFlag=TRUE)}
 }
-\keyword{acc}
+\keyword{EDA}

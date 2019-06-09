@@ -1,15 +1,20 @@
 #' Diagnostics: Plot EDA data and button presses
 #'
 #' This will allow you to see all binned EDA data for a participant, along with which band they were wearing and when they pressed the event marker. One PDF file is made per participant. You must run E4.extras.BinEDA() first to prepare for this step.
-#' @param participant_list list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001")
-#' @param rdslocation.binnedEDA folder location where binned EDA is stored (from E4.extras.BinEDA function)
-#' @param rdslocation.buttonpress location of folder where button press output is stored (from part 2)
-#' @param plotlocation.EDA Folder where you want to store the PDF plots
+#' @param participant_list list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001").
+#' @param rdslocation.binnedEDA folder location where binned EDA is stored (from E4.extras.BinEDA function).
+#' @param rdslocation.buttonpress location of folder where button press output is stored (from part extract raw EDA part 2). Set to FALSE if you do not want to plot the button presses.
+#' @param plotlocation.EDA Folder where you want to store the PDF plots. Set this to FALSE if you do not want to save the PDF output. You should only set to false if you are displaying the plot instead, and thus should also set display_plot to TRUE.
 #' @param RejectFlagCount What percent of samples in the bin must be bad for the entire bin to be marked bad? Default is 48, which is 10 percent of samples in a 2-minute bin.
 #' @param Plot_E4s Do you want a line at the bottom of the plot showing which E4 the participant was wearing?
+#' @param display_plot Do you want the plot to be displayed on screen in addition to saving the PDF file? Defaults to false. This is most useful if you are only looking at one participant's data.
 #' @keywords diagnostics plots
 #' @export
 #' @examples
+#' E4.Diagnostics.EDAplot(participant_list=c(1001),
+#' rdslocation.buttonpress=FALSE,
+#' rdslocation.binnedEDA=paste(system.file(package="E4tools"),"/extdata/plots/",sep=""),
+#' plotlocation.EDA=FALSE,display_plot=TRUE)
 #' \dontrun{E4.Diagnostics.EDAplot(participant_list=c(1001:1004),
 #' rdslocation.buttonpress="~/study/data/tags/",
 #' rdslocation.binnedEDA="~/study/data/Binned_EDA/",
@@ -18,10 +23,11 @@
 #'
 #'
 #'
-E4.Diagnostics.EDAplot<-function(participant_list,rdslocation.binnedEDA,rdslocation.buttonpress,plotlocation.EDA,RejectFlagCount=48,Plot_E4s=TRUE){
+E4.Diagnostics.EDAplot<-function(participant_list,rdslocation.binnedEDA,rdslocation.buttonpress,plotlocation.EDA,RejectFlagCount=48,Plot_E4s=TRUE,display_plot=FALSE){
 
   ##Open button press file (since that only needs to be done once per set b/c all participants' data are in one file)
-  Buttons<-readRDS(paste(rdslocation.buttonpress,"button_presses.rds",sep=""))
+  if(rdslocation.buttonpress!=FALSE){Buttons<-readRDS(paste(rdslocation.buttonpress,"button_presses.rds",sep=""))}
+
 
    ###open data
   for(NUMB in participant_list){
@@ -57,7 +63,7 @@ PlotData$ts_time<-as.POSIXct(as.character(paste("2019-01-01 ",chron::times(forma
 
 
 ###button pressess####
-
+if(rdslocation.buttonpress!=FALSE){
 Plot_Buttons<-Buttons[Buttons$ID==NUMB,]
 
 if(nrow(Plot_Buttons)>0){
@@ -65,15 +71,16 @@ if(nrow(Plot_Buttons)>0){
 if(Plot_Buttons$ts[1]>10000000000){Plot_Buttons$Press_Time<-anytime::anytime(Plot_Buttons$ts/1000)}
 if(Plot_Buttons$ts[1]<10000000000){Plot_Buttons$Press_Time<-anytime::anytime(Plot_Buttons$ts)}
 
-Plot_Buttons$ts_time<-as.POSIXct(as.character(paste("2019-01-01 ",chron::times(format(Plot_Buttons$Press_Time, "%H:%M:%S"))," EST",sep="")))
+Plot_Buttons$ts_time<-as.POSIXct(as.character(paste("2019-01-01 ",chron::times(format(Plot_Buttons$Press_Time, "%H:%M:%S"))," EST",sep="")))}
 
 ###make variable that gives date (for facetting)
 
 if(Plot_Buttons$ts[1]>10000000000){Plot_Buttons$ts_date<-anytime::anydate(Plot_Buttons$ts/1000)}
 if(Plot_Buttons$ts[1]<10000000000){Plot_Buttons$ts_date<-anytime::anydate(Plot_Buttons$ts)}
-}
+
 
 if(nrow(Plot_Buttons)==0){message(paste("NOTE: No button press data for participant number ",NUMB,". The plot will show EDA data only."))}
+}
 
 ###make reject % variables
 PlotData$EDA_reject_CAT<-"GOOD"
@@ -103,15 +110,20 @@ if(max(PlotData$EDA_reject)<RejectFlagCount){PlotOut<-PlotOut+ggplot2::scale_col
                                                                                          labels = c(paste("Good\n 100% of bins",sep="")))}
 
 ## add button pressess
-if(nrow(Plot_Buttons)>0){PlotOut<-PlotOut+ggplot2::geom_vline(ggplot2::aes(xintercept=ts_time),data=Plot_Buttons)}
+if(rdslocation.buttonpress!=FALSE){if(nrow(Plot_Buttons)>0){PlotOut<-PlotOut+ggplot2::geom_vline(ggplot2::aes(xintercept=ts_time),data=Plot_Buttons)}}
 
 if(Plot_E4s==TRUE){PlotOut<-PlotOut+ggplot2::geom_line(ggplot2::aes(x=ts_time,y=0.1,group=E4_serial,linetype=E4_serial),data=PlotData)}
 
-
+## display plot
+if(display_plot==TRUE){return(PlotOut)}
 
 ### Save File
+
+if(plotlocation.EDA!=FALSE){
 if(!dir.exists(plotlocation.EDA)==TRUE){dir.create(plotlocation.EDA,recursive=TRUE)}
-ggplot2::ggsave(filename=paste(plotlocation.EDA,"EDAplot_",NUMB,".pdf",sep=""),plot=PlotOut,width=11,height=8.5,units="in")
+ggplot2::ggsave(filename=paste(plotlocation.EDA,"EDAplot_",NUMB,".pdf",sep=""),plot=PlotOut,width=11,height=8.5,units="in")}
+
+
     }
     if(nrow(PlotData)<10){message(paste("No EDA data for ",NUMB,", going to next participant.",sep=""))}
   }
