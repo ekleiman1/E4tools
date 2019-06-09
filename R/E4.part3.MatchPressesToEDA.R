@@ -35,9 +35,9 @@ press_summary<-readRDS(paste(rdslocation.buttonpress,"button_presses.RDS",sep=""
 
 
 ###create directory structure
-if(!dir.exists(rdslocation.MatchedEDA)==TRUE){dir.create(rdslocation.MatchedEDA)}
+if(!dir.exists(rdslocation.MatchedEDA)==TRUE){dir.create(rdslocation.MatchedEDA,recursive = T)}
 individual_directory<-paste(rdslocation.MatchedEDA,"individual_participants/",sep="")
-if(!dir.exists(individual_directory)==TRUE){dir.create(individual_directory)}
+if(!dir.exists(individual_directory)==TRUE){dir.create(individual_directory,recursive = T)}
 
 
   for(NUMB in participant_list) {
@@ -172,6 +172,7 @@ if(!dir.exists(individual_directory)==TRUE){dir.create(individual_directory)}
     }}
 
     ###Save individual files
+    if(!dir.exists(individual_directory)==T){dir.create(individual_directory,recursive=T)}
     names(EDA_press_OUT1)<-c("ID","E4_serial","PressTime","BeforeAfter","CaseControl","Data_TS","EDA_raw","EDA_filtered","EDA_FeatureScaled","EDA_FeatureScaled_Filtered")
     saveRDS(EDA_press_OUT1,file=paste(individual_directory,"EDA_presses_",NUMB,".RDS",sep=""))
     }
@@ -187,6 +188,7 @@ for(RDSLIST in RDSfiles) {
   RDS_COMB<-readRDS(file=CURR_ZIP)
   RDS_COMB1<-rbind(RDS_COMB1,RDS_COMB)
 }
+if(!dir.exists(rdslocation.MatchedEDA)==T){dir.create(rdslocation.MatchedEDA,recursive=T)}
 saveRDS(RDS_COMB1,file=paste(rdslocation.MatchedEDA,"EDA_presses_COMBINED",".RDS",sep=""))
 #names(EDA_press_OUT1)<-c("ID","E4_serial","PressTime","BeforeAfter","Data_TS","EDA_raw","EDA_filtered","EDA_FeatureScaled")
   #saveRDS(EDA_press_OUT1,file=paste(rdslocation.MatchedEDA,"EDA_presses.RDS",sep=""))

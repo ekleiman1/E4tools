@@ -21,19 +21,30 @@
 #'
 
 
+
 E4_EDA_Process.part4.BinMatchedEDA<-function(participant_list,rdslocation.MatchedEDA,rdslocation.BinnedMatchedEDA,min.after,min.before,control=FALSE){
 
 
-  MatchedEDA<-readRDS(paste(rdslocation.MatchedEDA,"EDA_presses_COMBINED.RDS",sep=""))
+  #MatchedEDA<-readRDS(paste(rdslocation.MatchedEDA,"EDA_presses_COMBINED.RDS",sep=""))
+  #MatchedEDA<-data.table::as.data.table(MatchedEDA)
   EDA_Binned_Merged<-NULL
+  EDA_Binned_Single<-NULL
+  EDA_MERGED_PARTICIPANT<-NULL
 
 
 
   for(NUMB in participant_list) {
-    message(paste("Starting participant",NUMB))
+    message(paste("Starting participant number",NUMB))
+    if(file.exists(paste(rdslocation.MatchedEDA,"individual_participants/EDA_presses_",NUMB,".RDS",sep=""))==FALSE) {message(paste("No button pressess for",NUMB,"moving to next P"))
+      next}
 
+
+    EDA_participant<-readRDS(paste(rdslocation.MatchedEDA,"individual_participants/EDA_presses_",NUMB,".RDS",sep=""))
+    #EDA_participant<-data.table::as.data.table(EDA_participant)
     #read EDA data for the individual participant
-    EDA_participant<-MatchedEDA[MatchedEDA$ID==NUMB,]
+    #EDA_participant<-MatchedEDA[MatchedEDA$ID==NUMB,]
+    EDA_MERGED_PARTICIPANT<-NULL
+
 
 ###Bins for BEFORE - CASE
 if(min.before>0){
@@ -61,7 +72,10 @@ if(min.before>0){
 
         Press_Numb<-as.numeric(as.character(PressTime))
         EDA_Binned_Single<-cbind(NUMB,Press_Numb,Before_After,TYPE,EDA_Binned_Single)
-        EDA_Binned_Merged<-rbind(EDA_Binned_Merged,EDA_Binned_Single)}
+        EDA_Binned_Merged<-rbind(EDA_Binned_Merged,EDA_Binned_Single)
+        EDA_MERGED_PARTICIPANT<-rbind(EDA_MERGED_PARTICIPANT,EDA_Binned_Single)
+
+        }
       }
 }
 
@@ -93,7 +107,9 @@ if(min.after>0){
 
         Press_Numb<-as.numeric(as.character(PressTime))
         EDA_Binned_Single<-cbind(NUMB,Press_Numb,Before_After,TYPE,EDA_Binned_Single)
-        EDA_Binned_Merged<-rbind(EDA_Binned_Merged,EDA_Binned_Single)}
+        EDA_Binned_Merged<-rbind(EDA_Binned_Merged,EDA_Binned_Single)
+        EDA_MERGED_PARTICIPANT<-rbind(EDA_MERGED_PARTICIPANT,EDA_Binned_Single)
+        }
     }
 }
 
@@ -125,7 +141,9 @@ if(min.after>0){
           Press_Numb<-as.numeric(as.character(PressTime))+86400
           EDA_Binned_Single<-cbind(NUMB,Press_Numb,Before_After,TYPE,EDA_Binned_Single)
           #names(EDA_Binned_Single)[2]<-c("PressTime")
-          EDA_Binned_Merged<-rbind(EDA_Binned_Merged,EDA_Binned_Single)}
+          EDA_Binned_Merged<-rbind(EDA_Binned_Merged,EDA_Binned_Single)
+          EDA_MERGED_PARTICIPANT<-rbind(EDA_MERGED_PARTICIPANT,EDA_Binned_Single)
+          }
       }
     }
 }
@@ -156,13 +174,22 @@ if(min.after>0){
 
           Press_Numb<-as.numeric(as.character(PressTime))+86400
           EDA_Binned_Single<-cbind(NUMB,Press_Numb,Before_After,TYPE,EDA_Binned_Single)
-          EDA_Binned_Merged<-rbind(EDA_Binned_Merged,EDA_Binned_Single)}
+
+
+          EDA_Binned_Merged<-rbind(EDA_Binned_Merged,EDA_Binned_Single)
+          EDA_MERGED_PARTICIPANT<-rbind(EDA_MERGED_PARTICIPANT,EDA_Binned_Single)
+          }
       }
     }
 
 
     }
-}
+### on individual P
+    names(EDA_MERGED_PARTICIPANT)<-c("ID","PressTime","BeforeAfter","CaseControl","MinBeforeAfter","EDA_raw","EDA_filtered","EDA_FeatureScaled","EDA_Filtered_FeatureScaled")
+    rdslocation.BinnedMatchedEDA.participant<-paste(rdslocation.BinnedMatchedEDA,"individual_participants/",sep="")
+    if(!dir.exists(rdslocation.BinnedMatchedEDA.participant)==T){dir.create(rdslocation.BinnedMatchedEDA.participant,recursive = T)}
+    saveRDS(EDA_MERGED_PARTICIPANT,file=paste(rdslocation.BinnedMatchedEDA.participant,"EDA_merged_binned_",NUMB,".RDS",sep=""))
+    }
 
 
 
@@ -170,8 +197,8 @@ if(min.after>0){
 
   ### on entire dataset
   names(EDA_Binned_Merged)<-c("ID","PressTime","BeforeAfter","CaseControl","MinBeforeAfter","EDA_raw","EDA_filtered","EDA_FeatureScaled","EDA_Filtered_FeatureScaled")
-  if(!dir.exists(rdslocation.BinnedMatchedEDA)==T){dir.create(rdslocation.BinnedMatchedEDA)}
-  saveRDS(EDA_Binned_Merged,file=paste(rdslocation.BinnedMatchedEDA,"EDA_merged_binned.RDS",sep=""))
+  if(!dir.exists(rdslocation.BinnedMatchedEDA)==T){dir.create(rdslocation.BinnedMatchedEDA,recursive = T)}
+  saveRDS(EDA_Binned_Merged,file=paste(rdslocation.BinnedMatchedEDA,"EDA_merged_binned_ALL.RDS",sep=""))
 
 }
 

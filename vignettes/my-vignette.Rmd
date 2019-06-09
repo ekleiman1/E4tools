@@ -137,9 +137,9 @@ E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1003),
                                    min.after = 20,min.before = 20)
 ```
 #### Console output
-```{r,eval=TRUE, echo=FALSE}
+```{r,eval=FALSE, echo=FALSE}
 E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1003),
-                                    rdslocation.MatchedEDA=paste(tempdir(),"/extdata/output/matched_EDA/",sep=""),
+                                      rdslocation.MatchedEDA=paste(tempdir(),"/extdata/output/matched_EDA/",sep=""),
                                     rdslocation.BinnedMatchedEDA=paste(tempdir(),"/extdata/output/binned_matched_EDA/",sep=""),
                                    min.after = 20,min.before = 20)
 ```
