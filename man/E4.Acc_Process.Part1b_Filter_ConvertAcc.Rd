@@ -22,10 +22,14 @@ EDA Processing Part 1: Extract and filter EDA data
 This function will allow you to filter acceleromter data (based on the EDA signal) and add metrics like g and the normalized Euclidian distance from origin vector.
 }
 \examples{
-\donttest{E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1003),
+E4.Acc_Process.Part1b_Filter_ConvertAcc(participant_list=c(1001),
+rdslocation.EDA=paste(system.file(package="E4tools"),"/extdata/E4_demo_data/",sep=""),
+rdslocation.acc=paste(tempdir(),"/extdata/output/raw_acc/",sep=""),
+rdslocation.acc_filtered=paste(tempdir(),"/extdata/output/filtered_acc/",sep=""))
+\dontrun{E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1003),
 ziplocation=paste(system.file(package="E4tools"),"/extdata/E4_demo_data/",sep=""),
-rdslocation.EDA=paste(system.file(package="E4tools"),"/extdata/output/raw_EDA/",sep=""),
-summarylocation=paste(system.file(package="E4tools"),"/extdata/output/summaries/",sep=""),
+rdslocation.EDA=paste(tempdir(),"/extdata/output/raw_EDA/",sep=""),
+summarylocation=paste(tempdir(),"/extdata/output/summaries/",sep=""),
 EDA_low_cut=0.001,LowPctCutoff=.75,
 EDA_high_cut=25,HighPctCutoff=.75)}
 

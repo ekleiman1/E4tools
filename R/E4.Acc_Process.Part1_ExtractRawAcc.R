@@ -8,6 +8,9 @@
 #' @keywords acc
 #' @export
 #' @examples
+#' E4.Acc_Process.Part1.ExtractRawAcc(participant_list=c(1001),
+#' ziplocation=paste(system.file(package="E4tools"),"/extdata/E4_demo_data/",sep=""),
+#' rdslocation.acc=paste(tempdir(),"/extdata/output/raw_acc/",sep=""))
 #' \dontrun{E4.Acc_Process.Part1.ExtractRawAcc(participant_list=c(1001:1002),
 #' ziplocation="~/documents/study/data/",
 #' rdslocation.acc="~/documents/study/data/acc/")}
@@ -32,9 +35,7 @@ ACC<-NULL
     if(file.size(CURR_ZIP)>6400){
       if(file.size(utils::unzip(CURR_ZIP, unzip = "internal",
                                 exdir=zipDIR,files="ACC.csv"))>500){
-
-       ACC_single<-utils::read.csv(utils::unzip(CURR_ZIP, unzip = "internal",exdir=zipDIR,
-                                                 files="ACC.csv"),sep=",",header=FALSE) ###extract ACC
+         ACC_single<-utils::read.csv(utils::unzip(CURR_ZIP, unzip = "internal",exdir=zipDIR,files="ACC.csv"),sep=",",header=FALSE) ###extract ACC
         StartTime<-ACC_single[1,1] #get start time
         SamplingRate<-ACC_single[2,1] #get sampling rate (will always be 32hz, but adding here for future-proofing)
         ACC_single<-ACC_single[-c(1:2),] # remove first three rows (since they contained start time and sampling rate)
