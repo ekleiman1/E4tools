@@ -3,8 +3,7 @@
 
 # E4tools
 
-Tested with TravisCI: [![Build
-Status](https://travis-ci.org/ekleiman1/E4tools.svg?branch=master)](https://travis-ci.org/ekleiman1/E4tools)  
+Tested with TravisCI: [![Build Status](https://travis-ci.com/ekleiman1/E4tools.svg?branch=master)](https://travis-ci.com/ekleiman1/E4tools) 
 E4tools is an early-release set of tools that you can use to automate
 your workflow for analyzing EDA data that comes from the Empatica E4.
 You can run these functions consecutively.
