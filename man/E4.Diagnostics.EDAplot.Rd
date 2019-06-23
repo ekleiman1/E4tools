@@ -28,17 +28,9 @@ This will allow you to see all binned EDA data for a participant, along with whi
 }
 \examples{
 E4.Diagnostics.EDAplot(participant_list=c(1001),
-rdslocation.buttonpress=FALSE,
-rdslocation.binnedEDA=paste(tempdir(),"/extdata/plots/",sep=""),
-plotlocation.EDA=FALSE,display_plot=TRUE)
-\dontrun{E4.Diagnostics.EDAplot(participant_list=c(1001:1004),
-rdslocation.buttonpress="~/study/data/tags/",
-rdslocation.binnedEDA="~/study/data/Binned_EDA/",
-plotlocation.EDA="~/study/data/EDAplots/")}
-
-
-
-
+                       rdslocation.buttonpress=FALSE,
+                       rdslocation.binnedEDA=paste(system.file(package="E4tools"),"/extdata/plots/",sep=""),
+                       plotlocation.EDA=FALSE,display_plot=TRUE)
 }
 \keyword{diagnostics}
 \keyword{plots}

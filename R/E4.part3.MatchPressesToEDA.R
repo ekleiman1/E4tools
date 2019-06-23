@@ -13,20 +13,12 @@
 #' @keywords EDA
 #' @export
 #' @examples
-#' E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001:1003),
-#' rdslocation.buttonpress=paste(tempdir(),"/extdata/output/presses/",sep=""),
-#' rdslocation.MatchedEDA=paste(tempdir(),"/extdata/output/matched_EDA/",sep=""),
-#' rdslocation.EDA=paste(tempdir(),"/extdata/output/raw_EDA/",sep=""),
-#' min.before=20,min.after=20,control=TRUE)
-#' \donttest{E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001:1008,1011:1014,1017,1021),
-#' rdslocation.buttonpress="/Users/documents/study/data/tags/",
-#' rdslocation.MatchedEDA="/Users/documents/study/data/matched/",
-#' rdslocation.EDA="/Users/documents/study/data/EDA/",
-#' min.before=20,min.after=20,control=TRUE)}
-#'
-#'
-#'
-#'
+#' E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001:1002),
+#'                                       rdslocation.buttonpress=paste(system.file(package="E4tools"),"/extdata/output/presses/",sep=""),
+#'                                       rdslocation.MatchedEDA=paste(tempdir(),"/extdata/output/matched_EDA/",sep=""),
+#'                                       rdslocation.EDA=paste(system.file(package="E4tools"),"/extdata/output/raw_EDA/",sep=""),
+#'                                       min.before=20,min.after=20,control=TRUE)
+
 
 E4_EDA_Process.part3.MatchPressesToEDA<-function(participant_list,rdslocation.MatchedEDA,rdslocation.EDA,rdslocation.buttonpress,min.before,min.after,control=TRUE){
 

@@ -2,15 +2,14 @@
 #'
 #' This function allows you extract button pressess per participant, per day. It will output a data frame (not an RDS file) that you can use for analyses.
 #' @param rdslocation.buttonpress location of folder where button press output is stored (the file is called "button_presses.RDS"). This should end in / .
-#' @param ImputeNAs This will create NAs for any days between the first and last day of study data for each participant. If no data = no presses (which is likely the case, use the "ImputeZeros" option to make them zeros instead)
-#' @param ImputeZeros Do you want to make the NAs for days without data zeros instead?
+#' @param ImputeNAs This will create NAs for any days between the first and last day of study data for each participant. If no data = no presses (which is likely the case, use the "ImputeZeros" option to make them zeros instead).
+#' @param ImputeZeros Do you want to make the NAs for days without data zeros instead of NA?
 #' @return Dataframe with a three columns: ID, date, number of button pressess.
 #' @export
 #' @examples
-#' \dontrun{E4.extras.ButtonPressessPerDay(rdslocation.buttonpress="/Users/documents/study/data/tags/",
-#' ImputeNAs=TRUE,ImputeZeros=TRUE)}
-
-
+#'Presses_Per_Day<-E4.extras.ButtonPressessPerDay(rdslocation.buttonpress=paste(system.file(package="E4tools"),"/extdata/output/presses/",sep=""),
+#'                                                ImputeNAs=TRUE,ImputeZeros=TRUE)
+#'Presses_Per_Day
 
 
 
@@ -37,7 +36,9 @@ E4.extras.ButtonPressessPerDay<-function(rdslocation.buttonpress,ImputeNAs=FALSE
   }
   }
 
- if(ImputeZeros==TRUE){press_day_w_NAs[is.na(press_day_w_NAs$press),]$press<-0}
+ ##second if statement is to address times where there are no NAs
+ if(ImputeZeros==TRUE){if(nrow(press_day_w_NAs[is.na(press_day_w_NAs$press),])>0){press_day_w_NAs[is.na(press_day_w_NAs$press),]$press<-0}}
+
  if(ImputeNAs==TRUE){return(press_day_w_NAs)}
  if(ImputeNAs==FALSE){return(press_day)}
 

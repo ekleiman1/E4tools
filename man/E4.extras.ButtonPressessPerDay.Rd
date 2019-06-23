@@ -10,9 +10,9 @@ E4.extras.ButtonPressessPerDay(rdslocation.buttonpress,
 \arguments{
 \item{rdslocation.buttonpress}{location of folder where button press output is stored (the file is called "button_presses.RDS"). This should end in / .}
 
-\item{ImputeNAs}{This will create NAs for any days between the first and last day of study data for each participant. If no data = no presses (which is likely the case, use the "ImputeZeros" option to make them zeros instead)}
+\item{ImputeNAs}{This will create NAs for any days between the first and last day of study data for each participant. If no data = no presses (which is likely the case, use the "ImputeZeros" option to make them zeros instead).}
 
-\item{ImputeZeros}{Do you want to make the NAs for days without data zeros instead?}
+\item{ImputeZeros}{Do you want to make the NAs for days without data zeros instead of NA?}
 }
 \value{
 Dataframe with a three columns: ID, date, number of button pressess.
@@ -21,6 +21,7 @@ Dataframe with a three columns: ID, date, number of button pressess.
 This function allows you extract button pressess per participant, per day. It will output a data frame (not an RDS file) that you can use for analyses.
 }
 \examples{
-\dontrun{E4.extras.ButtonPressessPerDay(rdslocation.buttonpress="/Users/documents/study/data/tags/",
-ImputeNAs=TRUE,ImputeZeros=TRUE)}
+Presses_Per_Day<-E4.extras.ButtonPressessPerDay(rdslocation.buttonpress=paste(system.file(package="E4tools"),"/extdata/output/presses/",sep=""),
+                                               ImputeNAs=TRUE,ImputeZeros=TRUE)
+Presses_Per_Day
 }

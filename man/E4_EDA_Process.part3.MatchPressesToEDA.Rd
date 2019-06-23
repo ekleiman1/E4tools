@@ -29,19 +29,10 @@ Inputs: (1) List of participant numbers, (2) location of individual EDA files fr
 Outputs: (1) RDS file with EDA data before and/or after button presses (and control data), for each participant and combined.
 }
 \examples{
-E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001:1003),
-rdslocation.buttonpress=paste(tempdir(),"/extdata/output/presses/",sep=""),
-rdslocation.MatchedEDA=paste(tempdir(),"/extdata/output/matched_EDA/",sep=""),
-rdslocation.EDA=paste(tempdir(),"/extdata/output/raw_EDA/",sep=""),
-min.before=20,min.after=20,control=TRUE)
-\donttest{E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001:1008,1011:1014,1017,1021),
-rdslocation.buttonpress="/Users/documents/study/data/tags/",
-rdslocation.MatchedEDA="/Users/documents/study/data/matched/",
-rdslocation.EDA="/Users/documents/study/data/EDA/",
-min.before=20,min.after=20,control=TRUE)}
-
-
-
-
+E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001:1002),
+                                      rdslocation.buttonpress=paste(system.file(package="E4tools"),"/extdata/output/presses/",sep=""),
+                                      rdslocation.MatchedEDA=paste(tempdir(),"/extdata/output/matched_EDA/",sep=""),
+                                      rdslocation.EDA=paste(system.file(package="E4tools"),"/extdata/output/raw_EDA/",sep=""),
+                                      min.before=20,min.after=20,control=TRUE)
 }
 \keyword{EDA}
