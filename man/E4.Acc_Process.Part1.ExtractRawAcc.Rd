@@ -19,11 +19,10 @@ This early-release function allows you extract acceleromter data. It will output
 Inputs are: (1) List of participant numbers and (2) location where ZIP folders are stored. Outputs are: (1) one RDS file per participant with all data. A working example and vignette will be added later.
 }
 \examples{
-E4.Acc_Process.Part1.ExtractRawAcc(participant_list=c(1001),
-ziplocation=paste(system.file(package="E4tools"),"/extdata/E4_demo_data/",sep=""),
-rdslocation.acc=paste(tempdir(),"/extdata/output/raw_acc/",sep=""))
-\dontrun{E4.Acc_Process.Part1.ExtractRawAcc(participant_list=c(1001:1002),
-ziplocation="~/documents/study/data/",
-rdslocation.acc="~/documents/study/data/acc/")}
+E4.Acc_Process.Part1.ExtractRawAcc(
+  participant_list=c(1001),
+  ziplocation=paste(system.file(package="E4tools"),
+  "/extdata/E4_demo_data/",sep=""),
+  rdslocation.acc=paste(tempdir(),"/extdata/output/raw_acc/",sep=""))
 }
 \keyword{acc}

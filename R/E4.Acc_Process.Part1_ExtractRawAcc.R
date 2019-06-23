@@ -8,12 +8,12 @@
 #' @keywords acc
 #' @export
 #' @examples
-#' E4.Acc_Process.Part1.ExtractRawAcc(participant_list=c(1001),
-#' ziplocation=paste(system.file(package="E4tools"),"/extdata/E4_demo_data/",sep=""),
-#' rdslocation.acc=paste(tempdir(),"/extdata/output/raw_acc/",sep=""))
-#' \dontrun{E4.Acc_Process.Part1.ExtractRawAcc(participant_list=c(1001:1002),
-#' ziplocation="~/documents/study/data/",
-#' rdslocation.acc="~/documents/study/data/acc/")}
+#' E4.Acc_Process.Part1.ExtractRawAcc(
+#'   participant_list=c(1001),
+#'   ziplocation=paste(system.file(package="E4tools"),
+#'   "/extdata/E4_demo_data/",sep=""),
+#'   rdslocation.acc=paste(tempdir(),"/extdata/output/raw_acc/",sep=""))
+
 
 
 E4.Acc_Process.Part1.ExtractRawAcc<-function(participant_list,ziplocation,rdslocation.acc){

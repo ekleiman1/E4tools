@@ -10,18 +10,14 @@
 #' @keywords EDA
 #' @export
 #' @examples
-#' E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1003),
-#' ziplocation=paste(system.file(package="E4tools"),"/extdata/E4_demo_data/",sep=""),
-#' rdslocation.buttonpress=paste(tempdir(),"/extdata/output/presses/",sep=""),
-#' summarylocation=paste(tempdir(),"/extdata/output/summaries/",sep=""),
-#' cutoff.ends=2,
-#' cutoff.overlap=20)
-#' \donttest{E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1008,1011:1014,1017,1021),
-#' ziplocation="/Users/documents/study/data/Raw_E4_Data/",
-#' rdslocation.buttonpress="/Users/documents/study/data/tags/",
-#' summarylocation="/Users/documents/study/data/EDA/summaries/",
-#' cutoff.ends=2,
-#' cutoff.overlap=20)}
+#' E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1002),
+#'                                           ziplocation=paste(system.file(package="E4tools"),
+#'                                           "/extdata/E4_demo_data/",sep=""),
+#'                                           rdslocation.buttonpress=paste(tempdir(),
+#'                                           "/extdata/output/presses/",sep=""),
+#'                                           summarylocation=paste(system.file(package="E4tools"),
+#'                                           "/extdata/output/summaries/",sep=""),
+#'                                           cutoff.ends=2, cutoff.overlap=20)
 #'
 #'
 #'
@@ -122,7 +118,7 @@ TAG3$ts_ms<-TAG3$ts*1000
 
 ### save button press file
 
-  if(!dir.exists(rdslocation.buttonpress)==TRUE){dir.create(rdslocation.buttonpress)}
+  if(!dir.exists(rdslocation.buttonpress)==TRUE){dir.create(rdslocation.buttonpress,recursive=TRUE)}
   saveRDS(TAG3,file=paste(rdslocation.buttonpress,"button_presses.RDS",sep=""))
 
 }

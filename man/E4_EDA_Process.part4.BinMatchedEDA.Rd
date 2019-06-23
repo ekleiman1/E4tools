@@ -25,14 +25,11 @@ E4_EDA_Process.part4.BinMatchedEDA(participant_list,
 This function allows you to bin the data that has been matched to the button pressess (from step 3).
 }
 \examples{
-E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1003),
-rdslocation.MatchedEDA=paste(tempdir(),"/extdata/output/matched_EDA/",sep=""),
-rdslocation.BinnedMatchedEDA=paste(tempdir(),"/extdata/output/binned_matched_EDA/",sep=""),
-min.after = 20,min.before = 20)
-\donttest{E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1003),
-rdslocation.MatchedEDA="~/Documents/E4tools_demo_data/output/matched_EDA/",
-min.after = 20,min.before = 20,
-rdslocation.BinnedMatchedEDA="~/Documents/E4tools_demo_data/output/")}
-
+E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1002),
+                                  rdslocation.MatchedEDA=paste(system.file(package="E4tools"),
+                                  "/extdata/output/matched_EDA/",sep=""),
+                                  rdslocation.BinnedMatchedEDA=
+                                  paste(tempdir(),"/extdata/output/binned_matched_EDA/",sep=""),
+                                  min.after = 20,min.before = 20,control=TRUE)
 }
 \keyword{EDA}

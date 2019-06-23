@@ -10,16 +10,12 @@
 #' @keywords EDA
 #' @export
 #' @examples
-#' E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1003),
-#' rdslocation.MatchedEDA=paste(tempdir(),"/extdata/output/matched_EDA/",sep=""),
-#' rdslocation.BinnedMatchedEDA=paste(tempdir(),"/extdata/output/binned_matched_EDA/",sep=""),
-#' min.after = 20,min.before = 20)
-#' \donttest{E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1003),
-#' rdslocation.MatchedEDA="~/Documents/E4tools_demo_data/output/matched_EDA/",
-#' min.after = 20,min.before = 20,
-#' rdslocation.BinnedMatchedEDA="~/Documents/E4tools_demo_data/output/")}
-#'
-
+#'E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1002),
+#'                                   rdslocation.MatchedEDA=paste(system.file(package="E4tools"),
+#'                                   "/extdata/output/matched_EDA/",sep=""),
+#'                                   rdslocation.BinnedMatchedEDA=
+#'                                   paste(tempdir(),"/extdata/output/binned_matched_EDA/",sep=""),
+#'                                   min.after = 20,min.before = 20,control=TRUE)
 
 
 E4_EDA_Process.part4.BinMatchedEDA<-function(participant_list,rdslocation.MatchedEDA,rdslocation.BinnedMatchedEDA,min.after,min.before,control=FALSE){
@@ -153,7 +149,7 @@ if(min.after>0){
 
       Before_After="AFTER"
       TYPE="CONTROL"
-      EDA_participant_AFTER<-EDA_participant[(EDA_participant$BeforeAfter=="AFTER" & EDA_participant$CaseControl=="CASE"),]
+      EDA_participant_AFTER<-EDA_participant[(EDA_participant$BeforeAfter=="AFTER" & EDA_participant$CaseControl=="CONTROL"),]
       for(PressTime in  levels(EDA_participant_AFTER$PressTime)) {
         if(nrow(EDA_participant_AFTER[EDA_participant_AFTER$PressTime==PressTime,])>0 & nrow(EDA_participant_AFTER[EDA_participant_AFTER$PressTime==PressTime,])<5000){
           BINS_after<-EDA_participant_AFTER[EDA_participant_AFTER$PressTime==PressTime,]

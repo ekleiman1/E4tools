@@ -12,17 +12,12 @@
 #' @export
 #' @examples
 #' E4.Diagnostics.EDAplot(participant_list=c(1001),
-#' rdslocation.buttonpress=FALSE,
-#' rdslocation.binnedEDA=paste(tempdir(),"/extdata/plots/",sep=""),
-#' plotlocation.EDA=FALSE,display_plot=TRUE)
-#' \dontrun{E4.Diagnostics.EDAplot(participant_list=c(1001:1004),
-#' rdslocation.buttonpress="~/study/data/tags/",
-#' rdslocation.binnedEDA="~/study/data/Binned_EDA/",
-#' plotlocation.EDA="~/study/data/EDAplots/")}
-#'
-#'
-#'
-#'
+#'                        rdslocation.buttonpress=FALSE,
+#'                        rdslocation.binnedEDA=paste(system.file(package="E4tools"),
+#'                        "/extdata/plots/",sep=""),
+#'                        plotlocation.EDA=FALSE,display_plot=TRUE)
+
+
 E4.Diagnostics.EDAplot<-function(participant_list,rdslocation.binnedEDA,rdslocation.buttonpress,plotlocation.EDA,RejectFlagCount=48,Plot_E4s=TRUE,display_plot=FALSE){
 
   ##Open button press file (since that only needs to be done once per set b/c all participants' data are in one file)

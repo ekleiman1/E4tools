@@ -25,18 +25,14 @@ E4_EDA_Process.part2.ExtractButtonPresses(participant_list, ziplocation,
 This function allows you extract button presses and remove presses that are within a certain number of minutes before the end of a session or that are too close to another button press. If the participant has not pressed the button at all, it will give you a warning and continue with the other participants.
 }
 \examples{
-E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1003),
-ziplocation=paste(system.file(package="E4tools"),"/extdata/E4_demo_data/",sep=""),
-rdslocation.buttonpress=paste(tempdir(),"/extdata/output/presses/",sep=""),
-summarylocation=paste(tempdir(),"/extdata/output/summaries/",sep=""),
-cutoff.ends=2,
-cutoff.overlap=20)
-\donttest{E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1008,1011:1014,1017,1021),
-ziplocation="/Users/documents/study/data/Raw_E4_Data/",
-rdslocation.buttonpress="/Users/documents/study/data/tags/",
-summarylocation="/Users/documents/study/data/EDA/summaries/",
-cutoff.ends=2,
-cutoff.overlap=20)}
+E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1002),
+                                          ziplocation=paste(system.file(package="E4tools"),
+                                          "/extdata/E4_demo_data/",sep=""),
+                                          rdslocation.buttonpress=paste(tempdir(),
+                                          "/extdata/output/presses/",sep=""),
+                                          summarylocation=paste(system.file(package="E4tools"),
+                                          "/extdata/output/summaries/",sep=""),
+                                          cutoff.ends=2, cutoff.overlap=20)
 
 
 

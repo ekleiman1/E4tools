@@ -8,18 +8,12 @@
 #' @export
 #' @examples
 #' E4.Acc_Process.Part1b_Filter_ConvertAcc(participant_list=c(1001),
-#' rdslocation.EDA=paste(tempdir(),"/extdata/output/raw_EDA/",sep=""),
-#' rdslocation.acc=paste(tempdir(),"/extdata/output/raw_acc/",sep=""),
-#' rdslocation.acc_filtered=paste(tempdir(),"/extdata/output/filtered_acc/",sep=""))
-#' \dontrun{E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1003),
-#' ziplocation=paste(system.file(package="E4tools"),"/extdata/E4_demo_data/",sep=""),
-#' rdslocation.EDA=paste(tempdir(),"/extdata/output/raw_EDA/",sep=""),
-#' summarylocation=paste(tempdir(),"/extdata/output/summaries/",sep=""),
-#' EDA_low_cut=0.001,LowPctCutoff=.75,
-#' EDA_high_cut=25,HighPctCutoff=.75)}
-#'
-
-
+#'                                        rdslocation.EDA=paste(system.file(package="E4tools"),
+#'                                        "/extdata/output/raw_EDA/",sep=""),
+#'                                        rdslocation.acc=paste(system.file(package="E4tools"),
+#'                                        "/extdata/output/raw_acc/",sep=""),
+#'                                        rdslocation.acc_filtered=paste(tempdir(),
+#'                                        "/extdata/output/filtered_acc/",sep=""))
 
 E4.Acc_Process.Part1b_Filter_ConvertAcc<-function(participant_list,rdslocation.EDA,rdslocation.acc,rdslocation.acc_filtered){
 
@@ -60,12 +54,13 @@ names(Exclude_Times)<-c("Start","Stop")
 TS_ALL<-ACC_DATA$ts
 TS_EXCLUDE_ALL<-NULL
 
+## gets a list of timestamps to exclude
 for(EXC_ROW in 1:nrow(Exclude_Times)) {
   TS_EXCLUDE_SINGLE<-TS_ALL[TS_ALL>Exclude_Times[EXC_ROW,1] & TS_ALL<Exclude_Times[EXC_ROW,2]]
   TS_EXCLUDE_ALL<-c(TS_EXCLUDE_ALL,TS_EXCLUDE_SINGLE)
 }
+if(nrow(ACC_DATA[ACC_DATA$ts %in% TS_EXCLUDE_ALL,])>0){ACC_DATA[ACC_DATA$ts %in% TS_EXCLUDE_ALL,]$Reject<-1}
 
-ACC_DATA[ACC_DATA$ts %in% TS_EXCLUDE_ALL,]$Reject<-1
 }
 #### Convert to g ####
 ACC_DATA$acc_x_g = (ACC_DATA$acc_x * 2) / 128
