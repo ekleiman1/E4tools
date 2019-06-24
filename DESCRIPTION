@@ -4,7 +4,7 @@ Title: Management and Processing Tools for Data Produced by the Empatica E4
 Version: 0.1.0
 Authors@R: person("Evan", "Kleiman", email = "evan.kleiman@rutgers.edu",
   role = c("aut", "cre"))
-Description: Process and manage the data from the Empatica E4. All functions operate on the EDA data stream, but other streams will be added soon. The Empatica E4 is a wearable physiological monitor made by Empatica (Empatica is not associated with any of this code).
+Description: Process and manage the data from the Empatica E4. All functions operate on the EDA data stream, but other streams will be added soon. The Empatica E4 is a wearable physiological monitor made by Empatica (Empatica is not associated with any of this code). You can find more information about the E4 at Empatica's website <https://www.empatica.com/research/e4/>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
