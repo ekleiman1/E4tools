@@ -65,7 +65,7 @@ E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdsloc
   pb <- utils::txtProgressBar(max = length(participant_list), style = 3)
   progress <- function(n) utils::setTxtProgressBar(pb, n)
 
-
+NUMB<-NULL #fix to avoid CRAN note
   #for (NUMB in participant_list)
   foreach::foreach(NUMB=participant_list,.options.snow = list(progress = progress)) %dopar% {
 

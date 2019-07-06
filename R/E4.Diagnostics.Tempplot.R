@@ -19,6 +19,7 @@
 #'
 #'
 E4.Diagnostics.tempplot<-function(participant_list,rdslocation.binnedtemp,rdslocation.buttonpress,plotlocation.temp,Plot_E4s=TRUE,TempType="C"){
+  ts_time<-TEMP_C<-TEMP_F<-E4_serial<-NULL #fixes to avoid CRAN note
 
   ## for file helper function
   if(participant_list[1]=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}

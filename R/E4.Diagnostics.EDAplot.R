@@ -95,7 +95,7 @@ GoodLabel<-paste(round((stats::ftable(PlotData$EDA_reject_CAT)[2]/sum(stats::fta
 BinSize<-round((PlotData$ts[5]-PlotData$ts[4])/(60*1000),0)
 
 ##make plot####
-
+ts_time<-EDA_HighLowPass<-EDA_reject_CAT<-ts_date<-TEMP_C<-TEMP_F<-E4_serial<-NULL #fix to avoid CRAN note
 
 PlotOut<-ggplot2::ggplot()+
   ggplot2::geom_path(ggplot2::aes(x=ts_time,y=EDA_HighLowPass,color=as.factor(EDA_reject_CAT),group=1),data=PlotData)+

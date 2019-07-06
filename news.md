@@ -1,5 +1,5 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- news.md is generated from news.Rmd. Please edit that file -->
 
 # E4tools 0.1.1
 

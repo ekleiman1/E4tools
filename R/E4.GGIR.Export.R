@@ -11,6 +11,7 @@
 #' @param csvlocation.GGIRout folder location where you want the CSV outputs to go (make sure that it ends in /). Enter csvlocation.GGIRout=csvlocation.GGIRout to use the prespecified folder structure from E4.Prep.FileHelper.
 #' @param tz timezone where these data were collected (see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
 #' @keywords acc
+#' @importFrom data.table data.table rbindlist setkey setDT :=
 #' @export
 #' @examples
 #' \dontrun{E4.Acc_Process.Part1.ExtractRawAcc(participant_list=c(1001:1002),
@@ -19,6 +20,8 @@
 
 
 E4.GGIR.Export<-function(participant_list,ziplocation,csvlocation.GGIRout,tz){
+
+  ts<-E4serial<-NULL #fixes to avoid CRAN note
 
   ## for file helper function
   if(participant_list[1]=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
