@@ -36,11 +36,24 @@ E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdsloc
 
   `%dopar%` <- foreach::`%dopar%`
 
+##determine the number of cores
 
-  NumbCoresUse<-parallel::detectCores()[1]-1 #get number of cores and sets it to n-1 (so one core is left over during processing)
-  if(length(participant_list)<NumbCoresUse){NumbCoresUse==length(participant_list)} #if there are more cores than participants, change number of cores to number of participants, to avoid opening unused connections
+  chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
+
+  if (nzchar(chk) && chk == "TRUE") {
+    # For Testing
+    NumbCoresUse <- 2
+  } else {
+    NumbCoresUse<-parallel::detectCores()[1]-1 #get number of cores and sets it to n-1 (so one core is left over during processing)
+    if(length(participant_list)<NumbCoresUse){NumbCoresUse==length(participant_list)} #if there are more cores than participants, change number of cores to number of participants, to avoid opening unused connections
+
+  }
+
+
+
+
+
   cl<-parallel::makeCluster(NumbCoresUse)
-
   doParallel::registerDoParallel(cl)
 
 
@@ -70,9 +83,9 @@ E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdsloc
 
       if(file.size(CURR_ZIP)>6400){
         if(file.size(utils::unzip(CURR_ZIP, unzip = "internal",
-                                  exdir=zipDIR,files="EDA.csv"))>500){
+                                  exdir=tempdir(),files="EDA.csv"))>500){
 
-          EDA_single<-utils::read.csv(utils::unzip(CURR_ZIP, unzip = "internal",exdir=zipDIR,
+          EDA_single<-utils::read.csv(utils::unzip(CURR_ZIP, unzip = "internal",exdir=tempdir(),
                                                    files="EDA.csv"),sep=",",header=FALSE) ###extract EDA
           StartTime<-EDA_single[1,1] #get start time
           SamplingRate<-EDA_single[2,1] #get sampling rate (will always be 4hz, but adding here for future-proofing)

@@ -43,9 +43,9 @@ E4.GGIR.Export<-function(participant_list,ziplocation,csvlocation.GGIRout,tz){
 
     if(file.size(CURR_ZIP)>6400){
       if(file.size(utils::unzip(CURR_ZIP, unzip = "internal",
-                                exdir=zipDIR,files="ACC.csv"))>500){
+                                exdir=tempdir(),files="ACC.csv"))>500){
 
-       ACC_single<-utils::read.csv(utils::unzip(CURR_ZIP, unzip = "internal",exdir=zipDIR,
+       ACC_single<-utils::read.csv(utils::unzip(CURR_ZIP, unzip = "internal",exdir=tempdir(),
                                                  files="ACC.csv"),sep=",",header=FALSE) ###extract ACC
         StartTime<-ACC_single[1,1] #get start time
         SamplingRate<-ACC_single[2,1] #get sampling rate (will always be 32hz, but adding here for future-proofing)
@@ -66,7 +66,7 @@ E4.GGIR.Export<-function(participant_list,ziplocation,csvlocation.GGIRout,tz){
 
 
         ### adding temperature
-        TEMP_single<-utils::read.csv(utils::unzip(CURR_ZIP, unzip = "internal",exdir=zipDIR,
+        TEMP_single<-utils::read.csv(utils::unzip(CURR_ZIP, unzip = "internal",exdir=tempdir(),
                                                  files="TEMP.csv"),sep=",",header=FALSE) ###extract ACC
         StartTime_TEMP<-TEMP_single[1,1] #get start time
         SamplingRate_TEMP<-TEMP_single[2,1] #get sampling rate (will always be 4hz, but adding here for future-proofing)
