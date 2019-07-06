@@ -11,6 +11,7 @@
 #' @param EDA_high_cut This is a LOW PASS filter. What EDA value (in microsiemens) should be used as the maximum cutoff (100 = cuts off samples above 100us)
 #' @param HighPctCutoff what percentage of samples in a five-second block must contain the high cutoff in order to exclude that block?
 #' @param KeepRejectFlag Do you want to keep the flag that shows which data the high and low pass filters rejected? If you want to run the diagnostic steps, you must keep this. Defaults to TRUE.
+#' @param UseMultiCore Do you want to use more than one core for processing? Defaults to FALSE.
 #' @keywords EDA
 #' @importFrom foreach %dopar%
 #' @export
@@ -24,7 +25,7 @@
 
 
 E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdslocation.EDA,summarylocation,EDA_low_cut=0,LowPctCutoff=1,EDA_high_cut=1000,HighPctCutoff=1,
-                                             KeepRejectFlag=TRUE){
+                                             KeepRejectFlag=TRUE,UseMultiCore=FALSE){
 
 
   ## for file helper function
@@ -38,6 +39,7 @@ E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdsloc
 
 ##determine the number of cores
 
+  if(UseMultiCore==TRUE){
   chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
 
   if (nzchar(chk) && chk == "TRUE") {
@@ -48,9 +50,9 @@ E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdsloc
     if(length(participant_list)<NumbCoresUse){NumbCoresUse==length(participant_list)} #if there are more cores than participants, change number of cores to number of participants, to avoid opening unused connections
 
   }
+}
 
-
-
+  if(UseMultiCore==FALSE){NumbCoresUse<-1}
 
 
   cl<-parallel::makeCluster(NumbCoresUse)
