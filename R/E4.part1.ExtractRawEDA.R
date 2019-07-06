@@ -188,16 +188,6 @@ E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdsloc
     summaryfilename<-paste(summarylocation,NUMB,"_summary.csv",sep="")
     utils::write.csv(Session_combined,file=summaryfilename)
 
-    ###create participant-level summary file
-    TotTime<-nrow(EDA)/(4*60*60)
-    PartSummary<-c(NUMB,TotTime,nrow(EDA),sum(EDA$EDA_reject),nrow(Session_combined))
-    if(exists("AllPartSummary")==FALSE){AllPartSummary<-NULL}
-    AllPartSummary<-as.data.frame(rbind(AllPartSummary,PartSummary))
   }
 
-  ####merge participant-level summary file and save
-  if(!dir.exists(summarylocation)==TRUE){dir.create(summarylocation,recursive=TRUE)}
-  names(AllPartSummary)<-c("ID","TotalTime","NumbSamples","NumbRejected","NumbSamples")
-  Allsummaryfilename<-paste(summarylocation,"ALL_summary.csv",sep="")
-  utils::write.csv(AllPartSummary,file=Allsummaryfilename)
 }

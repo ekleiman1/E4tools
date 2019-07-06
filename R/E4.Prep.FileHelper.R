@@ -12,9 +12,8 @@
 #' rdslocation.acc="~/documents/study/data/acc/")}
 
 E4.Step0.FileHelper<-function(participant_list,ziplocation,dataroot){
-  E4tools.env <- new.env()
   assign("ziplocation",ziplocation,envir=E4tools.env)
-  assign("participant.list",participant_list,envir=E4tools.env)
+  assign("participant_list",participant_list,envir=E4tools.env)
   assign("rdslocation.EDA",paste(dataroot,"raw_data/EDA/",sep=""),envir=E4tools.env)
   assign("summarylocation",paste(dataroot,"metadata/summaries/",sep=""),envir=E4tools.env)
   assign("rdslocation.buttonpress",paste(dataroot,"raw_data/tags/",sep=""),envir=E4tools.env)

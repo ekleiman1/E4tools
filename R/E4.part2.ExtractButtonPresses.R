@@ -27,10 +27,10 @@
 
 
 E4_EDA_Process.part2.ExtractButtonPresses<-function(participant_list,ziplocation,rdslocation.buttonpress,summarylocation,cutoff.ends=0,cutoff.overlap=0){
-
+  if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
 TAG3<-NULL
 ## for file helper function
-if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+
 if(ziplocation=="helper"){ziplocation<-get("ziplocation",envir=E4tools.env)}
 if(rdslocation.buttonpress=="helper"){rdslocation.buttonpress<-get("rdslocation.buttonpress",envir=E4tools.env)}
 if(summarylocation=="helper"){summarylocation<-get("summarylocation",envir=E4tools.env)}

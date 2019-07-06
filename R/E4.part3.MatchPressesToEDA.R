@@ -40,12 +40,12 @@ individual_directory<-paste(rdslocation.MatchedEDA,"individual_participants/",se
 if(!dir.exists(individual_directory)==TRUE){dir.create(individual_directory,recursive = T)}
 
 
-`%dopar%` <- foreach::`%dopar%`
-doParallel::registerDoParallel(parallel::detectCores()[1]-1) ##detects cores and then registeres n-1 cores (so one core is left over)
-## for progress bar
-doSNOW::registerDoSNOW(parallel::makeCluster(parallel::detectCores()[1]-1))
-pb <- utils::txtProgressBar(max = length(participant_list), style = 3)
-progress <- function(n) utils::setTxtProgressBar(pb, n)
+#`%dopar%` <- foreach::`%dopar%`
+#doParallel::registerDoParallel(parallel::detectCores()[1]-1) ##detects cores and then registeres n-1 cores (so one core is left over)
+### for progress bar
+#doSNOW::registerDoSNOW(parallel::makeCluster(parallel::detectCores()[1]-1))
+#pb <- utils::txtProgressBar(max = length(participant_list), style = 3)
+#progress <- function(n) utils::setTxtProgressBar(pb, n)
 #foreach::foreach(NUMB=participant_list,.options.snow = list(progress = progress)) %dopar% {
 
 for (NUMB in participant_list){
