@@ -39,12 +39,14 @@ E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdsloc
 
   NumbCoresUse<-parallel::detectCores()[1]-1 #get number of cores and sets it to n-1 (so one core is left over during processing)
   if(length(participant_list)<NumbCoresUse){NumbCoresUse==length(participant_list)} #if there are more cores than participants, change number of cores to number of participants, to avoid opening unused connections
+  cl<-parallel::makeCluster(NumbCoresUse)
+
+  doParallel::registerDoParallel(cl)
 
 
-  doParallel::registerDoParallel(NumbCoresUse) ##registeres n-1 cores (so one core is left over)
 
   ## for progress bar
-  doSNOW::registerDoSNOW(parallel::makeCluster(parallel::detectCores()[1]-1))
+  doSNOW::registerDoSNOW(cl)
   pb <- utils::txtProgressBar(max = length(participant_list), style = 3)
   progress <- function(n) utils::setTxtProgressBar(pb, n)
 
@@ -195,5 +197,6 @@ E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdsloc
 
   }
 
-  doParallel::stopImplicitCluster()
+
+  parallel::stopCluster(cl)
 }
