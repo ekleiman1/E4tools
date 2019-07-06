@@ -6,7 +6,8 @@
 \usage{
 E4_EDA_Process.part1.ExtractRawEDA(participant_list, ziplocation,
   rdslocation.EDA, summarylocation, EDA_low_cut = 0, LowPctCutoff = 1,
-  EDA_high_cut = 1000, HighPctCutoff = 1, KeepRejectFlag = TRUE)
+  EDA_high_cut = 1000, HighPctCutoff = 1, KeepRejectFlag = TRUE,
+  UseMultiCore = FALSE)
 }
 \arguments{
 \item{participant_list}{list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001")}
@@ -26,6 +27,8 @@ E4_EDA_Process.part1.ExtractRawEDA(participant_list, ziplocation,
 \item{HighPctCutoff}{what percentage of samples in a five-second block must contain the high cutoff in order to exclude that block?}
 
 \item{KeepRejectFlag}{Do you want to keep the flag that shows which data the high and low pass filters rejected? If you want to run the diagnostic steps, you must keep this. Defaults to TRUE.}
+
+\item{UseMultiCore}{Do you want to use more than one core for processing? Defaults to FALSE.}
 }
 \description{
 This function allows you extract and filter EDA data. It will output raw data, filtered data (using user-specified high and low pass filters + a butterworth filter), and filtered + feature-scaled ([0,1]) data. It will also provide summary data at the participant and session level.
