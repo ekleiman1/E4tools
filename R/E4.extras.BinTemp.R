@@ -1,8 +1,8 @@
-#' Extras: Make EDA bins
+#' Temperature part 2: Make temperature bins
 #'
-#' Put EDA data in bins of X minutes length
+#' Put temperature data in bins of X minutes length
 #' @param participant_list list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001")
-#' @param rdslocation.temp folder location where raw EDA (from part 1) is saved.
+#' @param rdslocation.temp folder location where raw temperature (from part 1) is saved.
 #' @param rdslocation.binnedtemp folder location where you want the RDS outputs to go (make sure that it ends in /)
 #' @param BinLengthMin folder location where you want the RDS outputs to go (make sure that it ends in /)
 #' @keywords acc
@@ -14,7 +14,13 @@
 #'RejectFlag=TRUE)}
 
 
-E4.extras.BinTemp<-function(participant_list,rdslocation.temp,rdslocation.binnedtemp,BinLengthMin){
+E4.Temp.part2.bin_temp<-function(participant_list,rdslocation.temp,rdslocation.binnedtemp,BinLengthMin){
+  ## for file helper function
+  if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+  if(rdslocation.temp=="helper"){rdslocation.temp<-get("rdslocation.temp",envir=E4tools.env)}
+  if(rdslocation.binnedtemp=="helper"){rdslocation.binnedtemp<-get("rdslocation.binnedtemp",envir=E4tools.env)}
+
+
 ###open data
   for (NUMB in participant_list) {
     message(paste("Starting participant",NUMB))

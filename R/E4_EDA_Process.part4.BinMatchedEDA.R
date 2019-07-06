@@ -21,6 +21,13 @@
 E4_EDA_Process.part4.BinMatchedEDA<-function(participant_list,rdslocation.MatchedEDA,rdslocation.BinnedMatchedEDA,min.after,min.before,control=FALSE){
 
 
+  ## for file helper function
+  if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+  if(rdslocation.MatchedEDA=="helper"){rdslocation.MatchedEDA<-get("rdslocation.MatchedEDA",envir=E4tools.env)}
+  if(rdslocation.BinnedMatchedEDA=="helper"){rdslocation.BinnedMatchedEDA<-get("rdslocation.BinnedMatchedEDA",envir=E4tools.env)}
+
+
+
   #MatchedEDA<-readRDS(paste(rdslocation.MatchedEDA,"EDA_presses_COMBINED.RDS",sep=""))
   #MatchedEDA<-data.table::as.data.table(MatchedEDA)
   EDA_Binned_Merged<-NULL

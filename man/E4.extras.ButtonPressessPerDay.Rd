@@ -18,7 +18,7 @@ E4.extras.ButtonPressessPerDay(rdslocation.buttonpress,
 Dataframe with a three columns: ID, date, number of button pressess.
 }
 \description{
-This function allows you extract button pressess per participant, per day. It will output a data frame (not an RDS file) that you can use for analyses.
+This function allows you extract button pressess per participant, per day. It will output a data frame (not an RDS file) that you can use for analyses. You must first extract button pressess using the E4_EDA_Process.part2.ExtractButtonPresses() function.
 }
 \examples{
 Presses_Per_Day<-

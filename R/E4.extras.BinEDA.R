@@ -9,14 +9,20 @@
 #' @keywords EDA
 #' @export
 #' @examples
-#' E4.extras.BinEDA(participant_list=c(1001:1002),
+#' E4.extras.BinEDA(participant_list=c(1001),
 #' rdslocation.EDA=paste(system.file(package="E4tools"),"/extdata/output/raw_EDA/",sep=""),
 #' rdslocation.binnedEDA=paste(tempdir(),"/extdata/output/binned_EDA/",sep=""),
 #' BinLengthMin=2,RejectFlag=TRUE)
 
 
 E4.extras.BinEDA<-function(participant_list,rdslocation.EDA,rdslocation.binnedEDA,BinLengthMin,RejectFlag=TRUE){
-###open data
+  ## for file helper function
+  if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+  if(rdslocation.EDA=="helper"){rdslocation.EDA<-get("rdslocation.EDA",envir=E4tools.env)}
+  if(rdslocation.binnedEDA=="helper"){rdslocation.binnedEDA<-get("rdslocation.binnedEDA",envir=E4tools.env)}
+
+
+  ###open data
   for (NUMB in participant_list) {
     message(paste("Starting participant",NUMB))
 

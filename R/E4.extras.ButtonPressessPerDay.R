@@ -1,6 +1,6 @@
 #' EDA Extra Processing: Get number of button presses per participant, per day from the combined "button_pressess.RDS" file
 #'
-#' This function allows you extract button pressess per participant, per day. It will output a data frame (not an RDS file) that you can use for analyses.
+#' This function allows you extract button pressess per participant, per day. It will output a data frame (not an RDS file) that you can use for analyses. You must first extract button pressess using the E4_EDA_Process.part2.ExtractButtonPresses() function.
 #' @param rdslocation.buttonpress location of folder where button press output is stored (the file is called "button_presses.RDS"). This should end in / .
 #' @param ImputeNAs This will create NAs for any days between the first and last day of study data for each participant. If no data = no presses (which is likely the case, use the "ImputeZeros" option to make them zeros instead).
 #' @param ImputeZeros Do you want to make the NAs for days without data zeros instead of NA?

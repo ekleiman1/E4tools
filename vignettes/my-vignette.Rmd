@@ -32,7 +32,7 @@ Outputs: (1) one RDS file per participant with all data, (2) summary file that g
 
 #### Code
 ```{r eval=FALSE, echo=TRUE} 
-E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1003),
+E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001),
                                    ziplocation="~/extdata/E4_demo_data/",
                                    rdslocation.EDA="~/extdata/output/raw_EDA/",
                                    summarylocation="~/extdata/output/summaries/",
@@ -42,8 +42,8 @@ E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1003),
 ```
 
 #### Console output
-```{r eval=TRUE, echo=FALSE} 
-E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1003),
+```{r eval=FALSE, echo=FALSE} 
+E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001),
                                    ziplocation=paste(system.file(package="E4tools"),"/extdata/E4_demo_data/",sep=""),
                                    rdslocation.EDA=paste(tempdir(),"/extdata/output/raw_EDA/",sep=""),
                                    summarylocation=paste(tempdir(),"/extdata/output/summaries/",sep=""),
@@ -71,7 +71,7 @@ Output (one file per study): RDS file with list of IDs and button press times.
 #### Code
 
 ```{r eval=FALSE, echo=TRUE}
-E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1003),
+E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001),
                                           ziplocation="~/extdata/E4_demo_data/",
                                           rdslocation.buttonpress="~/extdata/output/presses/",
                                           summarylocation="~/extdata/output/summaries/",
@@ -80,8 +80,8 @@ E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1003),
 ```
 
 #### Console output
-```{r eval=TRUE, echo=FALSE}
-E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001:1003),
+```{r eval=FALSE, echo=FALSE}
+E4_EDA_Process.part2.ExtractButtonPresses(participant_list=c(1001),
                                           ziplocation=paste(system.file(package="E4tools"),"/extdata/E4_demo_data/",sep=""),
                                           rdslocation.buttonpress=paste(tempdir(),"/extdata/output/presses/",sep=""),
                                           summarylocation=paste(tempdir(),"/extdata/output/summaries/",sep=""),
@@ -104,15 +104,15 @@ Outputs: (1) RDS file with EDA data before and/or after button presses (and cont
 
 #### Code
 ```{r, eval=FALSE, echo=TRUE}
-E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001:1003),
+E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001),
                                        rdslocation.buttonpress="~/extdata/output/presses/",
                                         rdslocation.MatchedEDA="~/extdata/output/matched_EDA/",
                                       rdslocation.EDA="~/extdata/output/raw_EDA/",
                                        min.before=20,min.after=20,control=T)
 ```
 #### Console output
-```{r, eval=TRUE, echo=FALSE}
-E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001:1003),
+```{r, eval=FALSE, echo=FALSE}
+E4_EDA_Process.part3.MatchPressesToEDA(participant_list=c(1001),
                                        rdslocation.buttonpress=paste(tempdir(),"/extdata/output/presses/",sep=""),
                                         rdslocation.MatchedEDA=paste(tempdir(),"/extdata/output/matched_EDA/",sep=""),
                                       rdslocation.EDA=paste(tempdir(),"/extdata/output/raw_EDA/",sep=""),
@@ -131,14 +131,14 @@ knitr::kable(Table2a, format = "html")
 ## Step 4: Put matched EDA in to bins
 This is the final step where everything gets put into one file. 
 ```{r,eval=FALSE, echo=TRUE}
-E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1003),
+E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001),
                                     rdslocation.MatchedEDA="~/extdata/output/matched_EDA/",
                                     rdslocation.BinnedMatchedEDA="~/extdata/output/binned_matched_EDA/",
                                    min.after = 20,min.before = 20)
 ```
 #### Console output
 ```{r,eval=FALSE, echo=FALSE}
-E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001:1003),
+E4_EDA_Process.part4.BinMatchedEDA(participant_list=c(1001),
                                       rdslocation.MatchedEDA=paste(tempdir(),"/extdata/output/matched_EDA/",sep=""),
                                     rdslocation.BinnedMatchedEDA=paste(tempdir(),"/extdata/output/binned_matched_EDA/",sep=""),
                                    min.after = 20,min.before = 20)

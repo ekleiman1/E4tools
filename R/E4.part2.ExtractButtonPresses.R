@@ -29,6 +29,11 @@
 E4_EDA_Process.part2.ExtractButtonPresses<-function(participant_list,ziplocation,rdslocation.buttonpress,summarylocation,cutoff.ends=0,cutoff.overlap=0){
 
 TAG3<-NULL
+## for file helper function
+if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+if(ziplocation=="helper"){ziplocation<-get("ziplocation",envir=E4tools.env)}
+if(rdslocation.buttonpress=="helper"){rdslocation.buttonpress<-get("rdslocation.buttonpress",envir=E4tools.env)}
+if(summarylocation=="helper"){summarylocation<-get("summarylocation",envir=E4tools.env)}
 
   for (NUMB in participant_list) {
     message(paste("Starting participant",NUMB))
@@ -51,9 +56,9 @@ TAG3<-NULL
       CURR_ZIP<-paste(ziplocation,NUMB,"/",ZIPS,sep="")
       if(file.size(CURR_ZIP)>6400){
       if(file.size(utils::unzip(CURR_ZIP, unzip = "internal",
-                         exdir=zipDIR,files="tags.csv"))>0){
+                         exdir=tempdir(),files="tags.csv"))>0){
 
-        TAG<-utils::read.csv(utils::unzip(CURR_ZIP, unzip = "internal",exdir=zipDIR,
+        TAG<-utils::read.csv(utils::unzip(CURR_ZIP, unzip = "internal",exdir=tempdir(),
                             files="tags.csv"),sep=",",header=FALSE)
       TAG1<-rbind(TAG1,TAG)}
 

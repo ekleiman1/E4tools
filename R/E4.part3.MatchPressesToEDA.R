@@ -26,8 +26,13 @@
 E4_EDA_Process.part3.MatchPressesToEDA<-function(participant_list,rdslocation.MatchedEDA,rdslocation.EDA,rdslocation.buttonpress,min.before,min.after,control=TRUE){
 
   TAG3<-NULL;EDA_press_OUT1<-NULL;RDS_COMB1<-NULL
-press_summary<-readRDS(paste(rdslocation.buttonpress,"button_presses.RDS",sep=""))
 
+## for file helper function
+if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+if(rdslocation.MatchedEDA=="helper"){rdslocation.MatchedEDA<-get("rdslocation.MatchedEDA",envir=E4tools.env)}
+if(rdslocation.buttonpress=="helper"){rdslocation.buttonpress<-get("rdslocation.buttonpress",envir=E4tools.env)}
+if(rdslocation.EDA=="helper"){rdslocation.EDA<-get("rdslocation.EDA",envir=E4tools.env)}
+  press_summary<-readRDS(paste(rdslocation.buttonpress,"button_presses.RDS",sep=""))
 
 ###create directory structure
 if(!dir.exists(rdslocation.MatchedEDA)==TRUE){dir.create(rdslocation.MatchedEDA,recursive = T)}
@@ -35,7 +40,15 @@ individual_directory<-paste(rdslocation.MatchedEDA,"individual_participants/",se
 if(!dir.exists(individual_directory)==TRUE){dir.create(individual_directory,recursive = T)}
 
 
-  for(NUMB in participant_list) {
+`%dopar%` <- foreach::`%dopar%`
+doParallel::registerDoParallel(parallel::detectCores()[1]-1) ##detects cores and then registeres n-1 cores (so one core is left over)
+## for progress bar
+doSNOW::registerDoSNOW(parallel::makeCluster(parallel::detectCores()[1]-1))
+pb <- utils::txtProgressBar(max = length(participant_list), style = 3)
+progress <- function(n) utils::setTxtProgressBar(pb, n)
+#foreach::foreach(NUMB=participant_list,.options.snow = list(progress = progress)) %dopar% {
+
+for (NUMB in participant_list){
     message(paste("Starting participant",NUMB))
     EDA_press_OUT1<-NULL
     EDA_press_OUT_CONTROL1<-NULL

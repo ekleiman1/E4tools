@@ -12,6 +12,7 @@
 #' @param HighPctCutoff what percentage of samples in a five-second block must contain the high cutoff in order to exclude that block?
 #' @param KeepRejectFlag Do you want to keep the flag that shows which data the high and low pass filters rejected? If you want to run the diagnostic steps, you must keep this. Defaults to TRUE.
 #' @keywords EDA
+#' @importFrom foreach %dopar%
 #' @export
 #' @examples
 #'E4_EDA_Process.part1.ExtractRawEDA(participant_list=c(1001:1003),
@@ -26,7 +27,25 @@ E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdsloc
                                              KeepRejectFlag=TRUE){
 
 
-  for (NUMB in participant_list) {
+  ## for file helper function
+  if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+  if(ziplocation=="helper"){ziplocation<-get("ziplocation",envir=E4tools.env)}
+  if(rdslocation.EDA=="helper"){rdslocation.EDA<-get("rdslocation.EDA",envir=E4tools.env)}
+  if(summarylocation=="helper"){summarylocation<-get("summarylocation",envir=E4tools.env)}
+
+
+  `%dopar%` <- foreach::`%dopar%`
+
+  doParallel::registerDoParallel(parallel::detectCores()[1]-1) ##detects cores and then registeres n-1 cores (so one core is left over)
+
+  ## for progress bar
+  doSNOW::registerDoSNOW(parallel::makeCluster(parallel::detectCores()[1]-1))
+  pb <- utils::txtProgressBar(max = length(participant_list), style = 3)
+  progress <- function(n) utils::setTxtProgressBar(pb, n)
+
+
+  #for (NUMB in participant_list)
+  foreach::foreach(NUMB=participant_list,.options.snow = list(progress = progress)) %dopar% {
     message(paste("Starting participant",NUMB))
 
     #get path to participant folder
