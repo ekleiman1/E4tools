@@ -1,6 +1,6 @@
 #' Diagnostics: Plot Temperature data and button presses
 #'
-#' This will allow you to see all binned EDA data for a participant, along with which band they were wearing and when they pressed the event marker. One PDF file is made per participant. You must run E4.extras.BinEDA() first to prepare for this step.
+#' This will allow you to see all binned temperature data for a participant, along with which band they were wearing and when they pressed the event marker. One PDF file is made per participant. You must run E4.extras.BinEDA() first to prepare for this step.
 #' @param participant_list list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001")
 #' @param rdslocation.binnedtemp folder location where raw temperature data are stored
 #' @param rdslocation.buttonpress location of folder where button press output is stored (from EDA part 2)
@@ -20,6 +20,12 @@
 #'
 E4.Diagnostics.tempplot<-function(participant_list,rdslocation.binnedtemp,rdslocation.buttonpress,plotlocation.temp,Plot_E4s=TRUE,TempType="C"){
 
+  ## for file helper function
+  if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+  if(rdslocation.binnedtemp=="helper"){rdslocation.binnedtemp<-get("rdslocation.binnedtemp",envir=E4tools.env)}
+  if(rdslocation.buttonpress=="helper"){rdslocation.buttonpress<-get("rdslocation.buttonpress",envir=E4tools.env)}
+  if(plotlocation.temp=="helper"){plotlocation.temp<-get("plotlocation.temp",envir=E4tools.env)}
+
   ##Open button press file (since that only needs to be done once per set b/c all participants' data are in one file)
   Buttons<-readRDS(paste(rdslocation.buttonpress,"button_presses.rds",sep=""))
 
@@ -36,7 +42,7 @@ E4.Diagnostics.tempplot<-function(participant_list,rdslocation.binnedtemp,rdsloc
     message(paste("Starting participant",NUMB))
 
       ##If TempType=F, make sure F is there, if not calculate it
-      if(TempType=="F" & length(PlotData$TEMP_F)==0){TEMP_F<-(PlotData$TEMP_C*(9/5))+32}
+      if(TempType=="F" & length(PlotData$TEMP_F)==0){PlotData$TEMP_F<-(PlotData$TEMP_C*(9/5))+32}
 
 
 ###make variable that gives date (for facetting)
@@ -87,7 +93,7 @@ if(TempType=="C"){
     ggplot2::geom_path(ggplot2::aes(x=ts_time,y=TEMP_C,group=1),data=PlotData)+
     ggplot2::facet_wrap(~ts_date)+
     ggplot2::scale_x_time(labels = scales::time_format("%H:%M",tz = "America/New_York"),breaks=seq(as.POSIXct("2019-01-01 00:00:00 EST"),as.POSIXct("2019-01-01 24:00:00 EST"),"6 hours"))+
-    ggplot2::labs(x="Time of Day",y="Binned Temperature (ºC)",title=paste("All data for participant ID ",NUMB,sep=""),subtitle=(paste("(",BinSize," minute bins)",sep="")))
+    ggplot2::labs(x="Time of Day",y="Binned Temperature (Degrees C)",title=paste("All data for participant ID ",NUMB,sep=""),subtitle=(paste("(",BinSize," minute bins)",sep="")))
 }
 
 if(TempType=="F"){
@@ -95,7 +101,7 @@ if(TempType=="F"){
     ggplot2::geom_path(ggplot2::aes(x=ts_time,y=TEMP_F,group=1),data=PlotData)+
     ggplot2::facet_wrap(~ts_date)+
     ggplot2::scale_x_time(labels = scales::time_format("%H:%M",tz = "America/New_York"),breaks=seq(as.POSIXct("2019-01-01 00:00:00 EST"),as.POSIXct("2019-01-01 24:00:00 EST"),"6 hours"))+
-    ggplot2::labs(x="Time of Day",y="Binned Temperature (ºF)",title=paste("All data for participant ID ",NUMB,sep=""),subtitle=(paste("(",BinSize," minute bins)",sep="")))
+    ggplot2::labs(x="Time of Day",y="Binned Temperature (Degrees F)",title=paste("All data for participant ID ",NUMB,sep=""),subtitle=(paste("(",BinSize," minute bins)",sep="")))
 }
 
 

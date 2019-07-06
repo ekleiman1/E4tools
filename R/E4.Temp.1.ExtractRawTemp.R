@@ -4,18 +4,24 @@
 #' Inputs are: (1) List of participant numbers and (2) location where ZIP folders are stored. Outputs are: (1) one RDS file per participant with all data. A working example and vignette will be added later.
 #' @param participant_list list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001")
 #' @param ziplocation folder location where the participant-level subfolders are (make sure that it ends in /)
-#' @param rdslocation.TEMP folder location where you want the RDS outputs to go (make sure that it ends in /)
+#' @param rdslocation.temp folder location where you want the RDS outputs to go (make sure that it ends in /)
 #' @param IncludeFarenheit do you want to include a column with temperature in Farenheit also? Defaults to true. Celcius, which is recorded by the E4, will always be included.
 #' @keywords TEMP
 #' @export
 #' @examples
-#' \dontrun{E4.TEMP_Process.Part1.ExtractRawTEMP(participant_list=c(1001:1002),
+#' \dontrun{E4.Temp.part1.extract_raw_temp(participant_list=c(1001:1002),
 #' ziplocation="~/documents/study/data/",
-#' rdslocation.TEMP="~/documents/study/data/TEMP/")}
+#' rdslocation.temp="~/documents/study/data/TEMP/")}
 
 
-E4.Temp.1.ExtractRawTemp<-function(participant_list,ziplocation,rdslocation.temp,IncludeFarenheit=TRUE){
-  for (NUMB in participant_list) {
+
+E4.Temp.part1.extract_raw_temp<-function(participant_list,ziplocation,rdslocation.temp,IncludeFarenheit=TRUE){
+  ## for file helper function
+  if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+  if(ziplocation=="helper"){ziplocation<-get("ziplocation",envir=E4tools.env)}
+  if(rdslocation.temp=="helper"){rdslocation.temp<-get("rdslocation.temp",envir=E4tools.env)}
+
+   for (NUMB in participant_list) {
   message(paste("Starting participant",NUMB))
 
   #get path to participant folder
@@ -35,9 +41,9 @@ TEMP<-NULL
 
     if(file.size(CURR_ZIP)>6400){
       if(file.size(utils::unzip(CURR_ZIP, unzip = "internal",
-                                exdir=zipDIR,files="TEMP.csv"))>500){
+                                exdir=tempdir(),files="TEMP.csv"))>500){
 
-       TEMP_single<-utils::read.csv(utils::unzip(CURR_ZIP, unzip = "internal",exdir=zipDIR,
+       TEMP_single<-utils::read.csv(utils::unzip(CURR_ZIP, unzip = "internal",exdir=tempdir(),
                                                  files="TEMP.csv"),sep=",",header=FALSE) ###extract TEMP
         StartTime<-TEMP_single[1,1] #get start time
         SamplingRate<-TEMP_single[2,1] #get sampling rate (will always be 4hz, but adding here for future-proofing)

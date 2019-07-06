@@ -22,7 +22,7 @@ E4.extras.BinEDA(participant_list, rdslocation.EDA, rdslocation.binnedEDA,
 Put EDA data in bins of X minutes length
 }
 \examples{
-E4.extras.BinEDA(participant_list=c(1001:1002),
+E4.extras.BinEDA(participant_list=c(1001),
 rdslocation.EDA=paste(system.file(package="E4tools"),"/extdata/output/raw_EDA/",sep=""),
 rdslocation.binnedEDA=paste(tempdir(),"/extdata/output/binned_EDA/",sep=""),
 BinLengthMin=2,RejectFlag=TRUE)
