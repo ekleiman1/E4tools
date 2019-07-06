@@ -28,7 +28,7 @@ E4_EDA_Process.part3.MatchPressesToEDA<-function(participant_list,rdslocation.Ma
   TAG3<-NULL;EDA_press_OUT1<-NULL;RDS_COMB1<-NULL
 
 ## for file helper function
-if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+if(participant_list[1]=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
 if(rdslocation.MatchedEDA=="helper"){rdslocation.MatchedEDA<-get("rdslocation.MatchedEDA",envir=E4tools.env)}
 if(rdslocation.buttonpress=="helper"){rdslocation.buttonpress<-get("rdslocation.buttonpress",envir=E4tools.env)}
 if(rdslocation.EDA=="helper"){rdslocation.EDA<-get("rdslocation.EDA",envir=E4tools.env)}

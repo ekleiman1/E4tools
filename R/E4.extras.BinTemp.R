@@ -16,7 +16,7 @@
 
 E4.Temp.part2.bin_temp<-function(participant_list,rdslocation.temp,rdslocation.binnedtemp,BinLengthMin){
   ## for file helper function
-  if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+  if(participant_list[1]=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
   if(rdslocation.temp=="helper"){rdslocation.temp<-get("rdslocation.temp",envir=E4tools.env)}
   if(rdslocation.binnedtemp=="helper"){rdslocation.binnedtemp<-get("rdslocation.binnedtemp",envir=E4tools.env)}
 

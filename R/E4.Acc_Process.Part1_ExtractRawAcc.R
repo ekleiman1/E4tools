@@ -20,7 +20,7 @@ E4.Acc_Process.part1.ExtractRawAcc<-function(participant_list,ziplocation,rdsloc
 
 
 
-  if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+  if(participant_list[1]=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
   if(ziplocation=="helper"){ziplocation<-get("ziplocation",envir=E4tools.env)}
   if(rdslocation.acc=="helper"){rdslocation.acc<-get("rdslocation.acc",envir=E4tools.env)}
 

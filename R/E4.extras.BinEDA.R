@@ -17,7 +17,7 @@
 
 E4.extras.BinEDA<-function(participant_list,rdslocation.EDA,rdslocation.binnedEDA,BinLengthMin,RejectFlag=TRUE){
   ## for file helper function
-  if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+  if(participant_list[1]=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
   if(rdslocation.EDA=="helper"){rdslocation.EDA<-get("rdslocation.EDA",envir=E4tools.env)}
   if(rdslocation.binnedEDA=="helper"){rdslocation.binnedEDA<-get("rdslocation.binnedEDA",envir=E4tools.env)}
 

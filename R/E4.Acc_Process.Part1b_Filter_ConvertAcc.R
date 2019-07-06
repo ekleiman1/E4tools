@@ -18,7 +18,7 @@
 E4.Acc_Process.part2.Filter_ConvertAcc<-function(participant_list,rdslocation.EDA,rdslocation.acc,rdslocation.acc_filtered){
 
   ## for file helper function
-  if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+  if(participant_list[1]=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
   if(rdslocation.EDA=="helper"){rdslocation.EDA<-get("rdslocation.EDA",envir=E4tools.env)}
   if(rdslocation.acc=="helper"){rdslocation.acc<-get("rdslocation.acc",envir=E4tools.env)}
   if(rdslocation.acc_filtered=="helper"){rdslocation.acc_filtered<-get("rdslocation.acc_filtered",envir=E4tools.env)}

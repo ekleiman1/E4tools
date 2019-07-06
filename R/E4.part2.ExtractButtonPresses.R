@@ -27,7 +27,7 @@
 
 
 E4_EDA_Process.part2.ExtractButtonPresses<-function(participant_list,ziplocation,rdslocation.buttonpress,summarylocation,cutoff.ends=0,cutoff.overlap=0){
-  if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+  if(participant_list[1]=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
 TAG3<-NULL
 ## for file helper function
 

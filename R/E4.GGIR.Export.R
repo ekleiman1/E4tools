@@ -21,7 +21,7 @@
 E4.GGIR.Export<-function(participant_list,ziplocation,csvlocation.GGIRout,tz){
 
   ## for file helper function
-  if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+  if(participant_list[1]=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
   if(ziplocation=="helper"){ziplocation<-get("ziplocation",envir=E4tools.env)}
   if(csvlocation.GGIRout=="helper"){csvlocation.GGIRout<-get("csvlocation.GGIRout",envir=E4tools.env)}
 

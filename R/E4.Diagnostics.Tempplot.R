@@ -21,7 +21,7 @@
 E4.Diagnostics.tempplot<-function(participant_list,rdslocation.binnedtemp,rdslocation.buttonpress,plotlocation.temp,Plot_E4s=TRUE,TempType="C"){
 
   ## for file helper function
-  if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+  if(participant_list[1]=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
   if(rdslocation.binnedtemp=="helper"){rdslocation.binnedtemp<-get("rdslocation.binnedtemp",envir=E4tools.env)}
   if(rdslocation.buttonpress=="helper"){rdslocation.buttonpress<-get("rdslocation.buttonpress",envir=E4tools.env)}
   if(plotlocation.temp=="helper"){plotlocation.temp<-get("plotlocation.temp",envir=E4tools.env)}

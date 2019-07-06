@@ -21,7 +21,7 @@
 E4.Diagnostics.EDAplot<-function(participant_list,rdslocation.binnedEDA,rdslocation.buttonpress,plotlocation.EDA,RejectFlagCount=48,Plot_E4s=TRUE,display_plot=FALSE){
 
   ## for file helper function
-  if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+  if(participant_list[1]=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
   if(rdslocation.binnedEDA=="helper"){rdslocation.binnedEDA<-get("rdslocation.binnedEDA",envir=E4tools.env)}
   if(rdslocation.buttonpress=="helper"){rdslocation.buttonpress<-get("rdslocation.buttonpress",envir=E4tools.env)}
   if(plotlocation.EDA=="helper"){plotlocation.EDA<-get("plotlocation.EDA",envir=E4tools.env)}

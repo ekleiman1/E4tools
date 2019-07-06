@@ -22,7 +22,7 @@ E4_EDA_Process.part4.BinMatchedEDA<-function(participant_list,rdslocation.Matche
 
 
   ## for file helper function
-  if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+  if(participant_list[1]=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
   if(rdslocation.MatchedEDA=="helper"){rdslocation.MatchedEDA<-get("rdslocation.MatchedEDA",envir=E4tools.env)}
   if(rdslocation.BinnedMatchedEDA=="helper"){rdslocation.BinnedMatchedEDA<-get("rdslocation.BinnedMatchedEDA",envir=E4tools.env)}
 

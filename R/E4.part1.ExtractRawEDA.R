@@ -28,7 +28,7 @@ E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdsloc
 
 
   ## for file helper function
-  if(participant_list=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
+  if(participant_list[1]=="helper"){participant_list<-get("participant_list",envir=E4tools.env)}
   if(ziplocation=="helper"){ziplocation<-get("ziplocation",envir=E4tools.env)}
   if(rdslocation.EDA=="helper"){rdslocation.EDA<-get("rdslocation.EDA",envir=E4tools.env)}
   if(summarylocation=="helper"){summarylocation<-get("summarylocation",envir=E4tools.env)}
@@ -46,7 +46,7 @@ E4_EDA_Process.part1.ExtractRawEDA<-function(participant_list,ziplocation,rdsloc
 
   #for (NUMB in participant_list)
   foreach::foreach(NUMB=participant_list,.options.snow = list(progress = progress)) %dopar% {
-    message(paste("Starting participant",NUMB))
+
 
     #get path to participant folder
     zipDIR<-paste(ziplocation,NUMB,sep="")
