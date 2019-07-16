@@ -5,9 +5,9 @@
 \title{EDA Processing Part 1: Extract and filter EDA data}
 \usage{
 E4_EDA_Process.part1.ExtractRawEDA(participant_list, ziplocation,
-  rdslocation.EDA, summarylocation, EDA_low_cut = 0, LowPctCutoff = 1,
-  EDA_high_cut = 1000, HighPctCutoff = 1, KeepRejectFlag = TRUE,
-  UseMultiCore = FALSE)
+  rdslocation.EDA, summarylocation, loglocation, EDA_low_cut = 0,
+  LowPctCutoff = 1, EDA_high_cut = 1000, HighPctCutoff = 1,
+  KeepRejectFlag = TRUE, UseMultiCore = FALSE)
 }
 \arguments{
 \item{participant_list}{list of participant numbers NOTE: This should match the names of the folders (e.g., participant 1001's data should be in a folder called "1001")}
@@ -17,6 +17,8 @@ E4_EDA_Process.part1.ExtractRawEDA(participant_list, ziplocation,
 \item{rdslocation.EDA}{folder location where you want the RDS outputs to go (make sure that it ends in /)}
 
 \item{summarylocation}{folder location where you want participant level summaries to be saved.}
+
+\item{loglocation}{folder location where the log will be saved (the filename will be E4tools_log_todaysdate.txt)}
 
 \item{EDA_low_cut}{This is a HIGH PASS filter. What EDA value (in microsiemens) should be used as the minimum cutoff (0 = cuts off samples that have 0us)}
 

@@ -27,6 +27,7 @@ E4.Step0.FileHelper<-function(participant_list,ziplocation,dataroot){
   assign("rdslocation.binnedtemp",paste(dataroot,"binned_data/temp_binned/",sep=""),envir=E4tools.env)
   assign("rdslocation.binnedEDA",paste(dataroot,"binned_data/EDA_binned/",sep=""),envir=E4tools.env)
   assign("csvlocation.GGIRout",paste(dataroot,"raw_data/GGIR_out/",sep=""),envir=E4tools.env)
+  assign("loglocation",paste(dataroot,"logs/",sep=""),envir=E4tools.env)
 }
 
 

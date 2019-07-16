@@ -6,3 +6,6 @@
 ^\.travis\.yml$
 ^NEWS\.Rmd$
 ^NEWS\.html$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
